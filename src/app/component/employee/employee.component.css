@@ -3,11 +3,24 @@ h3 {
     margin: 0;
 }
 
-a {
-    color: rgb(74, 77, 81);
-    text-decoration: none;
+.example-container .mat-form-field+.mat-form-field {
+    margin-left: 8px;
 }
 
-a:hover {
-    color: rgb(132, 131, 131);
+
+/* card */
+
+
+/* .card-employee a:hover {
+    transform: scale(1.02);
+    box-shadow: #2986cc;
+} */
+
+.card-employee img:hover {
+    transform: scale(1.1);
+    transition-duration: 300ms;
+}
+
+.disable {
+    display: none;
 }

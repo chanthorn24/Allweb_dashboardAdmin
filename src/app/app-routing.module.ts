@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
 import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
 import { EmployeeComponent } from './component/employee/employee.component';
 import { LeaveTypeComponent } from './component/leave-type/leave-type.component';
@@ -11,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
   {path: "", component: DashboardComponent},
   {path: "employee", component: EmployeeComponent},
+  {path: "employee/detail/:id", component: EmployeeDetailComponent},
   {path: "attendance", component: AttendanceComponent},
   {path: "report", component: ReportComponent},
   {path: "leave type", component: LeaveTypeComponent},

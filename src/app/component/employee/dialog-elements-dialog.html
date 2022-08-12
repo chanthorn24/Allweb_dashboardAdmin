@@ -1,0 +1,191 @@
+<div style="display: flex; justify-content: center;">
+    <h1 class="mat-h1" style="font-weight: 500;">Add Employee</h1>
+</div>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Input firstname" [(ngModel)]="userCollection.firstName" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Input lastname" [(ngModel)]="userCollection.lastName" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Input username" [(ngModel)]="userCollection.userName" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Input email" [formControl]="email" [(ngModel)]="userCollection.email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Input password" [(ngModel)]="userCollection.password" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Repeat Password</mat-label>
+            <input matInput placeholder="Input repeat password" [(ngModel)]="userCollection.repeat_password" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Join Date</mat-label>
+            <input placeholder="Select date" matInput [matDatepicker]="picker1" [formControl]="date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+    <div style="padding: 0 10px;">
+        <mat-form-field appearance="outline" style="width: 380px;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" required>
+        </mat-form-field>
+    </div>
+</div>
+<button mat-raised-button style="height: 40px; font-weight: 700; background-color: #02A93B; color: white; margin-bottom: 60px;">Create employee</button>

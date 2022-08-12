@@ -10,7 +10,7 @@
 }
 
 .sidenav {
-    width: 200px;
+    width: 220px;
 }
 
 .sidenav .mat-toolbar {
@@ -77,4 +77,15 @@ h4 {
     border-left: 3px solid #2986cc;
     background-color: #F89926 !important;
     color: white !important;
+}
+
+
+/*profile popout*/
+
+.mat-menu-content:not(:empty) {
+    padding: 0 !important;
+}
+
+img:hover {
+    transform: scale(1.05);
 }

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,12 +18,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { EmployeeComponent } from './component/employee/employee.component';
+import { EmployeeComponent, DialogElementsDialog } from './component/employee/employee.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { ReportComponent } from './component/report/report.component';
 import { LeaveTypeComponent } from './component/leave-type/leave-type.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
+import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { EmployeeLeaveComponent } from './component/employee-leave/employee-leav
     ReportComponent,
     LeaveTypeComponent,
     ChangePasswordComponent,
-    EmployeeLeaveComponent
+    EmployeeLeaveComponent,
+    DialogElementsDialog,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,10 @@ import { EmployeeLeaveComponent } from './component/employee-leave/employee-leav
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

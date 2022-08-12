@@ -1,9 +1,46 @@
 <div>
-    <h1 class="mat-h1">Employee</h1>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1 class="mat-h1" style="font-weight: 500;">Employee</h1>
+        <button (click)="openDialog()" (click)="disable = !disable" [ngClass]="{'disable': disable}" mat-stroked-button style="height: 35px; margin-left: 10px; font-weight: 700; background-color: #02A93B; color: white;">
+        	<mat-icon>queue</mat-icon>
+        <span style="padding: 5px;">Add employee</span>
+      </button>
+    </div>
     <div style="display: flex; flex-direction: row">
         <a routerLink="">
             <h4>Dashboard</h4>
         </a>
         <h4 style="margin-left: 3px;">/ Employee</h4>
+    </div>
+    <div>
+        <button mat-button>filter ></button>
+    </div>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+        <div>
+            <section class="example-section" [formGroup]="toppings">
+                <mat-checkbox formControlName="pepperoni">By name</mat-checkbox>
+            </section>
+            <!-- <section class="example-section" [formGroup]="toppings">
+                {{toppings.value | json}}
+            </section> -->
+        </div>
+        <!--select-->
+    </div>
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+        <div *ngFor="let employee of employees">
+            <mat-card class="card-employee" style="display: flex; justify-content: center; align-items: center; flex-direction: column; width: 209.8px; margin: 10px 5px;">
+                <a routerLink="/employee/detail/{{ employee.id }}" style="overflow: hidden; border-radius: 100px;">
+                    <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL }}" alt="#">
+                </a>
+                <a routerLink="/employee/{{ employee.id }}">
+                    <h3 style="margin-bottom: 4px;">{{ employee.firstName + " " + employee.lastName }}</h3>
+                </a>
+                <mat-card-subtitle>{{ employee.userRole }}</mat-card-subtitle>
+            </mat-card>
+        </div>
+    </div>
+    <div>
+        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        </mat-paginator>
     </div>
 </div>

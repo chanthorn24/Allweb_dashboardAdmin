@@ -1,0 +1,13 @@
+h4,
+h3 {
+    margin: 0;
+}
+
+a {
+    color: rgb(74, 77, 81);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(132, 131, 131);
+}

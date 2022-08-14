@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-
 // export interface ChildrenItems {
 //     state: string;
 //     name: string;
@@ -51,7 +50,7 @@ import { Injectable } from '@angular/core';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
 
   //sub menu
   showSubmenu: boolean = true;
@@ -67,8 +66,9 @@ export class NavigationComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
-  // getMenuitem(): Menu[] {
-  //       return MENUITEMS;
-  //   }
+  ngOnInit(): void {
+  }
+
+
 
 }

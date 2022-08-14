@@ -77,10 +77,13 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar style="background-color: #204290; color: white; position: sticky; top: 0; z-index: 999; display: flex; justify-content: space-between; align-items: center;">
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" (click)="rotate = !rotate">
-              <!--ngIf="isHandset$ | async"  close when big-->
-              <mat-icon class="menu-hamburger" [ngClass]="{'rotated': rotate}" aria-label="Side nav toggle icon">menu</mat-icon>
-            </button>
+            <div style="display: flex; align-items: center; flex-direction: row">
+                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" (click)="rotate = !rotate">
+                <!--ngIf="isHandset$ | async"  close when big-->
+                <mat-icon class="menu-hamburger" [ngClass]="{'rotated': rotate}" aria-label="Side nav toggle icon">menu</mat-icon>
+              </button>
+                <h3 style="margin-left: 10px;">ADMIN DASHBOARD</h3>
+            </div>
             <ul style="list-style-type: none;">
                 <li>
                     <button mat-button [matMenuTriggerFor]="menu" style="height: 66px;">

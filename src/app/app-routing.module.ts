@@ -6,11 +6,14 @@ import { EmployeeDetailComponent } from './component/employee-detail/employee-de
 import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
 import { EmployeeComponent } from './component/employee/employee.component';
 import { LeaveTypeComponent } from './component/leave-type/leave-type.component';
+import { LoginComponent } from './component/login/login.component';
 import { ReportComponent } from './component/report/report.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  {path: "", component: DashboardComponent},
+  {path: "login", component: LoginComponent},
+  {path: "", component: DashboardComponent, canActivate: [AuthGuard]},
   {path: "employee", component: EmployeeComponent},
   {path: "employee/detail/:id", component: EmployeeDetailComponent},
   {path: "attendance", component: AttendanceComponent},

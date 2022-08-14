@@ -1,1 +1,7 @@
-<app-navigation></app-navigation>
+<div *ngIf="loginStatus; else loginForm">
+    <app-navigation *ngIf="userRole == 'RECRUITER_ROLE' || userRole == 'ADMIN_ROLE'"></app-navigation>
+    <app-attendance *ngIf="userRole == 'USER_ROLE'"></app-attendance>
+</div>
+<ng-template #loginForm>
+    <router-outlet></router-outlet>
+</ng-template>

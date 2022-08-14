@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { AuthGuard } from './services/auth.guard';
+import { AuthService } from './services/auth.service';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +28,7 @@ import { LeaveTypeComponent } from './component/leave-type/leave-type.component'
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
 import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
+import { LoginComponent } from './component/login/login.component';
 
 @NgModule({
   declarations: [
@@ -38,10 +42,11 @@ import { EmployeeDetailComponent } from './component/employee-detail/employee-de
     ChangePasswordComponent,
     EmployeeLeaveComponent,
     DialogElementsDialog,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    LoginComponent,
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -58,7 +63,7 @@ import { EmployeeDetailComponent } from './component/employee-detail/employee-de
     ReactiveFormsModule,
     MatNativeDateModule,
   ],
-  providers: [],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

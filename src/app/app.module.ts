@@ -32,6 +32,7 @@ import { LoginComponent } from './component/login/login.component';
 import { NavigationUserComponent } from './navigation-user/navigation-user.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
+import { LeaveUserComponent } from './component/leave-user/leave-user.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DashboardUserComponent } from './dashboard-user/dashboard-user.componen
     NavigationUserComponent,
     ForgotPasswordComponent,
     DashboardUserComponent,
+    LeaveUserComponent,
   ],
   imports: [
   BrowserModule,

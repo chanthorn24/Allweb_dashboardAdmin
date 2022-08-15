@@ -1,7 +1,11 @@
 <div>
     <div style="display: flex; justify-content: space-between;">
         <h1 class="mat-h1" style="font-weight: 500;">Leave</h1>
-        <button mat-raised-button (click)="openDialog()" color="primary">Apply Leave</button>
+        <button mat-raised-button (click)="openDialog()" color="primary">
+            <mat-icon>event-note
+            </mat-icon> Apply Leave
+        </button>
+
     </div>
     <div style="display: flex; flex-direction: row">
         <a routerLink="/account/dashboard">

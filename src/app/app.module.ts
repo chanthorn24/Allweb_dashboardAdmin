@@ -34,6 +34,8 @@ import { ForgotPasswordComponent } from './component/forgot-password/forgot-pass
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 import { LeaveUserComponent } from './component/leave-user/leave-user.component';
 import { DialogElementsExampleDialog } from './component/leave-user/leave-user.component';
+import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
+import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { DialogElementsExampleDialog } from './component/leave-user/leave-user.c
     ForgotPasswordComponent,
     DashboardUserComponent,
     LeaveUserComponent,
-    DialogElementsExampleDialog
+    DialogElementsExampleDialog,
+    EmployeeReportComponent,
+    AttendanceReportComponent
   ],
   imports: [
     BrowserModule,

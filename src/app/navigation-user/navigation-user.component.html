@@ -37,10 +37,31 @@
                 <mat-icon>date_range</mat-icon>
                 <span style="padding-left: 5px;">Attendance</span>
             </a>
-            <a mat-list-item routerLink="/report" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <mat-icon>bar_chart</mat-icon>
-                <span style="padding-left: 5px;">Report</span>
-            </a>
+            <mat-list style="padding: 0;">
+                <mat-list-item (click)="showSubmenu = !showSubmenu">
+                    <div style="display: flex; align-items: center;">
+                        <mat-icon>bar_chart</mat-icon>
+                        <span style="padding-left: 5px;">Reports</span>
+                    </div>
+                    <button mat-icon-button>
+                    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">arrow_drop_up</mat-icon>
+                  </button>
+                </mat-list-item>
+                <div style="padding: 0 0 0 40px;" class="submenu" [ngClass]="{'expanded' : showSubmenu}">
+                    <mat-list-item>
+                        <a style="margin:0 -60px 0 -16px; padding: 10px 3.4rem 10px 16px" routerLink="/report/employee" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <!-- <mat-icon>people</mat-icon> -->
+                            <h4>Employee</h4>
+                        </a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a style="margin-left: -16px; padding: 10px 4rem 10px 16px" routerLink="/report/attendance" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <!-- <mat-icon>people</mat-icon> -->
+                            <h3>Attendance</h3>
+                        </a>
+                    </mat-list-item>
+                </div>
+            </mat-list>
             <mat-list style="padding: 0;">
                 <mat-list-item (click)="showSetting = !showSetting">
                     <div style="display: flex; align-items: center;">

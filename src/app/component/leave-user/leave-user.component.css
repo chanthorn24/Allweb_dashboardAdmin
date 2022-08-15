@@ -1,3 +1,26 @@
 mat-form-field{
     width: 20em;
 }
+.mat-row:nth-child(2n){
+    background-color: #f9fafb;
+   
+  }
+
+  .mat-row:not(:nth-child(n)){
+    background-color: #f9cb9c;
+  }
+  .mat-row:hover .mat-cell{
+      background-color: rgba(248, 153, 38, 1);
+     color: #fff;
+     cursor: pointer;
+  }
+  .mat-cell:hover{
+      color: #fff;
+  }
+  .mat-header-cell{
+    background-color:#f9fafb;
+    color: #000;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  

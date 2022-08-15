@@ -17,7 +17,6 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "forgot password", component: ForgotPasswordComponent, canActivate: [AuthGuard]},
   {path: "", component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: "account/dashboard", component: DashboardUserComponent, canActivate: [AuthGuard]},
   {path: "employee", component: EmployeeComponent, canActivate: [AuthGuard]},
   {path: "employee/detail/:id", component: EmployeeDetailComponent, canActivate: [AuthGuard]},
   {path: "attendance", component: AttendanceComponent, canActivate: [AuthGuard]},

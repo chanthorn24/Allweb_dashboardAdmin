@@ -1,1 +1,77 @@
-<p>employee-report works!</p>
+<div style="overflow-y: hidden;">
+    <div style="display: flex; justify-content: space-between;">
+        <h1 class="mat-h1" style="font-weight: 500;">Reports</h1>
+        <div>
+            <button mat-button style="color: #F89926">
+                <mat-icon>exit_to_app
+                </mat-icon>Export CSV
+            </button>
+            <button mat-raised-button color="primary">
+
+                <mat-icon style="transform: rotate(180deg);">exit_to_app
+                </mat-icon>Import CSV
+            </button>
+        </div>
+
+    </div>
+    <div style=" display: flex; flex-direction: row">
+        <a routerLink="/account/dashboard">
+            <h4>Dashboard</h4>
+        </a>
+        <h4 style="margin-left: 3px;">/ Employee </h4>
+    </div>
+</div>
+<div style="padding: 2em;">
+    <mat-form-field class="example-full-width" appearance="outline" style="margin:1%">
+        <mat-label>Search Employee name</mat-label>
+        <input matInput>
+
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Choose Department</mat-label>
+        <mat-select>
+            <mat-option value="option">PHP</mat-option>
+            <mat-option value="option">JAVA</mat-option>
+            <mat-option value="option">HR</mat-option>
+        </mat-select>
+
+    </mat-form-field>
+
+    <div class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource" style="width: 100%;">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+
+            <!-- Leave Type Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> LeaveType </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef> From </th>
+                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> To </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+</div>

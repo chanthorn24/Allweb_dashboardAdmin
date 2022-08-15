@@ -1,1 +1,23 @@
-<p>attendance-report works!</p>
+<div>
+    <div style="display: flex; justify-content: space-between;">
+        <h1 class="mat-h1" style="font-weight: 500;">Reports</h1>
+        <div>
+            <button mat-button style="color: #F89926">
+                <mat-icon>exit_to_app
+                </mat-icon>Export CSV
+            </button>
+            <button mat-raised-button color="primary">
+
+                <mat-icon style="transform: rotate(180deg);">exit_to_app
+                </mat-icon>Import CSV
+            </button>
+        </div>
+
+    </div>
+    <div style=" display: flex; flex-direction: row">
+        <a routerLink="/account/dashboard">
+            <h4>Dashboard</h4>
+        </a>
+        <h4 style="margin-left: 3px;">/ Attendance </h4>
+    </div>
+</div>

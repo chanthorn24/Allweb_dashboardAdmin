@@ -1,0 +1,40 @@
+<div>
+    <h1 class="mat-h1">Dashboard</h1>
+
+    <mat-card style="height: auto; margin: 15px;">
+        <mat-card-content style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="mat-h1">Welcome USER name!</div>
+            <div style="display: flex; justify-content: center; align-items: center">
+                <div style="display: flex; align-items: center; flex-direction: column;">
+                    <div>10:22 AM</div>
+                    <div>Check in at: 8:20 AM</div>
+                </div>
+                <div style="margin-left: 20px;">
+                    <button mat-raised-button color="primary">
+                      <mat-icon>keyboard_tab</mat-icon>
+                      Check in
+                    </button>
+                    <button mat-raised-button color="warn">
+                      <mat-icon>keyboard_return</mat-icon>
+                      Check out
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+    <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        {{card.title}}
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <div>Card Content Here</div>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

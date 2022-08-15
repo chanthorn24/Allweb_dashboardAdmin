@@ -4,7 +4,7 @@
             <img height="80px" src="/assets/images/allweb.png" alt="#" routerLink="">
         </mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a mat-list-item routerLink="/account/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <mat-icon>dashboard</mat-icon>
                 <span style="padding-left: 5px;">Dashboard</span>
             </a>
@@ -53,21 +53,15 @@
                 </mat-list-item>
                 <div style="padding: 0 0 0 40px;" class="subsetting" [ngClass]="{'expanded' : showSetting}">
                     <mat-list-item>
-                        <a style="margin: -16px; padding: 10px 4rem 10px 16px;" routerLink="/leave type" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a style="margin: -16px; padding: 10px 3.8rem 10px 16px;" routerLink="/employee/detail/1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <!-- <mat-icon>people</mat-icon> -->
-                            <h3>Leave type</h3>
+                            <h3>Profile setting</h3>
                         </a>
                     </mat-list-item>
                     <mat-list-item>
                         <a style="margin: -16px; padding: 10px 1.25rem 10px 16px;" routerLink="/change password" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <!-- <mat-icon>people</mat-icon> -->
                             <h4>Change password</h4>
-                        </a>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                            <!-- <mat-icon>people</mat-icon> -->
-                            <h3>Employee</h3>
                         </a>
                     </mat-list-item>
                 </div>
@@ -90,7 +84,7 @@
                       <!-- <mat-icon>account_circle</mat-icon> -->
                       <div style="display: flex; align-items: center">
                         <img height="30px" width="30px" style="border: 2px solid #F89926; border-radius: 30px;" src="https://th.bing.com/th/id/OIP.GlXqxcR9EmviN5kuwaUsMQHaIB?pid=ImgDet&rs=1" alt="#">
-                        <h6 style="margin-left: 10px;">Admin</h6>
+                        <h6 style="margin-left: 10px;">User name</h6>
                       </div>
                     </button>
                     <mat-menu #menu="matMenu">

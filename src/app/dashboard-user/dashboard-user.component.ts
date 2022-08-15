@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -9,30 +7,29 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 })
 export class DashboardUserComponent implements OnInit {
 
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Welocome User name!', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
-      }
 
-      return [
-        { title: 'Welocome User name!', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  constructor() {}
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  time!: any;
+  checkTime!: any;
+  checkName: string = "Check in";
+  checkType: string = "in";
 
   ngOnInit(): void {
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
+  }
+
+  checkIn() {
+    this.checkName = "Check in";
+    this.checkType = "out";
+    this.checkTime = new Date();
+  }
+  checkOut() {
+    this.checkName = "Check out";
+    this.checkType = "in";
+    this.checkTime = new Date();
   }
 
 }

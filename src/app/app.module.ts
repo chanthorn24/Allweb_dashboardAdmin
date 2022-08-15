@@ -30,6 +30,7 @@ import { EmployeeLeaveComponent } from './component/employee-leave/employee-leav
 import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
 import { LoginComponent } from './component/login/login.component';
 import { NavigationUserComponent } from './navigation-user/navigation-user.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { NavigationUserComponent } from './navigation-user/navigation-user.compo
     EmployeeDetailComponent,
     LoginComponent,
     NavigationUserComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
   BrowserModule,

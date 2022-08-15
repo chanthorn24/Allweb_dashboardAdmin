@@ -55,6 +55,7 @@ export class NavigationUserComponent {
 
   //sub menu
   showSubmenu: boolean = true;
+  showReport: boolean = true;
   showSetting: boolean = false;
   //hamburger bar
   rotate: boolean = false;

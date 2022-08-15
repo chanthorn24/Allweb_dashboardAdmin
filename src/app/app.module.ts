@@ -29,6 +29,7 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
 import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
 import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
 import { LoginComponent } from './component/login/login.component';
+import { NavigationUserComponent } from './navigation-user/navigation-user.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LoginComponent } from './component/login/login.component';
     DialogElementsDialog,
     EmployeeDetailComponent,
     LoginComponent,
+    NavigationUserComponent,
   ],
   imports: [
   BrowserModule,

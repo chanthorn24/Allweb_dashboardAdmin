@@ -1,4 +1,54 @@
-<mat-toolbar style="background-color: #FFE599; color: white; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid black;">
+<mat-toolbar
+    style="background-color: #FFE599; color: white; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid black;">
     <img height="60px" src="/assets/images/allweb.png" alt="#" routerLink="">
 </mat-toolbar>
-<div style="height: 91%; background-color: #fafafa; display: flex; justify-content: center; align-items: center;">Login</div>
+<div
+    style="height: 91%; background-color: #fafafa; display: flex; justify-content: center; align-items: center; position: relative">
+
+
+    <div class="center-content">
+
+        <div class="container">
+
+            <div>
+
+                <img class="img-login" src="../../../assets/images/login.svg" alt="" style="width: 28em">
+
+            </div>
+
+            <div class="right-section">
+                <mat-card>
+
+                    <h1 style=" text-align: center; font-weight: 500">Sign In</h1>
+                    <img src="../../../assets/images/qrcode.svg" class="qrcode" alt="">
+                    <div>
+                        <mat-divider style="width: 40%; display: inline-block;"></mat-divider>
+                        <span style="padding: 20px; font-weight: 500;">Or</span>
+                        <mat-divider style="width: 40%; display: inline-block;"></mat-divider>
+                    </div>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Enter your email</mat-label>
+                        <input matInput placeholder="sophea.yuos@allweb.com" [formControl]="email1" required>
+                        <mat-error *ngIf="email1.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-icon matSuffix color="primary">email</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput required [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon style="color: #3f51b5">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                    </mat-form-field>
+                    <button type="button" mat-raised-button color="primary" (click)="login()">Log in</button>
+                </mat-card>
+
+            </div>
+
+
+
+
+        </div>
+    </div>

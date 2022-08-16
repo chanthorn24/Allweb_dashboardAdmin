@@ -16,25 +16,21 @@
 </div>
 
 <div style="padding: 2em;">
-    <div style="display: flex; justify-content: space-between;align-items: center; ">
+    <div style="display: flex; justify-content: space-between;align-items: center; flex-wrap: wrap;">
 
-        <mat-card
-            style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
+        <mat-card style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
             <div style="font-size: 1.5em; font-weight: 500">Total</div>
             <div style="font-size: 1.5em; font-weight: 400">100</div>
         </mat-card>
-        <mat-card
-            style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
+        <mat-card style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
             <div style="font-size: 1.5em; font-weight: 500">Total</div>
             <div style="font-size: 1.5em; font-weight: 400">100</div>
         </mat-card>
-        <mat-card
-            style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
+        <mat-card style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
             <div style="font-size: 1.5em; font-weight: 500">Total</div>
             <div style="font-size: 1.5em; font-weight: 400">100</div>
         </mat-card>
-        <mat-card
-            style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
+        <mat-card style="display: flex;flex-direction: column; justify-content: space-between; align-items: center;height: 4em;width: 23%;margin: 1%">
             <div style="font-size: 1.5em; font-weight: 500">Total</div>
             <div style="font-size: 1.5em; font-weight: 400">100</div>
         </mat-card>
@@ -77,8 +73,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
 </div>

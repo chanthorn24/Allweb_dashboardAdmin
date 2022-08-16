@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 
+
 import { AuthGuard } from './services/auth.guard';
 import { AuthService } from './services/auth.service';
 
@@ -36,6 +37,7 @@ import { LeaveUserComponent } from './component/leave-user/leave-user.component'
 import { DialogElementsExampleDialog } from './component/leave-user/leave-user.component';
 import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,7 @@ import { AttendanceReportComponent } from './component/attendance-report/attenda
     AttendanceReportComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -76,6 +78,7 @@ import { AttendanceReportComponent } from './component/attendance-report/attenda
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    NgApexchartsModule
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]

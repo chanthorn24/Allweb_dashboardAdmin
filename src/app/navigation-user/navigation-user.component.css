@@ -29,7 +29,7 @@
 
 .menu-button {
     transition: 300ms ease-in-out;
-    transform: rotate(0deg);
+    transform: rotate(90deg);
 }
 
 .menu-button.rotated {

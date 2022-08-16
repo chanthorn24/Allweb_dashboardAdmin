@@ -12,7 +12,8 @@ import { AuthGuard } from './services/auth.guard';
 export class AppComponent implements OnInit {
   title = 'dashboard';
   isLoggedIn$!: Observable<boolean>;
-  userRole: string = "USER_ROLE";
+  userRole: string = "ADMIN_ROLE";
+  // userRole: string = "USER_ROLE";
 
   constructor(private authService: AuthService, private authGuard: AuthGuard) { }
 

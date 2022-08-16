@@ -38,6 +38,7 @@ import { DialogElementsExampleDialog } from './component/leave-user/leave-user.c
 import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     LeaveUserComponent,
     DialogElementsExampleDialog,
     EmployeeReportComponent,
-    AttendanceReportComponent
+    AttendanceReportComponent,
+    AttendanceAdminComponent
   ],
   imports: [
   BrowserModule,

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: "account/dashboard", component: DashboardUserComponent, canActivate: [AuthGuard]},
   {path: "employee", component: EmployeeComponent, canActivate: [AuthGuard]},
   {path: "employee/detail/:id", component: EmployeeDetailComponent, canActivate: [AuthGuard]},
-  {path: "attendance", component: AttendanceComponent, canActivate: [AuthGuard]},
+  {path: "attendance", component: AttendanceAdminComponent, canActivate: [AuthGuard]},
+  {path: "account/attendance", component: AttendanceComponent, canActivate: [AuthGuard]},
   {path: "report", component: ReportComponent, canActivate: [AuthGuard]},
   {path: "leave type", component: LeaveTypeComponent, canActivate: [AuthGuard]},
   {path: "change password", component: ChangePasswordComponent, canActivate: [AuthGuard]},

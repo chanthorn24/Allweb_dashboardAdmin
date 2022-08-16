@@ -39,6 +39,8 @@ import { EmployeeReportComponent } from './component/employee-report/employee-re
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
+import { ProfileUserComponent } from './component/profile-user/profile-user.component';
+import { ProjectUserComponent } from './component/project-user/project-user.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { AttendanceAdminComponent } from './component/attendance-admin/attendanc
     DialogElementsExampleDialog,
     EmployeeReportComponent,
     AttendanceReportComponent,
-    AttendanceAdminComponent
+    AttendanceAdminComponent,
+    ProfileUserComponent,
+    ProjectUserComponent
   ],
   imports: [
   BrowserModule,

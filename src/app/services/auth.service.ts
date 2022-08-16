@@ -34,4 +34,16 @@ export class AuthService {
       return false;
     }
   }
+
+  public isAdmin(): boolean {
+    let status = false;
+    let user = "ADMIN_ROLE";
+    if (user === "ADMIN_ROLE" || user === "RECRUITER_ROLE") {
+        status = true;
+      }
+      else {
+        status = false;
+      }
+     return status;
+  }
 }

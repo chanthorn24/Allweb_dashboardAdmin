@@ -1,5 +1,7 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component,OnInit,ViewChild } from '@angular/core';
 import { ChartComponent } from "ng-apexcharts";
+import { AuthService } from './../services/auth.service';
+import { Router } from '@angular/router';
 
 //column chart
 export type ColumnChartOptions = {
@@ -28,11 +30,11 @@ export type ChartOptions = {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
    @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   public columnchartOptions!: Partial<ColumnChartOptions>;
-  constructor() {
+  constructor(private authService: AuthService, private router: Router) {
     this.chartOptions = {
       series: [50, 16],
       chart: {
@@ -114,4 +116,10 @@ export class DashboardComponent {
       }
     };
   }
+  ngOnInit(): void {
+    if (!this.authService.isAdmin()) {
+      this.router.navigateByUrl('/account/dashboard');
+      }
+  }
+
 }

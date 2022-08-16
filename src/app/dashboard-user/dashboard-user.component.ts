@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -8,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardUserComponent implements OnInit {
 
 
-  constructor() {}
+  constructor(private authService:  AuthService, private router: Router) {}
 
   time!: any;
   checkTime!: any;
@@ -16,6 +18,9 @@ export class DashboardUserComponent implements OnInit {
   checkType: string = "in";
 
   ngOnInit(): void {
+    if (!this.authService.isAdmin()) {
+      this.router.navigateByUrl("/");
+    }
     setInterval(() => {
       this.time = new Date(); //set time variable with current date
     }, 1000); // set it every one seconds

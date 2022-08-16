@@ -35,6 +35,17 @@
       }
      return status;
   }
+  public isAdmin(): boolean {
+    let status = false;
+    let user = "USER_ROLE";
+    if (user === "ADMIN_ROLE") {
+        status = true;
+      }
+      else {
+        status = false;
+      }
+     return status;
+  }
 
   public autoLogOut(timeExpire: number) {
     setTimeout(() => {

@@ -3,13 +3,12 @@
         <h1 class="mat-h1" style="font-weight: 500;">Reports</h1>
         <div>
             <button mat-button style="color: #F89926">
-                <mat-icon>exit_to_app
-                </mat-icon>Export CSV
+              <i class="far fa-file-export" style="transform: rotate(-180deg);"></i>
+              Export CSV
             </button>
             <button mat-raised-button color="primary">
-
-                <mat-icon style="transform: rotate(180deg);">exit_to_app
-                </mat-icon>Import CSV
+              <i class="far fa-file-import"></i>
+              Import CSV
             </button>
         </div>
 
@@ -70,8 +69,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
 </div>

@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'dashboard';
   isLoggedIn$!: Observable<boolean>;
   userRole: string = "ADMIN_ROLE";
+  // userRole: string = "USER_ROLE";
 
   constructor(private authService: AuthService, private authGuard: AuthGuard) { }
 

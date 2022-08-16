@@ -22,7 +22,7 @@ export class LeaveUserComponent implements AfterViewInit {
     this.dialog.open(DialogElementsExampleDialog);
   }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'status', 'actions'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)

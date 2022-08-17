@@ -132,33 +132,42 @@
 
 </div>
 <div style=" padding: 2em;">
-    <div style="display: flex;justify-content: space-between; margin:1%; width: 70%">
-        <mat-form-field appearance="outline">
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Choose Month</mat-label>
-            <mat-select>
-                <mat-option value="option">PHP</mat-option>
-                <mat-option value="option">JAVA</mat-option>
-                <mat-option value="option">HR</mat-option>
-            </mat-select>
+    <div class="container">
+        <div class="option">
+            <mat-form-field appearance="outline">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="option">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Choose Month</mat-label>
+                <mat-select>
+                    <mat-option value="option">PHP</mat-option>
+                    <mat-option value="option">JAVA</mat-option>
+                    <mat-option value="option">HR</mat-option>
+                </mat-select>
 
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Choose Year</mat-label>
-            <mat-select>
-                <mat-option value="option">PHP</mat-option>
-                <mat-option value="option">JAVA</mat-option>
-                <mat-option value="option">HR</mat-option>
-            </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="option">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Choose Year</mat-label>
+                <mat-select>
+                    <mat-option value="option">PHP</mat-option>
+                    <mat-option value="option">JAVA</mat-option>
+                    <mat-option value="option">HR</mat-option>
+                </mat-select>
 
-        </mat-form-field>
-        <button mat-raised-button color="primary">Search</button>
+            </mat-form-field>
+        </div>
+        <div class="option">
+            <button mat-raised-button color="primary" style="width: 110px;height: 50px;">
+                <mat-icon style="margin-right: 1px;">search</mat-icon>Search
+            </button>
+        </div>
     </div>
 
     <div class="mat-elevation-z2">

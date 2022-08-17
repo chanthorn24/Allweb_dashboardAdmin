@@ -27,7 +27,7 @@ import { AttendanceComponent } from './component/attendance/attendance.component
 import { ReportComponent } from './component/report/report.component';
 import { LeaveTypeComponent } from './component/leave-type/leave-type.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
-import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
+import { DialogEmployeeLeave, EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
 import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
 import { LoginComponent } from './component/login/login.component';
 import { NavigationUserComponent } from './navigation-user/navigation-user.component';
@@ -65,10 +65,11 @@ import { ProjectUserComponent } from './component/project-user/project-user.comp
     AttendanceReportComponent,
     AttendanceAdminComponent,
     ProfileUserComponent,
-    ProjectUserComponent
+    ProjectUserComponent,
+    DialogEmployeeLeave
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,

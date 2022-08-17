@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { map, Observable, startWith } from 'rxjs';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -25,11 +28,42 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./employee-leave.component.css']
 })
 export class EmployeeLeaveComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'status', 'actions'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'duration', 'symbol', 'status', 'actions'];
   dataSource = ELEMENT_DATA;
-  constructor() { }
 
+
+  constructor(private dialog: MatDialog) { }
   ngOnInit(): void {
+
+  }
+  openDialog() {
+    this.dialog.open(DialogEmployeeLeave);
   }
 
+
+
+}
+
+
+@Component({
+  selector: 'dialog-employee-leave',
+  templateUrl: './dialog-employee-leave.html',
+})
+
+export class DialogEmployeeLeave {
+  myControl = new FormControl('');
+  options: string[] = ['Admin', 'John', 'Three'];
+  filteredOptions!: Observable<string[]>;
+  default = "Admin";
+  ngOnInit(): void {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
 }

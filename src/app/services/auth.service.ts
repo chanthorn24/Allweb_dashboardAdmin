@@ -15,10 +15,10 @@ export class AuthService {
   constructor(
     private router: Router,
     private jwtHelper: JwtHelperService
-  ) {}
+  ) { }
 
-  login(user: User){
-    if (user.userName !== '' && user.password !== '' ) {
+  login(user: User) {
+    if (user.userName !== '' && user.password !== '') {
       this.loggedIn.next(true);
       this.router.navigate(['/']);
     }
@@ -45,12 +45,12 @@ export class AuthService {
     let status = false;
     let user = this.getRole();
     if (user === "ADMIN_ROLE" || user === "RECRUITER_ROLE") {
-        status = true;
-      }
-      else {
-        status = false;
-      }
-     return status;
+      status = true;
+    }
+    else {
+      status = false;
+    }
+    return status;
   }
 
   public getRole(): string {

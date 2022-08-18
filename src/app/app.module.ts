@@ -68,7 +68,7 @@ import { ProjectUserComponent } from './component/project-user/project-user.comp
     AttendanceAdminComponent,
     ProfileUserComponent,
     ProjectUserComponent,
-    DialogEmployeeLeave,
+    DialogEmployeeLeave
   ],
   imports: [
     BrowserModule,

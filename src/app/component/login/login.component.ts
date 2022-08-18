@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private api: ApiService, private jwtHelper :JwtHelperService) { }
 
   email1 = new FormControl('', [Validators.required, Validators.email]);
   ngOnInit(): void {
@@ -19,11 +21,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  title = 'human-resource-management-system';
-  email = "";
-  password = "";
-  r_email = "";
-  r_password = "";
+  public user: any = {
+    email: "",
+    paassword: "",
+  }
+
+  public tokenData!: any;
+
   hide = true;
 
   getErrorMessage() {
@@ -38,9 +42,20 @@ export class LoginComponent implements OnInit {
 
   }
   login() {
-    // console.log(this.email, this.password);
-    // for (let user of this.users) {
-    //   console.log(user.title, user.userId);
-    // }
+    if (this.user.email && this.user.password) {
+      this.api.login(this.user).subscribe({
+      next: (res) => {
+          window.sessionStorage.setItem('token', JSON.stringify(res.token));
+          this.tokenData = JSON.stringify(this.jwtHelper.decodeToken(res.token));
+          window.location.reload();
+          setInterval(() => {
+            this.router.navigateByUrl('/');
+          }, 3000);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+    }
   }
 }

@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { AuthService } from './../services/auth.service';
 // export interface ChildrenItems {
 //     state: string;
 //     name: string;
@@ -66,8 +67,11 @@ export class NavigationUserComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
 
+  logout() {
+    this.authService.logout();
+  }
   ngOnInit(): void {
   }
 

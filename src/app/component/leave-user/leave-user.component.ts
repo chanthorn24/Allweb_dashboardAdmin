@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +17,11 @@ export class LeaveUserComponent implements AfterViewInit {
   date = new FormControl(new Date());
   serializedDate = new FormControl(new Date().toISOString());
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router,
+  ) { }
 
 
   openDialog() {
@@ -30,6 +36,9 @@ export class LeaveUserComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+    if (this.authService.isAdmin()) {
+      this.router.navigateByUrl("/");
+    }
   }
 
 }

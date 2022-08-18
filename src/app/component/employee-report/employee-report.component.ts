@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-report',
@@ -11,7 +13,10 @@ export class EmployeeReportComponent implements AfterViewInit {
 
 
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) { }
 
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -22,6 +27,11 @@ export class EmployeeReportComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+
+    //security not allow admin route to this URL
+    if (!this.authService.isAdmin()) {
+      this.router.navigateByUrl("/account/dashboard");
+    }
   }
 
 }

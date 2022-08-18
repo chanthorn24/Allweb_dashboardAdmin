@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../model/interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,8 @@ export class AuthService {
   }
 
   constructor(
-    private router: Router
+    private router: Router,
+    private jwtHelper: JwtHelperService
   ) {}
 
   login(user: User){
@@ -24,7 +26,11 @@ export class AuthService {
 
   logout() {
     this.loggedIn.next(false);
-    this.router.navigate(['/login']);
+    window.sessionStorage.clear();
+    window.location.reload();
+    setInterval(() => {
+      this.router.navigate(['/login']);
+    }, 3000);
   }
 
   isUserLoggedIn() {
@@ -37,7 +43,7 @@ export class AuthService {
 
   public isAdmin(): boolean {
     let status = false;
-    let user = "ADMIN_ROLE";
+    let user = this.getRole();
     if (user === "ADMIN_ROLE" || user === "RECRUITER_ROLE") {
         status = true;
       }
@@ -45,5 +51,12 @@ export class AuthService {
         status = false;
       }
      return status;
+  }
+
+  public getRole(): string {
+    let token = window.sessionStorage.getItem('token');
+    let tokenData = this.jwtHelper.decodeToken(token ?? "");
+
+    return tokenData.roles.role;
   }
 }

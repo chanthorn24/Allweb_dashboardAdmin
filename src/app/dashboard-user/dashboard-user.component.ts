@@ -18,12 +18,21 @@ export class DashboardUserComponent implements OnInit {
   checkType: string = "in";
 
   ngOnInit(): void {
-    if (!this.authService.isAdmin()) {
+    if (this.authService.isAdmin()) {
       this.router.navigateByUrl("/");
     }
     setInterval(() => {
       this.time = new Date(); //set time variable with current date
     }, 1000); // set it every one seconds
+  }
+
+  reloadCurrentRoute() {
+    console.log("Work");
+
+    const currentRoute = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    })
   }
 
   checkIn() {

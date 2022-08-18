@@ -117,7 +117,7 @@
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item routerLink="/employee/detail/1">My profile</button>
                         <button mat-menu-item routerLink="/change password">Setting</button>
-                        <button mat-menu-item routerLink="/logout">Logout</button>
+                        <button mat-menu-item (click)="logout()">Logout</button>
                     </mat-menu>
                 </li>
             </ul>

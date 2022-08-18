@@ -6,6 +6,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import { AuthGuard } from './services/auth.guard';
 import { AuthService } from './services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,8 +67,7 @@ import { ProjectUserComponent } from './component/project-user/project-user.comp
     AttendanceReportComponent,
     AttendanceAdminComponent,
     ProfileUserComponent,
-    ProjectUserComponent,
-    DialogEmployeeLeave
+    ProjectUserComponent
   ],
   imports: [
     BrowserModule,
@@ -85,9 +86,10 @@ import { ProjectUserComponent } from './component/project-user/project-user.comp
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    HttpClientModule
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthGuard, AuthService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

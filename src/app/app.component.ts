@@ -12,14 +12,19 @@ import { AuthGuard } from './services/auth.guard';
 export class AppComponent implements OnInit {
   title = 'dashboard';
   isLoggedIn$!: Observable<boolean>;
-  // userRole: string = "ADMIN_ROLE";
-  userRole: string = "USER_ROLE";
+  userRole!: string;
 
-  constructor(private authService: AuthService, private authGuard: AuthGuard) { }
+  constructor(
+    private authService: AuthService,
+    private authGuard: AuthGuard
+  ) { }
 
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.userRole = this.authService.getRole();
+    console.log(this.userRole);
+
   }
 
   loginStatus: boolean = this.authGuard.isLoggedIn();

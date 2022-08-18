@@ -19,9 +19,9 @@ import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
-  {path: "forgot password", component: ForgotPasswordComponent},
+  { path: "forgot password", component: ForgotPasswordComponent },
   {path: "", component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: "account/dashboard", component: DashboardUserComponent,},
+  {path: "account/dashboard", component: DashboardUserComponent, canActivate: [AuthGuard]},
   {path: "employee", component: EmployeeComponent, canActivate: [AuthGuard]},
   {path: "employee/detail/:id", component: EmployeeDetailComponent, canActivate: [AuthGuard]},
   {path: "attendance", component: AttendanceAdminComponent, canActivate: [AuthGuard]},
@@ -32,11 +32,11 @@ const routes: Routes = [
   {path: "employee/leave", component: EmployeeLeaveComponent, canActivate: [AuthGuard]},
   {path: "employee/leave/apply", component: LeaveUserComponent, canActivate: [AuthGuard]},
   {path: "report/employee", component: EmployeeReportComponent, canActivate: [AuthGuard]},
-  {path: "report/attendance", component: AttendanceReportComponent, canActivate: [AuthGuard]},
+  { path: "report/attendance", component: AttendanceReportComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }

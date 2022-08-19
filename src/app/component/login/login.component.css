@@ -47,4 +47,14 @@
     }
   }
 
+  .show {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+    color: white;
+    font-weight: 500;
+    background-color: red;
+  }
+
   

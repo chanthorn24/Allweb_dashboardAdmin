@@ -43,6 +43,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
 import { ProfileUserComponent } from './component/profile-user/profile-user.component';
 import { ProjectUserComponent } from './component/project-user/project-user.component';
+import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ProjectUserComponent } from './component/project-user/project-user.comp
     AttendanceAdminComponent,
     ProfileUserComponent,
     ProjectUserComponent,
-    DialogEmployeeLeave
+    DialogEmployeeLeave,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

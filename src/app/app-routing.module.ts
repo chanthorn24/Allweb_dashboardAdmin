@@ -19,7 +19,7 @@ import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
-  { path: "forgot password", component: ForgotPasswordComponent },
+  { path: "password/forget", component: ForgotPasswordComponent },
   {path: "", component: DashboardComponent, canActivate: [AuthGuard]},
   {path: "account/dashboard", component: DashboardUserComponent, canActivate: [AuthGuard]},
   {path: "employee", component: EmployeeComponent, canActivate: [AuthGuard]},

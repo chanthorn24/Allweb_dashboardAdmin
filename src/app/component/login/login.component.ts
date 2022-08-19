@@ -45,12 +45,17 @@ export class LoginComponent implements OnInit {
     if (this.user.email && this.user.password) {
       this.api.login(this.user).subscribe({
       next: (res) => {
-          window.sessionStorage.setItem('token', JSON.stringify(res.token));
-          this.tokenData = JSON.stringify(this.jwtHelper.decodeToken(res.token));
-          window.location.reload();
-          setInterval(() => {
-            this.router.navigateByUrl('/');
-          }, 3000);
+          if (res.success) {
+              window.sessionStorage.setItem('token', JSON.stringify(res.token));
+              this.tokenData = JSON.stringify(this.jwtHelper.decodeToken(res.token));
+              window.location.reload();
+              setInterval(() => {
+                this.router.navigateByUrl('/');
+              }, 3000);
+          } else {
+            alert("Email or Password incorrect!")
+          }
+
       },
       error: (err) => {
         console.log(err);

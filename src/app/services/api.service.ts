@@ -10,6 +10,11 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   public login(data: any) {
-    return this.http.post<any>(this.URL+"/api/login", data);
+    return this.http.post<any>(this.URL + "/api/login", data);
+  }
+
+  //reset password
+  public resetPassword(data: any) {
+    return this.http.put<any>(this.URL + "/reset/password", data);
   }
 }

@@ -22,3 +22,11 @@ a {
 a:hover {
     color: rgb(132, 131, 131);
 }
+.blue-snackbar{
+    background-color: #3bbd9f;
+    color: #fff;
+  }
+  .red-snackbar{
+    background-color: #ff5158;
+    color: #fff;
+  }

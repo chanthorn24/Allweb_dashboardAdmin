@@ -4,8 +4,10 @@ import { AttendanceAdminComponent } from './component/attendance-admin/attendanc
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { EmployeeDepartmentComponent } from './component/employee-department/employee-department.component';
 import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
 import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
+import { EmployeePositionComponent } from './component/employee-position/employee-position.component';
 import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
 import { EmployeeComponent } from './component/employee/employee.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
@@ -32,6 +34,8 @@ const routes: Routes = [
   { path: "leave type", component: LeaveTypeComponent, canActivate: [AuthGuard] },
   { path: "change password", component: ChangePasswordComponent, canActivate: [AuthGuard] },
   { path: "employee/leave", component: EmployeeLeaveComponent, canActivate: [AuthGuard] },
+  { path: "employee/department", component: EmployeeDepartmentComponent, canActivate: [AuthGuard] },
+  { path: "employee/position", component: EmployeePositionComponent, canActivate: [AuthGuard] },
   { path: "employee/leave/apply", component: LeaveUserComponent, canActivate: [AuthGuard] },
   { path: "report/employee", component: EmployeeReportComponent, canActivate: [AuthGuard] },
   { path: "report/attendance", component: AttendanceReportComponent, canActivate: [AuthGuard] },

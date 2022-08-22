@@ -214,7 +214,7 @@ export class EmployeeComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogElementsDialog, {
-      width: '870px',
+      width: '970px',
       height: "1500px",
 
       data: {name: this.name, animal: this.animal},
@@ -242,6 +242,9 @@ export class DialogElementsDialog {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) { }
 
+  //date
+  date = new FormControl(new Date());
+  // serializedDate = new FormControl(new Date().toISOString());
 
   //validate email
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -250,7 +253,7 @@ export class DialogElementsDialog {
     lastName!: "",
     firstName!: "",
     userName!: "",
-    dateOfBirth!: "",
+    dateOfBirth!: new Date(),
     placeOfBirth!: "",
     phone!: "",
     salary!: "",
@@ -267,6 +270,11 @@ export class DialogElementsDialog {
     repeat_password!: ""
   }
 
+  formatDate(date: any) {
+    let formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+    return formatted_date;
+}
+
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -276,8 +284,5 @@ export class DialogElementsDialog {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
-  //date
-  date = new FormControl(new Date());
-  serializedDate = new FormControl(new Date().toISOString());
 
 }

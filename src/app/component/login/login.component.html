@@ -41,7 +41,11 @@
                                 <mat-icon style="color: #3f51b5">{{hide ? 'visibility_off' : 'visibility'}}
                                 </mat-icon>
                             </button>
+
                         </mat-form-field>
+                        <div style="margin: 10px 0"> <a routerLink="/password/forget"
+                                style="color: rgb(255, 131, 29)">Forgot
+                                password?</a></div>
                         <button type="submit" mat-raised-button color="primary" (click)="login()">Log in</button>
                     </form>
                 </mat-card>

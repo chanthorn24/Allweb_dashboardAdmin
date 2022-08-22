@@ -12,6 +12,10 @@ export class ApiService {
   public login(data: any) {
     return this.http.post<any>(this.URL + "/api/login", data);
   }
+  //forget password
+  public forgotPassword(data: any) {
+    return this.http.post<any>(this.URL + "/mailer", data);
+  }
 
   //reset password
   public resetPassword(data: any) {

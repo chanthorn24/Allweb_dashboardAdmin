@@ -21,4 +21,9 @@ export class ApiService {
   public resetPassword(data: any) {
     return this.http.put<any>(this.URL + "/reset/password", data);
   }
+  //add department 
+  public addDepartment(data: any) {
+    return this.http.post<any>(this.URL + '/department/create', data);
+  }
+
 }

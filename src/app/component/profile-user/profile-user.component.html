@@ -1,104 +1,122 @@
-<div style="margin: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-    <mat-card style="width: 38vw; height: 27vh;">
-        <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-            <div>Personal Information</div>
-            <button mat-icon-button>
+<div *ngFor="let employee of employees">
+    <div style="margin: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <mat-card style="width: 38vw; height: 27vh;">
+            <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                <div>Personal Information</div>
+                <button mat-icon-button>
               <mat-icon style="color: orange;">border_color</mat-icon>
             </button>
-        </mat-card-title>
-        <mat-card-content>
-            <table style="width: 100%;">
-                <tr>
-                    <td>Name</td>
-                    <td>{{ employeeInformation.name }}</td>
-                </tr>
-                <tr>
-                    <td>Tel</td>
-                    <td>{{ employeeInformation.phone }}</td>
-                </tr>
-                <tr>
-                    <td>Nationality</td>
-                    <td>{{ employeeInformation.nationality }}</td>
-                </tr>
-                <tr>
-                    <td>Religion</td>
-                    <td>{{ employeeInformation.religion }}</td>
-                </tr>
-                <tr>
-                    <td>Married</td>
-                    <td *ngIf="employeeInformation.is_married">Yes</td>
-                    <td *ngIf="!employeeInformation.is_married">No</td>
-                </tr>
-            </table>
-        </mat-card-content>
-    </mat-card>
-    <mat-card style="width: 38vw; height: 27vh;">
-        <mat-card-title>
-            Family Information
-        </mat-card-title>
-        <mat-card-content>
-            <table style="width: 100%;">
-                <tr>
-                    <td>Name</td>
-                    <td>Relationship</td>
-                    <td>Phone number</td>
-                    <td>Status</td>
-                </tr>
-                <tr *ngFor="let ef of employeeFamily">
-                    <td>{{ ef.name }}</td>
-                    <td>{{ ef.relationship }}</td>
-                    <td>{{ ef.phone }}</td>
-                    <td>
-                        <button mat-icon-button>
+            </mat-card-title>
+            <mat-card-content>
+                <table style="width: 100%;">
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ employee.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tel</td>
+                        <td>{{ employee.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nationality</td>
+                        <td>{{ employee.nationality }}</td>
+                    </tr>
+                    <tr>
+                        <td>Religion</td>
+                        <td>{{ employee.religion }}</td>
+                    </tr>
+                    <tr>
+                        <td>Married</td>
+                        <td *ngIf="employee.is_married">Yes</td>
+                        <td *ngIf="!employee.is_married">No</td>
+                    </tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+        <mat-card style="width: 38vw; height: 27vh;">
+            <mat-card-title>
+                Family Information
+            </mat-card-title>
+            <mat-card-content>
+                <table style="width: 100%;">
+                    <tr>
+                        <td>Name</td>
+                        <td>Relationship</td>
+                        <td>Phone number</td>
+                        <td>Status</td>
+                    </tr>
+                    <tr *ngFor="let ef of employee.family">
+                        <td>{{ ef.name }}</td>
+                        <td>{{ ef.relationship }}</td>
+                        <td>{{ ef.phone }}</td>
+                        <td>
+                            <button mat-icon-button>
                           <mat-icon>edit</mat-icon>
                         </button>
-                    </td>
-                </tr>
-            </table>
-        </mat-card-content>
-    </mat-card>
-    <mat-card style="width: 38vw; margin-top: 20px; height: 20vh;">
-        <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-            <div>Bank Information</div>
-            <button mat-icon-button>
-              <mat-icon style="color: orange;">border_color</mat-icon>
+                        </td>
+                    </tr>
+                    <tr *ngIf="employee.family == ''">
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>
+                            <button mat-icon-button>
+                          <mat-icon style="color: rgb(45, 224, 90); ">add_box</mat-icon>
+                        </button>
+                        </td>
+                    </tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+        <mat-card style="width: 38vw; margin-top: 20px; height: 20vh; ">
+            <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+                <div>Bank Information</div>
+                <button mat-icon-button>
+              <mat-icon style="color: orange; ">border_color</mat-icon>
             </button>
-        </mat-card-title>
-        <mat-card-content>
-            <table style="width: 100%;">
-                <tr>
-                    <td>Bank name</td>
-                    <td>{{ employeeBank.bank }}</td>
-                </tr>
-                <tr>
-                    <td>Account no</td>
-                    <td>{{ employeeBank.account_no }}</td>
-                </tr>
-                <tr>
-                    <td>Account name</td>
-                    <td>{{ employeeBank.name }}</td>
-                </tr>
-            </table>
-        </mat-card-content>
-    </mat-card>
-    <mat-card style="width: 38vw; margin-top: 20px; height: 20vh;">
-        <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-            <div>Education Information</div>
-            <button mat-icon-button>
-              <mat-icon style="color: orange;">border_color</mat-icon>
+            </mat-card-title>
+            <mat-card-content>
+                <table style="width: 100%; ">
+                    <tr>
+                        <td>Bank name</td>
+                        <td>{{ employee.bank }}</td>
+                        <td *ngIf="!employee.bank">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Account no</td>
+                        <td>{{ employee.bank_no }}</td>
+                        <td *ngIf="!employee.bank_no">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Account name</td>
+                        <td>{{ employee.bank_name }}</td>
+                        <td *ngIf="!employee.bank_name">N/A</td>
+                    </tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+        <mat-card style="width: 38vw; margin-top: 20px; height: 20vh; ">
+            <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+                <div>Education Information</div>
+                <button mat-icon-button>
+              <mat-icon *ngIf="employee.school" style="color: orange; ">border_color</mat-icon>
+              <mat-icon *ngIf="!employee.school" style="color: rgb(45, 224, 90); ">add_box</mat-icon>
             </button>
-        </mat-card-title>
-        <mat-card-content>
-            <table style="width: 100%;">
-                <tr>
-                    <td>School name</td>
-                    <td>Institute of Technology of Cambodia</td>
-                </tr>
-                <tr>
-                    <td>Degree</td>
-                    <td>Bachelor</td>
-                </tr>
-            </table>
-        </mat-card-content>
-    </mat-card>
+            </mat-card-title>
+            <mat-card-content>
+                <table style="width: 100%; ">
+                    <tr>
+                        <td>School name</td>
+                        <td>{{ employee.school }}</td>
+                        <td *ngIf="!employee.school">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Degree</td>
+                        <td>{{ employee.degree }}</td>
+                        <td *ngIf="!employee.degree">N/A</td>
+                    </tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

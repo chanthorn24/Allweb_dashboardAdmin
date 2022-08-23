@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
-export interface ExampleTab {
+export interface ProfileTab {
   label: string;
   content: string;
 }
@@ -14,16 +14,19 @@ export interface ExampleTab {
   styleUrls: ['./employee-detail.component.css']
 })
 export class EmployeeDetailComponent implements OnInit {
-  asyncTabs!: Observable<ExampleTab[]>;
+  asyncTabs!: Observable<ProfileTab[]>;
 
+  //employee info
   employee_id!: string;
+  employees: any = [];
+
   constructor(
     private actRoute: ActivatedRoute,
     private api: ApiService,
   ) {
   this.employee_id = this.actRoute.snapshot.params['id'];
 
-  this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
+  this.asyncTabs = new Observable((observer: Observer<ProfileTab[]>) => {
       setTimeout(() => {
         observer.next([
           {label: 'Profile', content: '1'},
@@ -36,7 +39,9 @@ export class EmployeeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.api.getOneUser(this.employee_id).subscribe({
       next: (res) => {
-        console.log(res);
+        this.employees = res.data;
+        console.log(this.employees);
+
       },
       error: (error) => {
         console.log(error);

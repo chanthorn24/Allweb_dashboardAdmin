@@ -39,6 +39,9 @@ export class EmployeeComponent implements OnInit {
   //disable button add employee
   disable: boolean = false;
 
+  //spnner
+  spinner = true;
+
   employees: any = [];
 
   toppings = this._formBuilder.group({
@@ -65,7 +68,6 @@ export class EmployeeComponent implements OnInit {
       this.disable = !this.disable;
       this.api.getUser().subscribe({
       next: (res) => {
-        console.log(res);
         this.employees = res.data;
       },
       error: (error) => {
@@ -80,6 +82,7 @@ export class EmployeeComponent implements OnInit {
       next: (res) => {
         this.dataSource = new MatTableDataSource<Employees>(res.data);
         this.employees = res.data;
+        this.spinner = false;
        this.changeDetectorRef.detectChanges();
         this.dataSource.paginator = this.paginator;
         this.obs = this.dataSource.connect();

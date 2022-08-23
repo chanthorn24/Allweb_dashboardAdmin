@@ -1,68 +1,70 @@
-<div>
-    <h2 style="font-weight: 600;">Employee</h2>
-    <div style="display: flex; flex-direction: row">
-        <a routerLink="/employee">
-            <h4>Employee</h4>
-        </a>
-        <h4 style="margin-left: 3px;">/ Detail</h4>
-    </div>
-    <mat-card style="display: flex; flex-direction: row">
-        <div style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
-            <div>
-                <img width="100px" height="100px" style="border-radius: 100px;" src="https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1" alt="#">
-            </div>
-            <div style="margin-left: 10px;">
-                <h3 style="font-weight: 600;">Employee 1</h3>
-                <h4>Name team</h4>
-                <h4>Web developer</h4>
-                <div style="display: flex; flex-direction: row; align-items: center;">
-                    <h4 style="font-weight: 600;">Employee ID : </h4>
-                    <h4>AW-0001</h4>
-                </div>
-                <div style="display: flex; flex-direction: row; align-items: center;">
-                    <h4 style="font-weight: 600;">Date of join : </h4>
-                    <h4>10-Jan-2022</h4>
-                </div>
-            </div>
+<div *ngFor="let employee of employees">
+    <div>
+        <h2 style="font-weight: 600;">Employee</h2>
+        <div style="display: flex; flex-direction: row">
+            <a routerLink="/employee">
+                <h4>Employee</h4>
+            </a>
+            <h4 style="margin-left: 3px;">/ Detail</h4>
         </div>
-        <div style="display: flex; flex-direction: column; width: 50%; padding: 0 20px;">
-            <table>
-                <tr>
-                    <td>Phone</td>
-                    <td>01232433</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>employee1@gmail.com</td>
-                </tr>
-                <tr>
-                    <td>Birthday</td>
-                    <td>01-Jan-2022</td>
-                </tr>
-                <tr>
-                    <td>Address</td>
-                    <td>Phom Penh, Cambodia</td>
-                </tr>
-                <tr>
-                    <td>Gender</td>
-                    <td>Male</td>
-                </tr>
-            </table>
-        </div>
-    </mat-card>
-    <ng-container *ngIf="(asyncTabs | async) === null">
-        <img height="50px" width="60px" src="https://c.tenor.com/k3VfwdRd6cEAAAAi/loading-load.gif" alt="">
-    </ng-container>
+        <mat-card style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
+                <div>
+                    <img width="100px" height="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
+                </div>
+                <div style="margin-left: 10px;">
+                    <h3 style="font-weight: 600;">{{ employee.lastName + " " + employee.firstName }}</h3>
+                    <h4>{{ employee.department }}</h4>
+                    <h4>{{ employee.position }}</h4>
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <h4 style="font-weight: 600;">Employee ID : </h4>
+                        <h4>{{ employee.id }}</h4>
+                    </div>
+                    <div style="display: flex; flex-direction: row; align-items: center;">
+                        <h4 style="font-weight: 600;">Date of join : </h4>
+                        <h4>{{ employee.joinDate.date | date: "yyyy-MM-dd" }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: column; width: 50%; padding: 0 20px;">
+                <table>
+                    <tr>
+                        <td>Phone</td>
+                        <td>{{ employee.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ employee.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Birthday</td>
+                        <td>{{ employee.dateOfBirth.date | date: "yyyy-MM-dd" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>{{ employee.address }}</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>{{ employee.gender }}</td>
+                    </tr>
+                </table>
+            </div>
+        </mat-card>
+        <ng-container *ngIf="(asyncTabs | async) === null">
+            <img height="50px" width="60px" src="https://c.tenor.com/k3VfwdRd6cEAAAAi/loading-load.gif" alt="">
+        </ng-container>
 
-    <mat-tab-group>
-        <mat-tab *ngFor="let tab of asyncTabs | async">
-            <ng-template mat-tab-label style="color: red;">{{tab.label}}</ng-template>
-            <div *ngIf="tab.content === '1'">
-                <app-profile-user></app-profile-user>
-            </div>
-            <div *ngIf="tab.content === '2'">
-                <app-project-user></app-project-user>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
+        <mat-tab-group>
+            <mat-tab *ngFor="let tab of asyncTabs | async">
+                <ng-template mat-tab-label style="color: red;">{{tab.label}}</ng-template>
+                <div *ngIf="tab.content === '1'">
+                    <app-profile-user [employees]="employees"></app-profile-user>
+                </div>
+                <div *ngIf="tab.content==='2' ">
+                    <app-project-user></app-project-user>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
 </div>

@@ -33,15 +33,15 @@
                     <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
                 </a>
                 <a routerLink="/employee/{{ employee.id }}">
-                    <h3 style="margin-bottom: 4px;">{{ employee.firstName + " " + employee.lastName }}</h3>
+                    <h3 style="margin-bottom: 4px; color: black;">{{ employee.firstName + " " + employee.lastName }}</h3>
                 </a>
-                <mat-card-subtitle>{{ employee.userRole }}</mat-card-subtitle>
+                <mat-card-subtitle style="font-size: 11px; color: rgb(94, 94, 94);">{{ employee.position }}</mat-card-subtitle>
             </mat-card>
         </div>
-        <div *ngIf="employees == ''" style="color: red;">No Data</div>
     </div>
     <div>
-        <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons aria-label="Select page of Department">
+        <mat-paginator style="background-color: #fafafa" [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons aria-label="Select page of Department">
         </mat-paginator>
     </div>
+    <mat-spinner *ngIf="spinner" style="margin: 0 auto;"></mat-spinner>
 </div>

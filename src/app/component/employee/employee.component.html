@@ -30,7 +30,7 @@
         <div *ngFor="let employee of employees">
             <mat-card class="card-employee" style="display: flex; justify-content: center; align-items: center; flex-direction: column; width: 209.8px; margin: 10px 5px;">
                 <a routerLink="/employee/detail/{{ employee.id }}" style="overflow: hidden; border-radius: 100px;">
-                    <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL ??  '6' }}" alt="#">
+                    <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL }}" alt="#">
                 </a>
                 <a routerLink="/employee/{{ employee.id }}">
                     <h3 style="margin-bottom: 4px;">{{ employee.firstName + " " + employee.lastName }}</h3>

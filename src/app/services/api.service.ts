@@ -23,6 +23,7 @@ export class ApiService {
     return this.http.put<any>(this.URL + "/reset/password", data);
   }
 
+<<<<<<< HEAD
 
 
 /** Employee **/
@@ -36,4 +37,16 @@ export class ApiService {
   public getOneUser(id: any) {
     return this.http.get<any>(this.URL + "/user/"+ id);
   }
+=======
+  //get all department
+  public getDepartment() {
+    return this.http.get<any>(this.URL + '/department');
+  }
+  //add department 
+  public addDepartment(data: any) {
+    return this.http.post<any>(this.URL + '/department/create', data);
+  }
+
+
+>>>>>>> d4b361f90aa9572fa9c21d66a34b9782502e055d
 }

@@ -18,9 +18,9 @@ let id: number;
   styleUrls: ['./employee-department.component.css']
 })
 export class EmployeeDepartmentComponent implements AfterViewInit {
-  // dialog: any;
+
   displayedColumns: string[] = ['id', 'name', 'actions'];
-  // dataSource = ELEMENT_DATA;
+
   dataSource!: MatTableDataSource<Department>;
   spinner = true;
   constructor(private dialog: MatDialog, private api: ApiService) { }
@@ -72,7 +72,7 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
         this.spinner = false;
         this.dataSource = new MatTableDataSource<Department>(res.data);
         this.dataSource.paginator = this.paginator;
-        console.log(this.paginator);
+        // console.log(this.paginator);
       },
       error: (err) => {
         console.log(err);
@@ -167,9 +167,6 @@ export class DialogUpdateDepartment implements OnInit {
     if (this.updateDepartment.name && this.updateValue != this.updateDepartment.name) {
       this.api.editDepartment(this.updateDepartment).subscribe({
         next: (res) => {
-          // console.log(id);
-          console.log(this.updateDepartment);
-          console.log(res);
           this.dialogRef.close();
           this.openSnackBarSuccess();
         },
@@ -177,7 +174,7 @@ export class DialogUpdateDepartment implements OnInit {
           console.log(err);
         }
       })
-    } else {
+    } else if (this.updateValue == this.updateDepartment.name) {
       this.openSnackBarError("😜Duplicated previous name");
     }
   }
@@ -197,6 +194,7 @@ export class DialogUpdateDepartment implements OnInit {
       panelClass: ['warn-snackbar']
     });
   }
+
 
 
   ngOnInit(): void {
@@ -238,12 +236,21 @@ export class DialogDeleteDepartment {
     this.api.deleteDepartment(id).subscribe({
       next: (res) => {
         console.log(res);
+        this.openSnackBarDelete('Deleted Successfully')
         this.dialogRef.close();
       },
       error: (err) => {
         console.log(err);
       }
     })
+  }
+  openSnackBarDelete(data: any) {
+    this._snackBar.open(data, 'Cancel', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.duration * 1000,
+      panelClass: ['red-snackbar']
+    });
   }
 
 

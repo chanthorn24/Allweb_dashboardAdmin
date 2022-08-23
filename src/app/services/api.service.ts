@@ -56,4 +56,28 @@ export class ApiService {
   public deleteDepartment(data: any) {
     return this.http.delete<any>(this.URL + `/department/delete/${data}`);
   }
+  //get all position
+  public getPosition() {
+    return this.http.get<any>(this.URL + '/employee/position')
+  }
+  //get pos by id
+  public getPositionById(id: any) {
+    return this.http.get<any>(this.URL + `/employee/position/${id}`);
+  }
+  //add new position
+  public addPosition(data: any) {
+    return this.http.post<any>(this.URL + '/employee/position/create', data);
+  }
+
+  //update position
+  public updatePosition(data: any) {
+    return this.http.put<any>(this.URL + `/employee/position/update/${data.id}`, data);
+  }
+  public deletePosition(data: any) {
+    return this.http.delete<any>(this.URL + `/employee/position/delete/${data}`);
+  }
+  //delete position 
+
+
+
 }

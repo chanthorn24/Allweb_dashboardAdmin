@@ -32,3 +32,8 @@ a:hover {
     background-color: #ff5158;
     color: #fff;
 }
+
+.warn-snackbar {
+    background-color: rgb(16, 88, 165);
+    color: white;
+}

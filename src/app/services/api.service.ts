@@ -40,13 +40,17 @@ export class ApiService {
   public getDepartment() {
     return this.http.get<any>(this.URL + '/department');
   }
-  //add department 
+  //add department
   public addDepartment(data: any) {
     return this.http.post<any>(this.URL + '/department/create', data);
   }
   //edit department
   public editDepartment(data: any) {
     return this.http.put<any>(this.URL + `/department/update/${data.id}`, data);
+  }
+  //get department by id
+  public getOneDepartment(data: any) {
+    return this.http.get<any>(this.URL + `/department/${data}`);
   }
   //delete department
   public deleteDepartment(data: any) {

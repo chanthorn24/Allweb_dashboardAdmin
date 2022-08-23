@@ -1,10 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ApiService } from 'src/app/services/api.service';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { Observable } from 'rxjs/internal/Observable';
 
 //select error
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -14,11 +17,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-export interface DialogData {
-  animal: string,
-  name: string,
-}
+export interface Employees {
+  id: number,
+  lastName: string,
+  firstName: string,
+  email: string,
+  imageURL: string,
+  dateOfBirth: Date,
+  placeOfBirth: string,
+  phone: string,
+  salary: number,
 
+}
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -31,150 +41,6 @@ export class EmployeeComponent implements OnInit {
 
   employees: any = [];
 
-  // employees: any = [
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "2",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "3",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "4",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "5",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "6",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "7",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  //   {
-  //     "id" : "1",
-  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-  //     "firstName" : "Employee",
-  //     "lastName" : "1",
-  //     "userRole" : "Web Developer"
-  //   },
-  // ];
-
-
   toppings = this._formBuilder.group({
     pepperoni: false,
   });
@@ -182,9 +48,12 @@ export class EmployeeComponent implements OnInit {
   constructor(
     private api: ApiService,
     public dialog: MatDialog,
-    private _formBuilder: FormBuilder
-  ) { }
-
+    private _formBuilder: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef,
+    ) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  obs!: Observable<any>;
+  dataSource!: MatTableDataSource<Employees>;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogElementsDialog, {
@@ -194,15 +63,27 @@ export class EmployeeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.disable = !this.disable;
-      console.log('The dialog was closed');
+      this.api.getUser().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.employees = res.data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
     });
   }
 
   ngOnInit(): void {
     this.api.getUser().subscribe({
       next: (res) => {
-        console.log(res);
+        this.dataSource = new MatTableDataSource<Employees>(res.data);
         this.employees = res.data;
+       this.changeDetectorRef.detectChanges();
+        this.dataSource.paginator = this.paginator;
+        this.obs = this.dataSource.connect();
+        console.log(this.employees.length);
       },
       error: (error) => {
         console.log(error);
@@ -225,7 +106,6 @@ export class DialogElementsDialog {
     private api: ApiService,
     private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<DialogElementsDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) { }
 
 

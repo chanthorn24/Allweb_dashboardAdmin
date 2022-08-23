@@ -44,7 +44,7 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
       this.getDepartment();
     });
   }
-  //update dialog 
+  //update dialog
   openUpdateDialog(data: any): void {
     const dialogRef = this.dialog.open(DialogUpdateDepartment, {
     });
@@ -134,7 +134,7 @@ export class DialogEmployeeDepartment {
   }
 }
 /**
- * 
+ *
  * Update Dialog
  */
 
@@ -142,7 +142,7 @@ export class DialogEmployeeDepartment {
   selector: 'app-employee-department',
   templateUrl: 'dialog-update-employee-department.html'
 })
-export class DialogUpdateDepartment {
+export class DialogUpdateDepartment implements OnInit {
   email = new FormControl('', [Validators.required, Validators.required]);
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -160,10 +160,11 @@ export class DialogUpdateDepartment {
     id: "",
     name: "",
   }
+  updateValue!: string;
   editDepartment() {
     this.updateDepartment.id = id;
     console.log(this.updateDepartment);
-    if (this.updateDepartment.name) {
+    if (this.updateDepartment.name && this.updateValue != this.updateDepartment.name) {
       this.api.editDepartment(this.updateDepartment).subscribe({
         next: (res) => {
           // console.log(id);
@@ -176,6 +177,8 @@ export class DialogUpdateDepartment {
           console.log(err);
         }
       })
+    } else {
+      this.openSnackBarError("😜Duplicated previous name");
     }
   }
   openSnackBarSuccess() {
@@ -185,6 +188,27 @@ export class DialogUpdateDepartment {
       duration: this.duration * 1000,
       panelClass: ['blue-snackbar']
     });
+  }
+  openSnackBarError(data: any) {
+    this._snackBar.open(data, 'Cancel', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.duration * 1000,
+      panelClass: ['warn-snackbar']
+    });
+  }
+
+
+  ngOnInit(): void {
+    this.api.getOneDepartment(id).subscribe({
+      next: (res) => {
+        if (res.success) {
+          console.log(res);
+          this.updateValue = res.data[0].name;
+          this.updateDepartment.name = res.data[0].name
+        }
+      }
+    })
   }
 
 

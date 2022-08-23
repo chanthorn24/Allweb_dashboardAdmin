@@ -27,10 +27,10 @@
         <!--select-->
     </div>
     <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
-        <div *ngFor="let employee of employees">
+        <div *ngFor="let employee of obs | async ">
             <mat-card class="card-employee" style="display: flex; justify-content: center; align-items: center; flex-direction: column; width: 209.8px; margin: 10px 5px;">
                 <a routerLink="/employee/detail/{{ employee.id }}" style="overflow: hidden; border-radius: 100px;">
-                    <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL }}" alt="#">
+                    <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
                 </a>
                 <a routerLink="/employee/{{ employee.id }}">
                     <h3 style="margin-bottom: 4px;">{{ employee.firstName + " " + employee.lastName }}</h3>
@@ -38,9 +38,10 @@
                 <mat-card-subtitle>{{ employee.userRole }}</mat-card-subtitle>
             </mat-card>
         </div>
+        <div *ngIf="employees == ''" style="color: red;">No Data</div>
     </div>
     <div>
-        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons aria-label="Select page of Department">
         </mat-paginator>
     </div>
 </div>

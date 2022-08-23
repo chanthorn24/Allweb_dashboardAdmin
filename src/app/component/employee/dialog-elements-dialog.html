@@ -3,42 +3,52 @@
         <h1 class="mat-h1" style="font-weight: 500;">Add Employee</h1>
     </div>
 
+    <!-- position: sticky; top: 0; z-index: 100; -->
     <!-- General Info user -->
-    <h1 class="mat-h1" style="font-weight: 500; padding-left: 10px; position: sticky; top: 0; z-index: 100;">General Information</h1>
+    <h1 class="mat-h1" style="font-weight: 500; padding-left: 10px;">General Information</h1>
     <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Last Name</mat-label>
                 <input matInput placeholder="Input lastname" [(ngModel)]="userCollection.lastName" name="lastName" required>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>First Name</mat-label>
                 <input matInput placeholder="Input firstname" [(ngModel)]="userCollection.firstName" name="firstName" required>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
-            <mat-form-field appearance="outline" style="width: 380px;">
-                <mat-label>Gender</mat-label>
-                <input matInput placeholder="Input gender" [(ngModel)]="userCollection.gender" name="gender" required>
+            <mat-form-field appearance="outline" style="width: 380px">
+                <mat-label>Select Gender</mat-label>
+                <mat-select disableRipple [(value)]="userCollection.gender">
+                    <mat-option value="Male">Male</mat-option>
+                    <mat-option value="Female">Female</mat-option>
+                    <mat-option value="Other">Other</mat-option>
+                </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Phone Number</mat-label>
                 <input matInput placeholder="Input phone number" [(ngModel)]="userCollection.phone" name="phone" required>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 780px;">
                 <mat-label>Address</mat-label>
-                <textarea matInput placeholder="st 134, Khan Toul Kork...." [(ngModel)]="userCollection.address" name="address"></textarea>
+                <textarea matInput placeholder="st 134, Khan Toul Kork...." [(ngModel)]="userCollection.address" name="address" required></textarea>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
-                <mat-label>Join Date</mat-label>
+                <mat-label>Date Of Birth</mat-label>
                 <input placeholder="Select date" name="dateOfBirth" matInput [matDatepicker]="picker1" [(ngModel)]="userCollection.dateOfBirth">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -55,10 +65,11 @@
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Religion</mat-label>
-                <mat-select disableRipple>
+                <mat-select disableRipple [(value)]="userCollection.religion">
                     <mat-option value="1">Buddishm</mat-option>
                     <mat-option value="2">Christ</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <!-- <div style="padding: 0 10px;">
@@ -79,64 +90,62 @@
             <mat-form-field appearance="outline" style="width: 780px;">
                 <mat-label>Place of Birth</mat-label>
                 <textarea matInput placeholder="st 134, Khan Toul Kork...." [(ngModel)]="userCollection.placeOfBirth" name="pob"></textarea>
-            </mat-form-field>
-        </div>
-        <div style="padding: 0 10px;">
-            <mat-form-field appearance="outline" style="width: 380px">
-                <mat-label>Select Gender</mat-label>
-                <mat-select disableRipple>
-                    <mat-option value="1">Male</mat-option>
-                    <mat-option value="2">Female</mat-option>
-                </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Married</mat-label>
-                <mat-select disableRipple>
+                <mat-select disableRipple [(value)]="userCollection.is_married">
                     <mat-option value="1">Yes</mat-option>
                     <mat-option value="2">No</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Department</mat-label>
-                <mat-select disableRipple>
-                    <mat-option value="1">Yes</mat-option>
-                    <mat-option value="2">No</mat-option>
+                <mat-select disableRipple [(value)]="userCollection.emp_department_id">
+                    <mat-option value="1">PHP Dev</mat-option>
+                    <mat-option value="2">JAVA Dev</mat-option>
+                    <mat-option value="3">Tester Department</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Position</mat-label>
-                <mat-select disableRipple>
-                    <mat-option value="1">Yes</mat-option>
-                    <mat-option value="2">No</mat-option>
+                <mat-select disableRipple [(value)]="userCollection.emp_position_id">
+                    <mat-option value="1">Employee</mat-option>
+                    <mat-option value="2">Recruiter</mat-option>
+                    <mat-option value="3">Senior</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Salary</mat-label>
                 <input matInput placeholder="Input salary" [(ngModel)]="userCollection.salary" name="salary" required>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Join Date</mat-label>
-                <input placeholder="Select date" matInput [matDatepicker]="picker1" [formControl]="date">
+                <input placeholder="Select date" name="joinDate" matInput [matDatepicker]="picker2" [(ngModel)]="userCollection.joinDate">
                 <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
         </div>
 
-
+        <!-- position: sticky; top: 0; z-index: 200; -->
         <!-- Family Info user -->
         <div style="width: 1000px;">
-            <h1 class="mat-h1" style="font-weight: 500; padding-left: 10px; position: sticky; top: 0; z-index: 200;">Employee's family</h1>
+            <h1 class="mat-h1" style="font-weight: 500; padding-left: 10px;">Employee's family</h1>
         </div>
         <div style="width: 1000px;">
             <h3 style="font-weight: 500; padding-left: 10px;">Employee's family</h3>
@@ -144,26 +153,27 @@
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input nationality" [(ngModel)]="family[0].name" name="name" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Phone</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input nationality" [(ngModel)]="family[0].phone" name="phone" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Relationship</mat-label>
-                <mat-select disableRipple>
+                <mat-select disableRipple [(value)]="family[0].family_relationship_id">
                     <mat-option value="1">Father</mat-option>
                     <mat-option value="2">Mother</mat-option>
                     <mat-option value="3">Brother</mat-option>
                     <mat-option value="4">Sister</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="width: 1000px;">
@@ -172,54 +182,56 @@
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input nationality" [(ngModel)]="family[1].name" name="name" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Phone</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input nationality" [(ngModel)]="family[1].phone" name="phone" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Relationship</mat-label>
-                <mat-select disableRipple>
+                <mat-select disableRipple [(value)]="family[1].family_relationship_id">
                     <mat-option value="1">Father</mat-option>
                     <mat-option value="2">Mother</mat-option>
                     <mat-option value="3">Brother</mat-option>
                     <mat-option value="4">Sister</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
-        <div style="width: 1000px; position: sticky; top: 0; z-index: 800;">
+        <div style="width: 1000px;">
             <h3 style="font-weight: 500; padding-left: 10px;">Employee's family</h3>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input nationality" [(ngModel)]="family[2].name" name="name" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Phone</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input nationality" [(ngModel)]="family[2].phone" name="phone" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Relationship</mat-label>
-                <mat-select disableRipple>
+                <mat-select disableRipple [(value)]="family[2].family_relationship_id">
                     <mat-option value="1">Father</mat-option>
                     <mat-option value="2">Mother</mat-option>
                     <mat-option value="3">Brother</mat-option>
                     <mat-option value="4">Sister</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
 
@@ -231,21 +243,22 @@
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>School</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input School" [(ngModel)]="userCollection.school" name="school" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Degree</mat-label>
-                <mat-select disableRipple>
-                    <mat-option value="1">Father</mat-option>
-                    <mat-option value="2">Mother</mat-option>
-                    <mat-option value="3">Brother</mat-option>
-                    <mat-option value="4">Sister</mat-option>
+                <mat-select disableRipple [(value)]="userCollection.school_degree_id">
+                    <mat-option value="1">Bachelor Degree</mat-option>
+                    <mat-option value="2">Master Degree</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
+
+
 
         <!-- Bank Info user -->
         <div style="width: 1000px;">
@@ -254,25 +267,26 @@
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Bank</mat-label>
-                <mat-select disableRipple>
+                <mat-select disableRipple [(value)]="userCollection.bank_id">
                     <mat-option value="1">ABA</mat-option>
                     <mat-option value="2">ACELEDA</mat-option>
                     <mat-option value="3">BAKONG</mat-option>
                     <mat-option value="4">WING</mat-option>
                 </mat-select>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Account name</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input bank account name" [(ngModel)]="userCollection.bank_name" name="bankname" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Account number</mat-label>
-                <input matInput placeholder="Input nationality" [(ngModel)]="userCollection.nationality" name="nationality" required>
+                <input matInput placeholder="Input bank account number" [(ngModel)]="userCollection.bank_account_number" name="banknumber" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
@@ -293,14 +307,16 @@
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Password</mat-label>
                 <input matInput placeholder="Input password" [(ngModel)]="userCollection.password" name="password" required>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Confirm Password</mat-label>
                 <input matInput placeholder="Input password" [(ngModel)]="userCollection.repeat_password" name="reapeat_password" required>
+                <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
     </div>
-    <button mat-raised-button style="height: 40px; font-weight: 700; background-color: #02A93B; color: white; margin-bottom: 60px;">Create employee</button>
+    <button mat-raised-button style="height: 40px; font-weight: 700; background-color: #02A93B; color: white; margin-bottom: 60px;" (click)="createUser()">Create employee</button>
 </form>

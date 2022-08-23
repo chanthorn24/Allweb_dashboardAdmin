@@ -1,32 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { ApiService } from 'src/app/services/api.service';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+
+//select error
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 export interface DialogData {
   animal: string,
   name: string,
-}
-
-export interface EmployeeData {
-  email: string,
-  lastName: string,
-  firstName: string,
-  dateOfBirth: string,
-  placeOfBirth: string,
-  phone: string,
-  salary: number,
-  imageURL: string,
-  gender: string,
-  nationality: string,
-  religion: string,
-  address: string,
-  is_married: boolean,
-  joinDate: string,
-  em_department_id: number,
-  user_role_id: number,
-  password: string,
-  repeat_password: string
 }
 
 @Component({
@@ -39,195 +29,185 @@ export class EmployeeComponent implements OnInit {
   //disable button add employee
   disable: boolean = false;
 
-  employees: any = [
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "2",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "3",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "4",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "5",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "6",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "7",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-    {
-      "id" : "1",
-      "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
-      "firstName" : "Employee",
-      "lastName" : "1",
-      "userRole" : "Web Developer"
-    },
-  ];
+  employees: any = [];
 
-  // userCollection: any = {
-  //   email!: "",
-  //   lastName!: "",
-  //   firstName!: "",
-  //   dateOfBirth!: "",
-  //   placeOfBirth!: "",
-  //   phone!: "",
-  //   salary!: "",
-  //   imageURL!: "",
-  //   gender!: "",
-  //   nationality!: "",
-  //   religion!: "",
-  //   address!: "",
-  //   is_married!: "",
-  //   joinDate!: "",
-  //   em_department_id!: "",
-  //   user_role_id!: "",
-  //   password!: "",
-  //   repeat_password!: ""
-  // }
+  // employees: any = [
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "2",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "3",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "4",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "5",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "6",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "7",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  //   {
+  //     "id" : "1",
+  //     "imageURL" : "https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1",
+  //     "firstName" : "Employee",
+  //     "lastName" : "1",
+  //     "userRole" : "Web Developer"
+  //   },
+  // ];
+
 
   toppings = this._formBuilder.group({
     pepperoni: false,
   });
 
-  constructor(public dialog: MatDialog, private _formBuilder: FormBuilder) { }
+  constructor(
+    private api: ApiService,
+    public dialog: MatDialog,
+    private _formBuilder: FormBuilder
+  ) { }
 
-  animal!: string;
-  name!: string;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogElementsDialog, {
       width: '970px',
       height: "1500px",
-
-      data: {name: this.name, animal: this.animal},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.disable = !this.disable;
       console.log('The dialog was closed');
-      this.animal = result;
     });
   }
 
   ngOnInit(): void {
+    this.api.getUser().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.employees = res.data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
 }
@@ -237,10 +217,17 @@ export class EmployeeComponent implements OnInit {
   templateUrl: './dialog-elements-dialog.html',
 })
 export class DialogElementsDialog {
+  //snackbar
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  duration = 5;
   constructor(
+    private api: ApiService,
+    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<DialogElementsDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) { }
+
 
   //date
   date = new FormControl(new Date());
@@ -248,11 +235,11 @@ export class DialogElementsDialog {
 
   //validate email
   email = new FormControl('', [Validators.required, Validators.email]);
+
+  //employee data
   userCollection: any = {
-    email!: "",
     lastName!: "",
     firstName!: "",
-    userName!: "",
     dateOfBirth!: new Date(),
     placeOfBirth!: "",
     phone!: "",
@@ -263,18 +250,64 @@ export class DialogElementsDialog {
     religion!: "",
     address!: "",
     is_married!: "",
-    joinDate!: "",
-    em_department_id!: "",
-    user_role_id!: "",
+    joinDate!: new Date(),
+    emp_department_id!: "",
+    user_role_id!: 1,
+    emp_position_id!: "",
+
+    //user account
+    email!: "",
     password!: "",
-    repeat_password!: ""
+    repeat_password!: "",
+
+    //bank account
+    bank_id!: "",
+    bank_name!: "",
+    bank_account_number!: "",
+
+    //education
+    school!: "",
+    school_degree_id!: "",
+
+    family!: "",
+
   }
 
-  formatDate(date: any) {
-    let formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-    return formatted_date;
-}
+  family: any = [
+    {
+      name!: "",
+      phone!: "",
+      family_relationship_id!: "",
 
+    },
+    {
+      name!: "",
+      phone!: "",
+      family_relationship_id!: "",
+
+    },
+    {
+      name!: "",
+      phone!: "",
+      family_relationship_id!: "",
+
+    },
+  ];
+
+
+  //format date
+  formatDate(date: any) {
+    let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    return formatted_date;
+  }
+
+  selected = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
+  selectFormControl = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
+  nativeSelectFormControl = new FormControl('valid', [
+    Validators.required,
+    Validators.pattern('valid'),
+  ]);
+  matcher = new MyErrorStateMatcher();
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -282,6 +315,55 @@ export class DialogElementsDialog {
     }
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+
+
+  //create user
+  createUser() {
+    this.userCollection.dateOfBith = this.formatDate(this.userCollection.dateOfBirth);
+    this.userCollection.joinDate = this.formatDate(this.userCollection.joinDate);
+    this.userCollection.family = this.family;
+
+    this.api.createUser(this.userCollection).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.dialogRef.close();
+          this.openSnackBarSuccess(res.message);
+        }
+
+      },
+      error: (error) => {
+        console.log(error);
+        this.openSnackBarError(error.error.message);
+
+      }
+    })
+
+    this.userCollection.dateOfBith = new Date();
+    this.userCollection.joinDate = new Date();
+
+  }
+
+  openSnackBarSuccess(message: string) {
+    this._snackBar.open(message, 'Cancel', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.duration * 1000,
+      panelClass: ['blue-snackbar']
+    });
+  }
+  openSnackBarError(message: string) {
+    this._snackBar.open(message, 'Cancel', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.duration * 1000,
+      panelClass: ['red-snackbar']
+    });
+  }
+
+  ngOnInit(): void {
+    // this.openSnackBarSuccess("message: string");
   }
 
 

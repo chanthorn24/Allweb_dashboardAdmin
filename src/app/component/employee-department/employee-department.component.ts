@@ -10,10 +10,8 @@ export interface Department {
   id: number;
   name: string;
 }
+let id: number;
 
-let ELEMENT_DATA: Department[] = [
-
-];
 @Component({
   selector: 'app-employee-department',
   templateUrl: './employee-department.component.html',
@@ -24,7 +22,7 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'name', 'actions'];
   // dataSource = ELEMENT_DATA;
   dataSource!: MatTableDataSource<Department>;
-
+  spinner = true;
   constructor(private dialog: MatDialog, private api: ApiService) { }
   @ViewChild(MatTable) table!: MatTable<Department>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -37,6 +35,7 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
   // openDialog() {
   //   this.dialog.open(DialogEmployeeDepartment)
   // }
+  ///create dialog
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogEmployeeDepartment, {
     });
@@ -45,10 +44,32 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
       this.getDepartment();
     });
   }
+  //update dialog 
+  openUpdateDialog(data: any): void {
+    const dialogRef = this.dialog.open(DialogUpdateDepartment, {
+    });
+    console.log(data);
+    id = data;
+    console.log(id);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getDepartment();
+    });
+  }
+
+  openDeleteDialog(data: any): void {
+    const dialogRef = this.dialog.open(DialogDeleteDepartment, {
+    });
+    id = data;
+    dialogRef.afterClosed().subscribe(result => {
+      this.getDepartment();
+    });
+  }
   getDepartment() {
+
     this.api.getDepartment().subscribe({
       next: (res) => {
-        console.log(res);
+        this.spinner = false;
         this.dataSource = new MatTableDataSource<Department>(res.data);
         this.dataSource.paginator = this.paginator;
         console.log(this.paginator);
@@ -101,7 +122,6 @@ export class DialogEmployeeDepartment {
         }
       })
     }
-
   }
 
   openSnackBarSuccess() {
@@ -112,4 +132,95 @@ export class DialogEmployeeDepartment {
       panelClass: ['blue-snackbar']
     });
   }
+}
+/**
+ * 
+ * Update Dialog
+ */
+
+@Component({
+  selector: 'app-employee-department',
+  templateUrl: 'dialog-update-employee-department.html'
+})
+export class DialogUpdateDepartment {
+  email = new FormControl('', [Validators.required, Validators.required]);
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  duration = 5;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(private api: ApiService, public dialogRef: MatDialogRef<DialogEmployeeDepartment>, private _snackBar: MatSnackBar) { }
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+    return;
+  }
+  public updateDepartment: any = {
+    id: "",
+    name: "",
+  }
+  editDepartment() {
+    this.updateDepartment.id = id;
+    console.log(this.updateDepartment);
+    if (this.updateDepartment.name) {
+      this.api.editDepartment(this.updateDepartment).subscribe({
+        next: (res) => {
+          // console.log(id);
+          console.log(this.updateDepartment);
+          console.log(res);
+          this.dialogRef.close();
+          this.openSnackBarSuccess();
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
+  }
+  openSnackBarSuccess() {
+    this._snackBar.open('Department is updated successfully', 'Cancel', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.duration * 1000,
+      panelClass: ['blue-snackbar']
+    });
+  }
+
+
+}
+//**Delete Dialog */
+@Component({
+  selector: 'app-employee-department',
+  templateUrl: 'dialog-delete-employee-department.html'
+})
+export class DialogDeleteDepartment {
+  email = new FormControl('', [Validators.required, Validators.required]);
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  duration = 5;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(private api: ApiService, public dialogRef: MatDialogRef<DialogEmployeeDepartment>, private _snackBar: MatSnackBar) { }
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+    return;
+  }
+
+
+  deleteDepartment() {
+    this.api.deleteDepartment(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+
 }

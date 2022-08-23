@@ -25,7 +25,7 @@ export class ApiService {
 
 
 
-/** Employee **/
+  /** Employee **/
   //create user
   public createUser(data: any) {
     return this.http.post<any>(this.URL + "/user/create", data);
@@ -34,7 +34,7 @@ export class ApiService {
     return this.http.get<any>(this.URL + "/user");
   }
   public getOneUser(id: any) {
-    return this.http.get<any>(this.URL + "/user/"+ id);
+    return this.http.get<any>(this.URL + "/user/" + id);
   }
   //get all department
   public getDepartment() {
@@ -43,5 +43,13 @@ export class ApiService {
   //add department 
   public addDepartment(data: any) {
     return this.http.post<any>(this.URL + '/department/create', data);
+  }
+  //edit department
+  public editDepartment(data: any) {
+    return this.http.put<any>(this.URL + `/department/update/${data.id}`, data);
+  }
+  //delete department
+  public deleteDepartment(data: any) {
+    return this.http.delete<any>(this.URL + `/department/delete/${data}`);
   }
 }

@@ -35,8 +35,12 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let element">
-                <mat-icon color="primary" style="margin-left: 5px;">edit</mat-icon>
-                <mat-icon style="margin-left: 5px;" color="warn">delete</mat-icon>
+                <button mat-icon-button color="primary" class="edit" (click)="openUpdateDialog(element.id)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" class="warn" (click)="openDeleteDialog(element.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
             </td>
         </ng-container>
         <ng-container matColumnDef="duration">
@@ -53,5 +57,5 @@
     </table>
     <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons aria-label="Select page of Department">
     </mat-paginator>
-
+    <mat-spinner *ngIf="spinner" style="margin: 0 auto;"></mat-spinner>
 </div>

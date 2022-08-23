@@ -44,7 +44,7 @@ import { AttendanceAdminComponent } from './component/attendance-admin/attendanc
 import { ProfileUserComponent } from './component/profile-user/profile-user.component';
 import { ProjectUserComponent } from './component/project-user/project-user.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
-import { EmployeeDepartmentComponent, DialogEmployeeDepartment } from './component/employee-department/employee-department.component';
+import { EmployeeDepartmentComponent, DialogEmployeeDepartment, DialogUpdateDepartment, DialogDeleteDepartment } from './component/employee-department/employee-department.component';
 import { DialogEmployeePosition, EmployeePositionComponent } from './component/employee-position/employee-position.component';
 
 @NgModule({
@@ -76,7 +76,9 @@ import { DialogEmployeePosition, EmployeePositionComponent } from './component/e
     EmployeeDepartmentComponent,
     DialogEmployeeDepartment,
     EmployeePositionComponent,
-    DialogEmployeePosition
+    DialogEmployeePosition,
+    DialogUpdateDepartment,
+    DialogDeleteDepartment
   ],
   imports: [
     BrowserModule,

@@ -53,6 +53,13 @@ export class AuthService {
     return status;
   }
 
+  public getEmail(): string {
+    let token = window.sessionStorage.getItem('token');
+    let tokenData = this.jwtHelper.decodeToken(token ?? "");
+
+    return tokenData.email;
+  }
+
   public getRole(): string {
     let token = window.sessionStorage.getItem('token');
     let tokenData = this.jwtHelper.decodeToken(token ?? "");

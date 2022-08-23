@@ -73,10 +73,17 @@ export class ApiService {
   public updatePosition(data: any) {
     return this.http.put<any>(this.URL + `/employee/position/update/${data.id}`, data);
   }
+  //delete position 
   public deletePosition(data: any) {
     return this.http.delete<any>(this.URL + `/employee/position/delete/${data}`);
   }
-  //delete position 
+
+  //change password
+  public changePassword(data: any) {
+    return this.http.put<any>(this.URL + `/user/password`, data);
+  }
+
+
 
 
 

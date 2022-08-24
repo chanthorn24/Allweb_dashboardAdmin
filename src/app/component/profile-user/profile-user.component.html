@@ -1,16 +1,16 @@
 <div *ngFor="let employee of employees">
     <div style="margin: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
         <mat-card style="width: 38vw; height: 27vh;">
-            <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+            <mat-card-title
+                style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                 <div>Personal Information</div>
-                <button mat-icon-button>
-              <mat-icon style="color: orange;">border_color</mat-icon>
-            </button>
+                <button mat-icon-button (click)="editPersonalDialog()">
+                    <mat-icon style="color: orange;">border_color</mat-icon>
+                </button>
             </mat-card-title>
             <mat-card-content>
                 <table style="width: 100%;">
                     <tr>
-                        <td>Name</td>
                         <td>{{ employee.name }}</td>
                     </tr>
                     <tr>
@@ -33,6 +33,9 @@
                 </table>
             </mat-card-content>
         </mat-card>
+
+        <!--Personal Information-->
+
         <mat-card style="width: 38vw; height: 27vh;">
             <mat-card-title>
                 Family Information
@@ -51,8 +54,10 @@
                         <td>{{ ef.phone }}</td>
                         <td>
                             <button mat-icon-button>
-                          <mat-icon>edit</mat-icon>
-                        </button>
+                                <mat-icon (click)="editFamilyDialog()">edit</mat-icon>
+
+                            </button>
+
                         </td>
                     </tr>
                     <tr *ngIf="employee.family == ''">
@@ -61,19 +66,21 @@
                         <td>N/A</td>
                         <td>
                             <button mat-icon-button>
-                          <mat-icon style="color: rgb(45, 224, 90); ">add_box</mat-icon>
-                        </button>
+                                <mat-icon style="color: rgb(45, 224, 90); " (click)="addFamilyDialog()">add_box
+                                </mat-icon>
+                            </button>
                         </td>
                     </tr>
                 </table>
             </mat-card-content>
         </mat-card>
         <mat-card style="width: 38vw; margin-top: 20px; height: 20vh; ">
-            <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+            <mat-card-title
+                style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
                 <div>Bank Information</div>
                 <button mat-icon-button>
-              <mat-icon style="color: orange; ">border_color</mat-icon>
-            </button>
+                    <mat-icon style="color: orange; " (click)="editBankDialog()">edit</mat-icon>
+                </button>
             </mat-card-title>
             <mat-card-content>
                 <table style="width: 100%; ">
@@ -96,12 +103,15 @@
             </mat-card-content>
         </mat-card>
         <mat-card style="width: 38vw; margin-top: 20px; height: 20vh; ">
-            <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+            <mat-card-title
+                style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
                 <div>Education Information</div>
                 <button mat-icon-button>
-              <mat-icon *ngIf="employee.school" style="color: orange; ">border_color</mat-icon>
-              <mat-icon *ngIf="!employee.school" style="color: rgb(45, 224, 90); ">add_box</mat-icon>
-            </button>
+                    <mat-icon *ngIf="employee.school" style="color: orange; " (click)="editEducationDialog()">edit
+                    </mat-icon>
+                    <mat-icon *ngIf="!employee.school" style="color: rgb(45, 224, 90); " (click)="addEducationDialog()">
+                        add_box</mat-icon>
+                </button>
             </mat-card-title>
             <mat-card-content>
                 <table style="width: 100%; ">

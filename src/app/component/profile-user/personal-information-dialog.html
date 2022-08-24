@@ -1,0 +1,32 @@
+<div style="width: 22vw; padding: 1em">
+    <h1 mat-dialog-title>Personal Information</h1>
+    <form>
+        <div mat-dialog-content>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Phone Number</mat-label>
+                <input matInput required [(ngModel)]="personal.tel" [formControl]="email">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Nationality</mat-label>
+                <input matInput placeholder="">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Religion</mat-label>
+                <input matInput placeholder="">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Married</mat-label>
+                <mat-select value="one">
+                    <mat-option value="one">Yes</mat-option>
+                    <mat-option value="two">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close color="warn">Cancel</button>
+            <button type="submit" mat-raised-button color="primary" (click)="updatePersonalInfo()">OK</button>
+        </div>
+    </form>
+</div>

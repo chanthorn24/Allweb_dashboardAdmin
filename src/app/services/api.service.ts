@@ -36,6 +36,9 @@ export class ApiService {
   public getOneUser(id: any) {
     return this.http.get<any>(this.URL + "/user/" + id);
   }
+  public getOneUserByEmail(data: any) {
+    return this.http.get<any>(this.URL + "/user/email", data)
+  }
   //get all department
   public getDepartment() {
     return this.http.get<any>(this.URL + '/department');
@@ -84,19 +87,25 @@ export class ApiService {
   }
 
   /**
-   * Leave 
+   * Leave
    */
+  //get all leave
   public getLeaveReason() {
     return this.http.get<any>(this.URL + '/employee/leave/reason');
-  } public getOneLeaveReason(id: any) {
+  }
+  //get one leave reason
+  public getOneLeaveReason(id: any) {
     return this.http.get<any>(this.URL + `/employee/leave/reason/${id}`);
   }
+  //create leave reason
   public addLeaveReason(data: any) {
     return this.http.post<any>(this.URL + '/employee/leave/reason/create', data);
   }
+  //update leave reason
   public updateLeaveReason(data: any) {
     return this.http.put<any>(this.URL + `/employee/leave/reason/update/${data.id}`, data)
   }
+  //delete leave reason
   public deleteLeaveReason(data: any) {
     return this.http.delete<any>(this.URL + `/employee/leave/reason/delete/${data}`);
   }
@@ -110,6 +119,14 @@ export class ApiService {
   //get employee leave
   public getAllLeave() {
     return this.http.get<any>(this.URL + '/employee/leave');
+  }
+  //getOne leave
+  public getOneLeaveUser(id: any) {
+    return this.http.get<any>(this.URL + '/employee/leave/' + id);
+  }
+  //delete leave
+  public deleteLeave(id: any) {
+    return this.http.delete<any>(this.URL + '/employee/leave/delete/' + id);
   }
 
 

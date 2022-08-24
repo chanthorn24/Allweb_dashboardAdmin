@@ -3,18 +3,14 @@
     <div mat-dialog-content>
         <span>Status: </span>
         <input type="hidden" />
-        <button mat-raised-button color="primary" disabled="" style="padding: 0px 8px;margin-bottom: 12px; color: #3f51b5;">Approved</button>
-        <div>
-            <mat-form-field class="example-full-width" appearance="outline" style="width: 100%;">
-                <mat-label>Select email</mat-label>
-                <input type="text" [(ngModel)]="user_email" aria-label="Name" matInput [formControl]="myControl" [matAutocomplete]="auto">
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline" color="primary" style="padding: 0px 8px;margin-bottom: 12px; color: #3f51b5; width: 80px;">
+            <mat-label>Type</mat-label>
+            <mat-select disableRipple [(value)]="empLeave.status">
+                <mat-option value="1">Approved</mat-option>
+                <mat-option value="2">Pendding</mat-option>
+                <mat-option value="3">Cancel</mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100%;">
 
             <mat-label>Select Leave Type</mat-label>
@@ -47,6 +43,6 @@
     </div>
     <div mat-dialog-actions>
         <button mat-button mat-dialog-close color="warn">Cancel</button>
-        <button mat-raised-button color="primary" style="background-color: green" (click)="createLeave()">APPLY</button>
+        <button mat-raised-button color="primary" style="background-color: green" (click)="updateLeave()">APPLY</button>
     </div>
 </div>

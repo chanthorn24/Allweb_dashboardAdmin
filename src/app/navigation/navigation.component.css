@@ -51,7 +51,7 @@
 }
 
 .submenu.expanded {
-    height: 200px;
+    height: 100px;
 }
 
 .subreport {
@@ -71,7 +71,7 @@
 }
 
 .subsetting.expanded {
-    height: 150px;
+    height: 250px;
 }
 
 .mat-list-item {

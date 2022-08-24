@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { map, Observable, startWith } from 'rxjs';
+import { AuthGuard } from 'src/app/services/auth.guard';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -32,12 +34,20 @@ export class EmployeeLeaveComponent implements OnInit {
   dataSource = ELEMENT_DATA;
 
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private authGard: AuthGuard,
+    private route: Router,
+    ) { }
   ngOnInit(): void {
-
+    if(!this.authGard.isAdmin()) {
+      this.route.navigate(['/']);
+    }
   }
   openDialog() {
-    this.dialog.open(DialogEmployeeLeave);
+    this.dialog.open(DialogEmployeeLeave, {
+      autoFocus: false
+    });
   }
 
 

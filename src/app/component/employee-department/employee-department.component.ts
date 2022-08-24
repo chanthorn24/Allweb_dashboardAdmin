@@ -32,9 +32,8 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.getDepartment();
   }
-  // openDialog() {
-  //   this.dialog.open(DialogEmployeeDepartment)
-  // }
+
+
   ///create dialog
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogEmployeeDepartment, {
@@ -56,7 +55,7 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
       this.getDepartment();
     });
   }
-
+  //delete diaglog
   openDeleteDialog(data: any): void {
     const dialogRef = this.dialog.open(DialogDeleteDepartment, {
     });
@@ -65,6 +64,8 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
       this.getDepartment();
     });
   }
+
+  //get all department
   getDepartment() {
 
     this.api.getDepartment().subscribe({

@@ -73,7 +73,7 @@ export class ApiService {
   public updatePosition(data: any) {
     return this.http.put<any>(this.URL + `/employee/position/update/${data.id}`, data);
   }
-  //delete position 
+  //delete position
   public deletePosition(data: any) {
     return this.http.delete<any>(this.URL + `/employee/position/delete/${data}`);
   }
@@ -84,7 +84,15 @@ export class ApiService {
   }
 
 
-
+  /** leave **/
+  //create leave
+  public createLeave(data: any) {
+    return this.http.post<any>(this.URL + '/employee/leave/create', data);
+  }
+  //get employee leave
+  public getAllLeave() {
+    return this.http.get<any>(this.URL + '/employee/leave');
+  }
 
 
 }

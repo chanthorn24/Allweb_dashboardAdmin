@@ -8,9 +8,11 @@
             <h4 style="margin-left: 3px;">/ Detail</h4>
         </div>
         <mat-card style="display: flex; flex-direction: row">
-            <div style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
+            <div
+                style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
                 <div>
-                    <img width="100px" height="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
+                    <img width="100px" height="100px" style="border-radius: 100px;"
+                        src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
                 </div>
                 <div style="margin-left: 10px;">
                     <h3 style="font-weight: 600;">{{ employee.lastName + " " + employee.firstName }}</h3>

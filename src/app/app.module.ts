@@ -41,7 +41,7 @@ import { EmployeeReportComponent } from './component/employee-report/employee-re
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
-import { ProfileUserComponent } from './component/profile-user/profile-user.component';
+import { DialogBankInformation, DialogEducationInformation, DialogFamiliyInformation, DialogPersonalInformation, ProfileUserComponent } from './component/profile-user/profile-user.component';
 import { ProjectUserComponent } from './component/project-user/project-user.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { EmployeeDepartmentComponent, DialogEmployeeDepartment, DialogUpdateDepartment, DialogDeleteDepartment } from './component/employee-department/employee-department.component';
@@ -73,6 +73,10 @@ import { DialogDeletePosition, DialogEmployeePosition, DialogUpdatePosition, Emp
     AttendanceReportComponent,
     AttendanceAdminComponent,
     ProfileUserComponent,
+    DialogPersonalInformation,
+    DialogEducationInformation,
+    DialogBankInformation,
+    DialogFamiliyInformation,
     ProjectUserComponent,
     DialogEmployeeLeave,
     ResetPasswordComponent,

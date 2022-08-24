@@ -1,0 +1,19 @@
+<div style="width: 30vw; padding: 1em">
+    <h1 mat-dialog-title>Update Leave Type</h1>
+    <form>
+        <div mat-dialog-content>
+            <div>
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%;">
+                    <mat-label>Input Leave Type</mat-label>
+                    <input type="text" aria-label="Name" matInput required [formControl]="email"
+                        [(ngModel)]="updateLeaveType.name">
+                    <mat-error>{{ getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close color="warn">Cancel</button>
+            <button type="submit" mat-raised-button color="primary" (click)="editLeaveType()">Update</button>
+        </div>
+    </form>
+</div>

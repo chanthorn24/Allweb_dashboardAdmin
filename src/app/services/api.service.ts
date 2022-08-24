@@ -83,6 +83,24 @@ export class ApiService {
     return this.http.put<any>(this.URL + `/user/password`, data);
   }
 
+  /**
+   * Leave 
+   */
+  public getLeaveReason() {
+    return this.http.get<any>(this.URL + '/employee/leave/reason');
+  } public getOneLeaveReason(id: any) {
+    return this.http.get<any>(this.URL + `/employee/leave/reason/${id}`);
+  }
+  public addLeaveReason(data: any) {
+    return this.http.post<any>(this.URL + '/employee/leave/reason/create', data);
+  }
+  public updateLeaveReason(data: any) {
+    return this.http.put<any>(this.URL + `/employee/leave/reason/update/${data.id}`, data)
+  }
+  public deleteLeaveReason(data: any) {
+    return this.http.delete<any>(this.URL + `/employee/leave/reason/delete/${data}`);
+  }
+
 
   /** leave **/
   //create leave

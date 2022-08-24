@@ -27,7 +27,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { EmployeeComponent, DialogElementsDialog } from './component/employee/employee.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { ReportComponent } from './component/report/report.component';
-import { LeaveTypeComponent } from './component/leave-type/leave-type.component';
+import { DialogAddLeaveType, DialogDeleteLeaveType, DialogUpdateLeaveType, LeaveTypeComponent } from './component/leave-type/leave-type.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { DialogEmployeeLeave, EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
 import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
@@ -56,6 +56,9 @@ import { DialogDeletePosition, DialogEmployeePosition, DialogUpdatePosition, Emp
     AttendanceComponent,
     ReportComponent,
     LeaveTypeComponent,
+    DialogAddLeaveType,
+    DialogUpdateLeaveType,
+    DialogDeleteLeaveType,
     ChangePasswordComponent,
     EmployeeLeaveComponent,
     DialogElementsDialog,

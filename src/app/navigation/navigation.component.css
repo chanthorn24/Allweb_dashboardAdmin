@@ -54,6 +54,16 @@
     height: 200px;
 }
 
+.subreport {
+    overflow-y: hidden;
+    transition: 300ms ease-in-out;
+    height: 0;
+}
+
+.subreport.expanded {
+    height: 100px;
+}
+
 .subsetting {
     overflow-y: hidden;
     transition: 300ms ease-in-out;

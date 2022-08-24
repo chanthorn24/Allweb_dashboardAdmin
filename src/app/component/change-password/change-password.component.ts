@@ -9,8 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-  old_password!: string;
-  new_password!: string;
+
   hide: boolean = true;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -28,23 +27,32 @@ export class ChangePasswordComponent implements OnInit {
     new_password: "",
   }
   apply() {
+
     if (this.changePassword.old_password && this.changePassword.new_password) {
-      this.api.changePassword(this.changePassword).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      })
+      if (this.changePassword.old_password != this.changePassword.new_password) {
+        this.api.changePassword(this.changePassword).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.openSnackBarWarning('Password Changed Successfully', 'blue-snackbar');
+          },
+          error: (err) => {
+            console.log(err);
+            this.openSnackBarWarning('Old password is incorrect', 'red-snackbar');
+          }
+        })
+      } else {
+        this.openSnackBarWarning('Old and New Password has to be different', 'warn-snackbar');
+      }
     }
+
   }
-  openSnackBarWarning(data: any) {
+
+  openSnackBarWarning(data: any, className: any) {
     this._snackBar.open(data, 'Cancel', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: this.duration * 1000,
-      panelClass: ['warning-snackbar']
+      panelClass: [className]
     });
   }
 

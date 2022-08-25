@@ -124,6 +124,10 @@ export class ApiService {
   public getOneLeaveUser(id: any) {
     return this.http.get<any>(this.URL + '/employee/leave/' + id);
   }
+  //update leave
+  public updateLeave(data: any, id: any) {
+    return this.http.put<any>(this.URL + "/employee/leave/update/" + id, data);
+  }
   //delete leave
   public deleteLeave(id: any) {
     return this.http.delete<any>(this.URL + '/employee/leave/delete/' + id);

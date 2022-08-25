@@ -54,6 +54,7 @@ export class EmployeeLeaveComponent implements OnInit {
     this.api.getAllLeave().subscribe({
       next: (res) => {
         if(res.success) {
+          console.log(res);
           this.dataSource = new MatTableDataSource<leave>(res.data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -124,6 +125,7 @@ export class DialogEmployeeLeave {
   public constructor(
     private api: ApiService,
     private auth: AuthService,
+    private snackBar: SnackbarService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
   ){}
 
@@ -154,12 +156,17 @@ export class DialogEmployeeLeave {
     this.api.createLeave(this.empLeave).subscribe({
       next: (res) => {
         if(res.success) {
+          //success snackbar
+          this.snackBar.openSnackBarSuccess("Create successfully");
+
           //close the dialog
           this.dialogRef.close();
+        } else {
+          this.snackBar.openSnackBarFail(res.message);
         }
       },
       error: (error) => {
-        console.log(error);
+        this.snackBar.openSnackBarFail("Create failed");
       }
     })
   }
@@ -189,11 +196,10 @@ export class DialogEditEmployeeLeave {
   public constructor(
     private api: ApiService,
     private auth: AuthService,
+    private snackBar: SnackbarService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
   ){}
-
-
-  //set defualt select admin
+  email = new FormControl('', [Validators.required, Validators.required]);
 
   public empLeave: any = {
     email: "",
@@ -204,7 +210,6 @@ export class DialogEditEmployeeLeave {
     status: "",
   }
 
-  id = leave_id;
   //format date
   formatDate(date: any) {
     let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
@@ -213,19 +218,21 @@ export class DialogEditEmployeeLeave {
 
   //create leave user
   updateLeave() {
-    this.empLeave.email = this.auth.getEmail();
     this.empLeave.start = this.formatDate(this.empLeave.start);
     this.empLeave.end = this.formatDate(this.empLeave.end);
 
-    this.api.createLeave(this.empLeave).subscribe({
+    this.api.updateLeave(this.empLeave, leave_id).subscribe({
       next: (res) => {
         if(res.success) {
+          //call snackbar
+          this.snackBar.openSnackBarSuccess("Update successfully");
+
           //close the dialog
           this.dialogRef.close();
         }
       },
       error: (error) => {
-        console.log(error);
+        this.snackBar.openSnackBarFail("Update failed");
       }
     })
   }

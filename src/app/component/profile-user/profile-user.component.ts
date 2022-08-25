@@ -81,7 +81,7 @@ export class ProfileUserComponent implements OnInit {
 })
 export class DialogPersonalInformation implements OnInit {
 
-  // email = new FormControl('', [Validators.required, Validators.required]);
+  email = new FormControl('', [Validators.required, Validators.required]);
 
   updatePersonalInfo() {
     console.log('sdfddsfdf');

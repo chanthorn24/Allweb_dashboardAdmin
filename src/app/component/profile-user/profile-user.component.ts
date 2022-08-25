@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-
+import { ApiService } from 'src/app/services/api.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 let getUser: any = {};
 @Component({
@@ -17,6 +18,7 @@ export class ProfileUserComponent implements OnInit {
 
   ngOnInit(): void {
     getUser = this.employees[0];
+
     console.log(this.employees);
     console.log(getUser);
   }
@@ -80,23 +82,41 @@ export class ProfileUserComponent implements OnInit {
   templateUrl: 'personal-information-dialog.html'
 })
 export class DialogPersonalInformation implements OnInit {
+  constructor(private snackBar: SnackbarService, private api: ApiService, private dialogRef: MatDialogRef<DialogPersonalInformation>) { }
 
-  email = new FormControl('', [Validators.required, Validators.required]);
-
+  formGroup = new FormGroup({
+    phone: new FormControl(''),
+    nationality: new FormControl(''),
+    religion: new FormControl(''),
+    is_married: new FormControl(''),
+  })
   updatePersonalInfo() {
-    console.log('sdfddsfdf');
+    if (this.personal.phone && this.personal.nationality) {
+      this.api.updateUser(this.personal).subscribe({
+        next: res => {
+          console.log(res);
+          this.dialogRef.close();
+          this.snackBar.openSnackBarSuccess("Profile updated successfully");
+
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+    }
+
+
+
   }
   public personal: any = {
-    tel: "",
+    id: getUser.id,
+    phone: getUser.phone,
+    nationality: getUser.nationality,
+    religion: getUser.religion,
+    is_married: getUser.is_married,
   }
 
   ngOnInit(): void {
-    this.personal.tel = "Hello";
-
-    // console.log(this.user);
-    // nationality = getUser.nationality
-    // is_married = getUser.is_married;
-    // religion = getUser.religion;
 
   }
 }

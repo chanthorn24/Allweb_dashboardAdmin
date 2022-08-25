@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../services/auth.service';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -10,21 +12,27 @@ import { Router } from '@angular/router';
 export class DashboardUserComponent implements OnInit {
 
 
-  constructor(private authService:  AuthService, private router: Router) {}
+  //attendance
+  public option = {
+    time!: "",
+    emp_attendance_type_id!: "",
+    employee_id: "",
+    click: 0,
+  }
+  //disable button
+  disable: boolean = false;
+
+  constructor
+  (private auth:  AuthService,
+  private router: Router,
+  private api: ApiService,
+  private snackBar: SnackbarService,
+  ) {}
 
   time!: any;
   checkTime!: any;
-  checkName: string = "Check in";
+  checkName: string = "Clock in";
   checkType: string = "in";
-
-  ngOnInit(): void {
-    if (this.authService.isAdmin()) {
-      this.router.navigateByUrl("/");
-    }
-    setInterval(() => {
-      this.time = new Date(); //set time variable with current date
-    }, 1000); // set it every one seconds
-  }
 
   reloadCurrentRoute() {
     console.log("Work");
@@ -36,14 +44,82 @@ export class DashboardUserComponent implements OnInit {
   }
 
   checkIn() {
-    this.checkName = "Check in";
-    this.checkType = "out";
-    this.checkTime = new Date();
+    this.api.takeAttendance(this.option).subscribe({
+      next: (res) => {
+        if(res.success) {
+          this.disable = true;
+          this.option.click -= 1;
+          this.checkName = "Clock in";
+          this.checkTime = new Date();
+
+          this.snackBar.openSnackBarSuccess(this.checkName + " successfully!")
+        }
+      }
+    })
   }
   checkOut() {
-    this.checkName = "Check out";
-    this.checkType = "in";
-    this.checkTime = new Date();
+    this.api.takeAttendance(this.option).subscribe({
+      next: (res) => {
+        if(res.success) {
+          this.disable = true;
+          this.option.click -= 1;
+          this.checkName = "Clock out";
+          this.checkTime = new Date();
+
+          this.snackBar.openSnackBarSuccess(this.checkName + " successfully!")
+        }
+      }
+    })
+  }
+
+  //format date
+  formatDate(date: any) {
+    let formatted_date = ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
+    return formatted_date;
+  }
+
+  ngOnInit(): void {
+    let email = this.auth.getEmail();
+    this.api.getOneUserByEmail(email).subscribe({
+      next: (res) => {
+        if(res.success) {
+          this.option.employee_id = res.data[0].id;
+        }
+      }
+    })
+
+    this.api.getTypeAttendance().subscribe({
+      next: (res) => {
+        this.option.emp_attendance_type_id = res.data.attendance_type;
+        this.option.time = res.data.date_time;
+        this.option.click = res.data.click;
+        console.log(this.option);
+      }
+    })
+
+    if (this.auth.isAdmin()) {
+      this.router.navigateByUrl("/");
+    }
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+
+      let current_time = this.formatDate(this.time);
+
+      // if(current_time > "17:30:00" && this.option) {
+      //   this.option.emp_attendance_type_id = "4";
+      //   this.disable = false;
+      // }else if (current_time > "13:30:00") {
+      //   this.option.emp_attendance_type_id = "3";
+      //   this.disable = false;
+      // }else if (current_time > "12:00:00") {
+      //   this.option.emp_attendance_type_id = "2";
+      //   this.disable = false;
+      // }else if (current_time > "06:30:00") {
+      //   this.option.emp_attendance_type_id = "1";
+      //   this.disable = false;
+      // }
+
+    }, 1000); // set it every one seconds
   }
 
 }

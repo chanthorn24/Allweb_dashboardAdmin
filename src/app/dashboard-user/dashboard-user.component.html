@@ -17,14 +17,14 @@
                     </div>
                 </div>
                 <div style="margin-left: 20px;">
-                    <button *ngIf="checkType === 'in'" mat-raised-button color="primary" style="height: 60px;" (click)="checkIn()">
+                    <button *ngIf="option.emp_attendance_type_id == '1' || option.emp_attendance_type_id == '3'" [disabled]="disable" mat-raised-button color="primary" style="height: 60px;" (click)="checkIn()">
                       <mat-icon>keyboard_tab</mat-icon>
-                      Check in
+                      Clock in
                     </button>
 
-                    <button *ngIf="checkType === 'out'" mat-raised-button color="warn" style="height: 60px; " (click)="checkOut() ">
+                    <button *ngIf="option.emp_attendance_type_id == '2' || option.emp_attendance_type_id == '4'" [disabled]="disable" mat-raised-button color="warn" style="height: 60px; " (click)="checkOut() ">
                         <mat-icon>keyboard_return</mat-icon>
-                        Check out
+                        Clock out
                       </button>
                 </div>
             </div>

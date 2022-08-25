@@ -143,4 +143,14 @@ export class ApiService {
   }
 
 
+
+  //*** User Take ATTENDANCE**/
+  //take attendance
+  public takeAttendance(data: any) {
+    return this.http.post<any>(this.URL + '/employee/attendance/create', data);
+  }
+  //get type attendance
+  public getTypeAttendance() {
+    return this.http.get<any>(this.URL + '/employee/attendance/get-type');
+  }
 }

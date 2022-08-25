@@ -39,6 +39,9 @@ export class EmployeeLeaveComponent implements OnInit {
   displayedColumns: string[] = ['id', 'employee', 'email', 'leave_reason', 'start.date', 'end.date', 'description', 'status', 'actions'];
   dataSource!: MatTableDataSource<leave>;
 
+  //dashboard
+  total_leave: number = 0;
+
   constructor(
     private dialog: MatDialog,
     private authGard: AuthGuard,
@@ -54,7 +57,7 @@ export class EmployeeLeaveComponent implements OnInit {
     this.api.getAllLeave().subscribe({
       next: (res) => {
         if(res.success) {
-          console.log(res);
+          this.total_leave = res.data.length;
           this.dataSource = new MatTableDataSource<leave>(res.data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;

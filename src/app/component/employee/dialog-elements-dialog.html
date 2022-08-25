@@ -21,7 +21,7 @@
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
-        <div style="padding: 0 10px;">
+        <!-- <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Select Gender</mat-label>
                 <mat-select disableRipple [(value)]="userCollection.gender">
@@ -31,6 +31,23 @@
                 </mat-select>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
+        </div> -->
+        <div style="padding: 0 10px; width: 380px; display: flex; align-items: center;">
+            <!-- <mat-form-field appearance="outline" style=""> -->
+            <!-- <mat-label>Married</mat-label>
+              <mat-select disableRipple >
+                  <mat-option value="1">Yes</mat-option>
+                  <mat-option value="2">No</mat-option>
+              </mat-select> -->
+            <label for="gender">Select gender</label>
+            <div style="margin-left: 10px;">
+                <mat-radio-group aria-label="Select an option" id="gender" name="gender" [(ngModel)]="userCollection.gender">
+                    <mat-radio-button style="margin-left: 5px;" value="Male">Male</mat-radio-button>
+                    <mat-radio-button style="margin-left: 5px;" value="Female">Female</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <!-- <mat-error>{{getErrorMessage()}}</mat-error> -->
+            <!-- </mat-form-field> -->
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
@@ -93,23 +110,28 @@
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>
-        <div style="padding: 0 10px;">
-            <mat-form-field appearance="outline" style="width: 380px">
-                <mat-label>Married</mat-label>
-                <mat-select disableRipple [(value)]="userCollection.is_married">
+        <div style="padding: 0 10px; width: 380px; display: flex; align-items: center;">
+            <!-- <mat-form-field appearance="outline" style=""> -->
+            <!-- <mat-label>Married</mat-label>
+                <mat-select disableRipple >
                     <mat-option value="1">Yes</mat-option>
                     <mat-option value="2">No</mat-option>
-                </mat-select>
-                <mat-error>{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
+                </mat-select> -->
+            <label for="maried">Are you married?</label>
+            <div style="margin-left: 10px;">
+                <mat-radio-group aria-label="Select an option" id="married" name="married" [(ngModel)]="userCollection.is_married">
+                    <mat-radio-button value="1">Yes</mat-radio-button>
+                    <mat-radio-button style="margin-left: 5px;" value="2">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <!-- <mat-error>{{getErrorMessage()}}</mat-error> -->
+            <!-- </mat-form-field> -->
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Department</mat-label>
                 <mat-select disableRipple [(value)]="userCollection.emp_department_id">
-                    <mat-option value="1">PHP Dev</mat-option>
-                    <mat-option value="2">JAVA Dev</mat-option>
-                    <mat-option value="3">Tester Department</mat-option>
+                    <mat-option *ngFor="let department of departments" value="{{ department.id }}">{{ department.name }}</mat-option>
                 </mat-select>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>
@@ -118,9 +140,7 @@
             <mat-form-field appearance="outline" style="width: 380px">
                 <mat-label>Position</mat-label>
                 <mat-select disableRipple [(value)]="userCollection.emp_position_id">
-                    <mat-option value="1">Employee</mat-option>
-                    <mat-option value="2">Recruiter</mat-option>
-                    <mat-option value="3">Senior</mat-option>
+                    <mat-option *ngFor="let position of positions" value="{{ position.id }}">{{ position.name }}</mat-option>
                 </mat-select>
                 <mat-error>{{getErrorMessage()}}</mat-error>
             </mat-form-field>

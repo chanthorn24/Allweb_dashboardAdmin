@@ -35,7 +35,7 @@ import { LoginComponent } from './component/login/login.component';
 import { NavigationUserComponent } from './navigation-user/navigation-user.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
-import { LeaveUserComponent } from './component/leave-user/leave-user.component';
+import { DialogDeleteUserLeave, DialogEditUserLeave, LeaveUserComponent } from './component/leave-user/leave-user.component';
 import { DialogElementsExampleDialog } from './component/leave-user/leave-user.component';
 import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
@@ -90,6 +90,8 @@ import { DialogDeletePosition, DialogEmployeePosition, DialogUpdatePosition, Emp
     DialogDeleteDepartment,
     DialogDeleteLeave,
     DialogEditEmployeeLeave,
+    DialogDeleteUserLeave,
+    DialogEditUserLeave,
   ],
   imports: [
     BrowserModule,

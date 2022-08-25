@@ -37,7 +37,7 @@ export class ApiService {
     return this.http.get<any>(this.URL + "/user/" + id);
   }
   public getOneUserByEmail(data: any) {
-    return this.http.get<any>(this.URL + "/user/email", data)
+    return this.http.get<any>(this.URL + "/user/by-email/" + data);
   }
   //get all department
   public getDepartment() {
@@ -123,6 +123,10 @@ export class ApiService {
   //getOne leave
   public getOneLeaveUser(id: any) {
     return this.http.get<any>(this.URL + '/employee/leave/' + id);
+  }
+  //getOne leave by user
+  public getLeaveByUser(id: any) {
+    return this.http.get<any>(this.URL + '/employee/leave/user/' + id);
   }
   //update leave
   public updateLeave(data: any, id: any) {

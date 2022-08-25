@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../model/interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ApiService } from 'src/app/services/api.service';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private api: ApiService,
   ) { }
 
   login(user: User) {

@@ -27,8 +27,8 @@ export interface Employees {
   placeOfBirth: string,
   phone: string,
   salary: number,
-
 }
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -177,6 +177,8 @@ export class DialogElementsDialog {
     },
   ];
 
+  departments: any = [];
+  positions: any = [];
 
   //format date
   formatDate(date: any) {
@@ -246,6 +248,21 @@ export class DialogElementsDialog {
   }
 
   ngOnInit(): void {
+    this.api.getDepartment().subscribe({
+      next: (res) => {
+        if(res.success) {
+          this.departments = res.data;
+        }
+      }
+    });
+    this.api.getPosition().subscribe({
+      next: (res) => {
+        if(res.success) {
+          this.positions = res.data;
+        }
+      }
+    });
+
     // this.openSnackBarSuccess("message: string");
   }
 

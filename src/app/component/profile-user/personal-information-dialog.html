@@ -4,11 +4,12 @@
         <div mat-dialog-content>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Phone Number</mat-label>
-                <input matInput required [(ngModel)]="personal.phone" formControlName="phone">
+                <input matInput required [(ngModel)]="personal.phone" formControlName="phone" name="phone">
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Nationality</mat-label>
-                <input matInput required [(ngModel)]="personal.nationality" formControlName="nationality">
+                <input matInput required [(ngModel)]="personal.nationality" formControlName="nationality"
+                    name="nationality">
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Religion</mat-label>
@@ -17,9 +18,15 @@
 
             <label for="married">Are you married?</label>
             <mat-radio-group aria-label="Select an option" name="married" [(ngModel)]="personal.is_married">
-                <mat-radio-button style="margin-left: 10px;" value="1" checked="{{ personal.is_married }}">Yes
+                <mat-radio-button style="margin-left: 10px;" value="1" checked="{{ personal.is_married }}"
+                    formControlName="is_married" (change)="changeGender($event)">Yes
+                    <input id="male" type="radio" value="true" name="gender" formControlName="gender"
+                        (change)="changeGender($event)">
+                    <input id="male" type="radio" value="false" name="gender" formControlName="gender"
+                        (change)="changeGender($event)">
                 </mat-radio-button>
-                <mat-radio-button style="margin-left: 5px;" value="0" checked="{{ !personal.is_married }}">No
+                <mat-radio-button style="margin-left: 5px;" value="0" checked="{{ !personal.is_married }}"
+                    formControlName="is_married" (change)="changeGender($event)">No
                 </mat-radio-button>
             </mat-radio-group>
 

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatRadioChange } from '@angular/material/radio';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
 let getUser: any = {};
@@ -12,9 +14,26 @@ let getUser: any = {};
 })
 export class ProfileUserComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private api: ApiService,
+  ) { }
   @Input() employees!: any;
 
+  getUserInfo() {
+    console.log("update");
+    let user_id = this.employees[0].id;
+    this.api.getOneUser(user_id).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.employees = res.data;
+          console.log(this.employees);
+        }
+
+      }
+    })
+
+  }
 
   ngOnInit(): void {
     getUser = this.employees[0];
@@ -27,7 +46,7 @@ export class ProfileUserComponent implements OnInit {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
-      // this.getLeaveType();
+      this.getUserInfo();
     });
   }
   editBankDialog() {
@@ -82,7 +101,11 @@ export class ProfileUserComponent implements OnInit {
   templateUrl: 'personal-information-dialog.html'
 })
 export class DialogPersonalInformation implements OnInit {
-  constructor(private snackBar: SnackbarService, private api: ApiService, private dialogRef: MatDialogRef<DialogPersonalInformation>) { }
+  constructor(
+    private snackBar: SnackbarService,
+    private api: ApiService,
+    private dialogRef: MatDialogRef<ProfileUserComponent>
+  ) { }
 
   formGroup = new FormGroup({
     phone: new FormControl(''),
@@ -90,7 +113,11 @@ export class DialogPersonalInformation implements OnInit {
     religion: new FormControl(''),
     is_married: new FormControl(''),
   })
+  is_married = false;
   updatePersonalInfo() {
+    console.log(this.is_married);
+
+    console.log(this.personal.is_married);
     if (this.personal.phone && this.personal.nationality) {
       this.api.updateUser(this.personal).subscribe({
         next: res => {
@@ -107,6 +134,15 @@ export class DialogPersonalInformation implements OnInit {
 
 
 
+  }
+  changeGender(e: any) {
+    console.log(e.target.value);
+    // this.personal.is_married = e.target.value;
+    if (e.target.value === 'true') {
+      this.personal.is_married = true;
+    } else {
+      this.personal.is_married = false;
+    }
   }
   public personal: any = {
     id: getUser.id,
@@ -138,6 +174,34 @@ export class DialogFamiliyInformation {
   templateUrl: 'Bank-information-dialog.html'
 })
 export class DialogBankInformation {
+  constructor(private dialog: MatDialog,
+    private api: ApiService,) { }
+
+  formGroup = new FormGroup({
+    bank_name: new FormControl(''),
+    bank_no: new FormControl(''),
+    bank: new FormControl(''),
+  });
+  public updateBank = {
+    id: getUser.id,
+    bank_name: getUser.bank_name,
+    bank_no: getUser.bank_no,
+    bank: getUser.bank
+  }
+  updateBankInfo() {
+    if (this.updateBank.bank && this.updateBank.bank_no && this.updateBank.bank_name) {
+      this.api.getOneUser(this.updateBank.id).subscribe({
+        next: res => {
+          console.log(res);
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+
+    }
+  }
+
 
 }
 /**

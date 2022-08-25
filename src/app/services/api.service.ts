@@ -142,6 +142,13 @@ export class ApiService {
     return this.http.delete<any>(this.URL + '/employee/leave/delete/' + id);
   }
 
+  //bank
+
+  public updateBank(data: any) {
+    return this.http.delete<any>(this.URL + `/employee/bank/account/update/${data.id}`, data);
+  }
+
+
 
 
   //*** User Take ATTENDANCE**/

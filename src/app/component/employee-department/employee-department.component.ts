@@ -1,4 +1,3 @@
-import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -6,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/services/api.service';
+
 export interface Department {
   id: number;
   name: string;

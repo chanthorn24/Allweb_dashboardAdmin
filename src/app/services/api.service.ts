@@ -39,6 +39,11 @@ export class ApiService {
   public getOneUserByEmail(data: any) {
     return this.http.get<any>(this.URL + "/user/email", data)
   }
+  //update user
+  public updateUser(data: any) {
+    return this.http.put<any>(this.URL + `/user/update/${data.id}`, data);
+  }
+
   //get all department
   public getDepartment() {
     return this.http.get<any>(this.URL + '/department');

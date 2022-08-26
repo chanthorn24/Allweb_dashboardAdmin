@@ -79,7 +79,9 @@
                 style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
                 <div>Bank Information</div>
                 <button mat-icon-button>
-                    <mat-icon style="color: orange; " (click)="editBankDialog()">edit</mat-icon>
+                    <mat-icon *ngIf="employee.bank" style="color: orange; " (click)="editBankDialog()">edit</mat-icon>
+                    <mat-icon *ngIf="!employee.bank" style="color: rgb(45, 224, 90); " (click)="editBankDialog()">
+                        add_box</mat-icon>
                 </button>
             </mat-card-title>
             <mat-card-content>

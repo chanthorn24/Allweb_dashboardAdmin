@@ -143,12 +143,20 @@ export class ApiService {
   }
 
   //bank
-
+  public getAllBank() {
+    return this.http.get<any>(this.URL + '/employee/bank');
+  }
+  public updateBankAccount(data: any) {
+    return this.http.put<any>(this.URL + `/employee/bank/account/update/${data.id}`, data);
+  }
   public updateBank(data: any) {
-    return this.http.delete<any>(this.URL + `/employee/bank/account/update/${data.id}`, data);
+    return this.http.put<any>(this.URL + `/employee/bank/update/${data.id}`, data);
+
   }
 
 
+<<<<<<< HEAD
+=======
 
 
   //*** User Take ATTENDANCE**/
@@ -160,4 +168,5 @@ export class ApiService {
   public getTypeAttendance(user_id: any) {
     return this.http.get<any>(this.URL + '/employee/attendance/get-type/' + user_id);
   }
+>>>>>>> 864bb8236e1145d1c18da4505f9fb5899ac3ce2f
 }

@@ -2,17 +2,22 @@
     <h1 mat-dialog-title>Personal Information</h1>
     <form [formGroup]="formGroup">
         <div mat-dialog-content>
-            <mat-form-field appearance="outline" style="width: 100%;">
+
+            <mat-form-field appearance="outline" style="width: 100%" formControlName="bank">
                 <mat-label>Bank Name</mat-label>
-                <input matInput required [(ngModel)]="updateBank.bank" formControlName="bank" name="phone">
+                <mat-select disableRipple [(value)]="updateBankAccount.bank_id">
+                    <mat-option *ngFor=" let bank of banks" value="{{ bank.id }}">{{
+                        bank.name }}</mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Account Number</mat-label>
-                <input matInput required [(ngModel)]="updateBank.bank_no" formControlName="bank_no" name="nationality">
+                <input matInput required [(ngModel)]="updateBankAccount.number" formControlName="bank_no"
+                    name="nationality">
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Account Name</mat-label>
-                <input matInput [(ngModel)]="updateBank.bank_name" formControlName="bank_name">
+                <input matInput required [(ngModel)]="updateBankAccount.name" formControlName="bank_name">
             </mat-form-field>
 
 

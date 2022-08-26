@@ -24,15 +24,15 @@ export class EmployeeDetailComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private api: ApiService,
   ) {
-  this.employee_id = this.actRoute.snapshot.params['id'];
+    this.employee_id = this.actRoute.snapshot.params['id'];
 
-  this.asyncTabs = new Observable((observer: Observer<ProfileTab[]>) => {
+    this.asyncTabs = new Observable((observer: Observer<ProfileTab[]>) => {
       setTimeout(() => {
         observer.next([
-          {label: 'Profile', content: '1'},
-          {label: 'Project', content: '2'},
+          { label: 'Profile', content: '1' },
+          { label: 'Project', content: '2' },
         ]);
-      }, 1000);
+      }, 500);
     });
   }
 

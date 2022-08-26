@@ -1,3 +1,4 @@
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -54,7 +55,7 @@ export class ProfileUserComponent implements OnInit {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
-      // this.getLeaveType();
+      this.getUserInfo();
     });
   }
   editFamilyDialog() {
@@ -100,6 +101,7 @@ export class ProfileUserComponent implements OnInit {
   selector: 'personal-information-dialog',
   templateUrl: 'personal-information-dialog.html'
 })
+
 export class DialogPersonalInformation implements OnInit {
   constructor(
     private snackBar: SnackbarService,
@@ -107,16 +109,15 @@ export class DialogPersonalInformation implements OnInit {
     private dialogRef: MatDialogRef<ProfileUserComponent>
   ) { }
 
-  formGroup = new FormGroup({
-    phone: new FormControl(''),
-    nationality: new FormControl(''),
-    religion: new FormControl(''),
-    is_married: new FormControl(''),
-  })
-  is_married = false;
-  updatePersonalInfo() {
-    console.log(this.is_married);
+  dataChecked: boolean = true;
 
+  test!: boolean;
+  favoriteSeason!: string;
+  seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+
+
+  // is_married = false;
+  updatePersonalInfo() {
     console.log(this.personal.is_married);
     if (this.personal.phone && this.personal.nationality) {
       this.api.updateUser(this.personal).subscribe({
@@ -124,7 +125,6 @@ export class DialogPersonalInformation implements OnInit {
           console.log(res);
           this.dialogRef.close();
           this.snackBar.openSnackBarSuccess("Profile updated successfully");
-
         },
         error: err => {
           console.log(err);
@@ -144,6 +144,7 @@ export class DialogPersonalInformation implements OnInit {
       this.personal.is_married = false;
     }
   }
+
   public personal: any = {
     id: getUser.id,
     phone: getUser.phone,
@@ -153,6 +154,7 @@ export class DialogPersonalInformation implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.personal.is_married);
 
   }
 }
@@ -173,33 +175,65 @@ export class DialogFamiliyInformation {
   selector: 'Bank-information-dialog',
   templateUrl: 'Bank-information-dialog.html'
 })
-export class DialogBankInformation {
-  constructor(private dialog: MatDialog,
-    private api: ApiService,) { }
+export class DialogBankInformation implements OnInit {
+  constructor(
+    private dialogRef: DialogRef<DialogBankInformation>,
+    private api: ApiService,
+    private snackBar: SnackbarService,
+  ) { }
+  selectBank!: string;
 
   formGroup = new FormGroup({
     bank_name: new FormControl(''),
     bank_no: new FormControl(''),
-    bank: new FormControl(''),
+    bank_id: new FormControl(''),
   });
-  public updateBank = {
-    id: getUser.id,
-    bank_name: getUser.bank_name,
-    bank_no: getUser.bank_no,
-    bank: getUser.bank
+  public updateBankAccount = {
+    id: getUser.account_id,
+    name: getUser.bank_name,
+    number: getUser.bank_no,
+    bank_id: ""
   }
   updateBankInfo() {
-    if (this.updateBank.bank && this.updateBank.bank_no && this.updateBank.bank_name) {
-      this.api.getOneUser(this.updateBank.id).subscribe({
+    console.log(this.selectBank);
+    console.log(this.updateBankAccount.bank_id);
+    if (
+      this.updateBankAccount.name
+      && this.updateBankAccount.number
+      && this.updateBankAccount.bank_id
+    ) {
+      this.api.updateBankAccount(this.updateBankAccount).subscribe({
         next: res => {
           console.log(res);
+          this.snackBar.openSnackBarSuccess('Updated Bank Information successfully');
+          this.dialogRef.close();
         },
         error: err => {
           console.log(err);
         }
-      })
-
+      });
+    } else {
+      this.snackBar.openSnackBarWarn('No valid input');
     }
+  }
+  public banks: any = {
+    id: "",
+    name: ""
+  }
+  getAllBank() {
+    this.api.getAllBank().subscribe({
+      next: res => {
+        console.log(res);
+        this.banks = res.message;
+        console.log(this.banks);
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+  }
+  ngOnInit(): void {
+    this.getAllBank();
   }
 
 

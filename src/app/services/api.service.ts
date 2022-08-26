@@ -143,11 +143,16 @@ export class ApiService {
   }
 
   //bank
-
-  public updateBank(data: any) {
-    return this.http.delete<any>(this.URL + `/employee/bank/account/update/${data.id}`, data);
+  public getAllBank() {
+    return this.http.get<any>(this.URL + '/employee/bank');
   }
+  public updateBankAccount(data: any) {
+    return this.http.put<any>(this.URL + `/employee/bank/account/update/${data.id}`, data);
+  }
+  public updateBank(data: any) {
+    return this.http.put<any>(this.URL + `/employee/bank/update/${data.id}`, data);
 
+  }
 
 
 }

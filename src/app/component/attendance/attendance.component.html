@@ -12,13 +12,16 @@
 </div>
 <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
     <mat-card class="card-layout">
-        <h2>Timesheet<span style="font-weight: 400;"> {{todayWithPipe}} </span> </h2>
+        <h2>Timesheet<span style="font-weight: 400;"> {{ time | date : 'dd MMM YYYY  h:mm:ss a' }} </span> </h2>
         <mat-card>
-            <div style="font-weight: 400; font-size: 1.5em">Check In at</div>
-            <div style="font-weight: 300; font-size: 1.2em"> {{dateTime}} {{time | date: 'h:mm:ss a'}}</div>
+            <div style="font-weight: 400; font-size: 1.5em" *ngIf="checkType == 1 || checkType == 3">Clock In at</div>
+            <div style="font-weight: 400; font-size: 1.5em " *ngIf="checkType == 2 || checkType == 4">Clock Out at</div>
+            <div style="font-weight: 300; font-size: 1.2em"> {{dateTime}} {{ clockTime[checkType-1] | date : 'h:mm:ss a'}}</div>
         </mat-card>
-        <div style="transform: translateX(30%);margin: 1em;  ">
-            <div class="circle">8 hrs</div>
+        <div style="transform: translateX(30%);margin: 1em;">
+
+            <!--Total hours work-->
+            <div class="circle">{{ workTimeHour | number : ".1-1"}} Hours</div>
 
         </div>
     </mat-card>
@@ -28,9 +31,9 @@
             <div>
                 <div class="statistics__time">
                     <div>Today</div>
-                    <div>7<span> / 8hrs</span></div>
+                    <div>{{ workTimeHour | number : ".1-1"}}<span> / 8hrs</span></div>
                 </div>
-                <mat-progress-bar mode="determinate" value="90" style="border-radius: 10px;" class="today">
+                <mat-progress-bar mode="determinate" [value]="workTimeHour*100/8" tyle="border-radius: 10px;" class="today">
                 </mat-progress-bar>
             </div>
         </mat-card>
@@ -68,10 +71,16 @@
                     <div class="line"></div>
                 </div>
 
-                <div class="content">
-                    <span class="bold"> Check Out at</span>
+                <div class="content" *ngIf="checkType == 1 || checkType == 2 || checkType == 3 || checkType == 4">
+                    <span class="bold"> Clock In at</span>
                     <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>6:00 PM</span>
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[0] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[0]" style="color: red;">Missed</span>
+                    </div>
+                </div>
+                <div class="content" *ngIf="!checkType">
+                    <span class="bold"> Clock In at</span>
+                    <div style="display: flex;">
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
                     </div>
                 </div>
 
@@ -82,10 +91,16 @@
                     <div class="line"></div>
                 </div>
 
-                <div class="content">
-                    <span class="bold"> Check Out at</span>
+                <div class="content" *ngIf="checkType == 2 || checkType == 3 || checkType == 4">
+                    <span class="bold"> Clock Out at</span>
                     <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>6:00 PM</span>
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[1] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[1]" style="color: red;">Missed</span>
+                    </div>
+                </div>
+                <div class="content" *ngIf="!checkType">
+                    <span class="bold"> Clock In at</span>
+                    <div style="display: flex;">
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
                     </div>
                 </div>
 
@@ -96,10 +111,16 @@
                     <div class="line"></div>
                 </div>
 
-                <div class="content">
-                    <span class="bold"> Check Out at</span>
+                <div class="content" *ngIf="checkType == 3 || checkType == 4">
+                    <span class="bold"> Clock In at</span>
                     <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>6:00 PM</span>
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[2] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[2]" style="color: red;">Missed</span>
+                    </div>
+                </div>
+                <div class="content" *ngIf="!checkType">
+                    <span class="bold"> Clock In at</span>
+                    <div style="display: flex;">
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
                     </div>
                 </div>
 
@@ -110,10 +131,16 @@
                     <div class="line"></div>
                 </div>
 
-                <div class="content">
-                    <span class="bold"> Check Out at</span>
+                <div class="content" *ngIf="checkType == 4">
+                    <span class="bold"> Clock Out at</span>
                     <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>6:00 PM</span>
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[3] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[3]" style="color: red;">Missed</span>
+                    </div>
+                </div>
+                <div class="content" *ngIf="!checkType">
+                    <span class="bold"> Clock In at</span>
+                    <div style="display: flex;">
+                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
                     </div>
                 </div>
 
@@ -203,8 +230,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
 </div>

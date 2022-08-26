@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { MatSort } from '@angular/material/sort';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { parse } from 'date-fns';
 
 export interface leave {
   description: any,
@@ -268,8 +269,8 @@ export class DialogEditUserLeave {
     this.api.getOneLeaveUser(leave_id).subscribe({
       next: (res) => {
         this.empLeave.description = res.data[0].description;
-        this.empLeave.start = res.data[0].start.date;
-        this.empLeave.end = res.data[0].end.date;
+        this.empLeave.start = parse(res.data[0].start.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.end = parse(res.data[0].end.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
         this.empLeave.emp_leave_reason_id = res.data[0].emp_leave_reason_id;
       },
     })

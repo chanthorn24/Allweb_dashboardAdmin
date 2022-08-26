@@ -157,7 +157,7 @@ export class ApiService {
     return this.http.post<any>(this.URL + '/employee/attendance/create', data);
   }
   //get type attendance
-  public getTypeAttendance() {
-    return this.http.get<any>(this.URL + '/employee/attendance/get-type');
+  public getTypeAttendance(user_id: any) {
+    return this.http.get<any>(this.URL + '/employee/attendance/get-type/' + user_id);
   }
 }

@@ -3,6 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 
 import { MatTableDataSource } from '@angular/material/table';
+import { parse } from 'date-fns';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
+
+
 
 @Component({
   selector: 'app-attendance',
@@ -16,15 +21,16 @@ export class AttendanceComponent implements OnInit {
   dateTime!: any;
   time = new Date();
 
-  ngOnInit(): void {
-    setInterval(() => {
-      this.time = new Date(); //set time variable with current date
-    }, 1000); // set it every one seconds
+  //clock time
+  clockTime: any = [];
+  checkType!: any;
+  workTimeHour!: any;
 
-    this.todayWithPipe = this.pipe.transform(Date.now(), 'MMM/dd/yyyy');
-    this.dateTime = this.pipe.transform(Date.now(), 'EEEE, dd MMM yyyy');
-  }
-  constructor() { }
+
+  constructor(
+    private api: ApiService,
+    private auth: AuthService,
+  ) { }
 
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -35,6 +41,69 @@ export class AttendanceComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  //calculate work time
+  getWorkTime(start: any, end: any) {
+    let RELAX_TIME = 1.5;
+
+    if(start.getTime() >= 48600000) {
+      RELAX_TIME = 0;
+    }
+
+
+    let duration = (end.getTime() - start.getTime())/3600000;
+
+    return duration - RELAX_TIME;
+  }
+
+
+  ngOnInit(): void {
+    let email = this.auth.getEmail();
+    this.api.getOneUserByEmail(email).subscribe({
+      next: (res) => {
+        if(res.success) {
+          this.api.getTypeAttendance(res.data[0].id).subscribe({
+            next: (res) => {
+              if(res.success) {
+                let length = res.data.data.length;
+
+                // if(length == 1) {
+                //   this.clockTime[this.checkType-1] = res.data.data[0].created.date;
+                //   this.clockTime[5] = this.clockTime[this.checkType-1].slice(0,19);
+                // }else {
+                //   for(let i=0; i<length; i++) {
+                //     this.clockTime[i] = res.data.data[i].created.date;
+                //   }
+                //   this.clockTime[5] = this.clockTime[0].slice(0,19);
+                // }
+
+                  for(let i=0; i<length; i++) {
+                    this.checkType = res.data.data[i].attendance_type;
+                    this.clockTime[this.checkType-1] = res.data.data[i].created.date;
+                    if(i == 0) {
+                      this.clockTime[5] = this.clockTime[this.checkType-1].slice(0,19);
+                    }
+                  }
+                  // this.clockTime[5] = this.clockTime[0].slice(0,19);
+
+
+                let dateT = parse(this.clockTime[5], 'yyyy-M-d HH:mm:ss', new Date());
+
+                this.workTimeHour = this.getWorkTime(dateT, this.today);
+              }
+            }
+          })
+        }
+      }
+    })
+
+
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
+
+    this.dateTime = this.pipe.transform(Date.now(), 'EEEE, dd MMM yyyy');
   }
 
 }

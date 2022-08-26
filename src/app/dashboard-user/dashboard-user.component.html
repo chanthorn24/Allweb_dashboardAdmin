@@ -11,12 +11,18 @@
             <div style="display: flex; justify-content: center; align-items: center">
                 <div style="display: flex; align-items: center; flex-direction: column;">
                     <div>{{ time | date: "h:mm:ss a" }}</div>
+                    <div *ngIf="!time">00:00:00 AM</div>
                     <div>
                         {{ checkName }} at: {{ checkTime | date: "h:mm:ss a" }}
-                        <span *ngIf="!checkTime">N/A</span>
+                        <span *ngIf="!checkTime">00:00:00 AM</span>
                     </div>
                 </div>
                 <div style="margin-left: 20px;">
+                    <button *ngIf="!option.emp_attendance_type_id" disabled mat-raised-button color="primary" style="height: 60px;" (click)="checkIn()">
+                      <mat-icon>keyboard_tab</mat-icon>
+                      Clock in
+                    </button>
+
                     <button *ngIf="option.emp_attendance_type_id == '1' || option.emp_attendance_type_id == '3'" [disabled]="disable" mat-raised-button color="primary" style="height: 60px;" (click)="checkIn()">
                       <mat-icon>keyboard_tab</mat-icon>
                       Clock in

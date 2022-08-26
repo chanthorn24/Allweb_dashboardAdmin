@@ -84,18 +84,23 @@ export class DashboardUserComponent implements OnInit {
       next: (res) => {
         if(res.success) {
           this.option.employee_id = res.data[0].id;
+          this.api.getTypeAttendance(this.option.employee_id).subscribe({
+            next: (res) => {
+              if(res.success) {
+                this.option.emp_attendance_type_id = res.data.attendance_type;
+                this.option.time = res.data.date_time;
+                this.option.click = res.data.click;
+                this.checkTime = res.data.data[0].created.date;
+                if(this.option.click == 0) {
+                  this.disable = true;
+                }
+              }
+            }
+          })
         }
       }
     })
 
-    this.api.getTypeAttendance().subscribe({
-      next: (res) => {
-        this.option.emp_attendance_type_id = res.data.attendance_type;
-        this.option.time = res.data.date_time;
-        this.option.click = res.data.click;
-        console.log(this.option);
-      }
-    })
 
     if (this.auth.isAdmin()) {
       this.router.navigateByUrl("/");
@@ -105,21 +110,24 @@ export class DashboardUserComponent implements OnInit {
 
       let current_time = this.formatDate(this.time);
 
-      // if(current_time > "17:30:00" && this.option) {
-      //   this.option.emp_attendance_type_id = "4";
-      //   this.disable = false;
-      // }else if (current_time > "13:30:00") {
-      //   this.option.emp_attendance_type_id = "3";
-      //   this.disable = false;
-      // }else if (current_time > "12:00:00") {
-      //   this.option.emp_attendance_type_id = "2";
-      //   this.disable = false;
-      // }else if (current_time > "06:30:00") {
-      //   this.option.emp_attendance_type_id = "1";
-      //   this.disable = false;
-      // }
+      if(current_time == "17:30:00") {
+        this.option.emp_attendance_type_id = "4";
+        this.disable = false;
+      }
+      if(current_time == "13:30:00") {
+        this.option.emp_attendance_type_id = "3";
+        this.disable = false;
+      }
+      if(current_time == "12:00:00") {
+        this.option.emp_attendance_type_id = "2";
+        this.disable = false;
+      }
+      if(current_time == "06:30:00") {
+        this.option.emp_attendance_type_id = "1";
+        this.disable = false;
+      }
 
-    }, 1000); // set it every one seconds
-  }
+      }, 1000); // set it every one seconds
+    }
 
 }

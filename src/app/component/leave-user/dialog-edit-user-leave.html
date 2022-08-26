@@ -5,17 +5,17 @@
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Select Leave Type</mat-label>
             <mat-select disableRipple [(ngModel)]="empLeave.emp_leave_reason_id">
-                <mat-option value="1">Vacation</mat-option>
-                <mat-option value="2">Sick Leave</mat-option>
-                <mat-option value="3">Casual Leave</mat-option>
-                <mat-option value="4">Paternity Leave</mat-option>
+                <mat-option [value]="1">Vacation</mat-option>
+                <mat-option [value]="2">Sick Leave</mat-option>
+                <mat-option [value]="3">Casual Leave</mat-option>
+                <mat-option [value]="4">Paternity Leave</mat-option>
             </mat-select>
         </mat-form-field>
         <!--Date-->
         <div>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [rangePicker]=" picker">
+                <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Start date" [(ngModel)]="empLeave.start">
                     <input matEndDate placeholder="End date" [(ngModel)]="empLeave.end">
                 </mat-date-range-input>

@@ -22,6 +22,7 @@
     "@angular/router": "^14.1.0",
     "@auth0/angular-jwt": "^5.0.2",
     "apexcharts": "^3.35.4",
+    "date-fns": "^2.29.2",
     "ng-apexcharts": "^1.7.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

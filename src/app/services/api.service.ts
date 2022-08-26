@@ -154,11 +154,6 @@ export class ApiService {
 
   }
 
-
-<<<<<<< HEAD
-=======
-
-
   //*** User Take ATTENDANCE**/
   //take attendance
   public takeAttendance(data: any) {
@@ -168,5 +163,4 @@ export class ApiService {
   public getTypeAttendance(user_id: any) {
     return this.http.get<any>(this.URL + '/employee/attendance/get-type/' + user_id);
   }
->>>>>>> 864bb8236e1145d1c18da4505f9fb5899ac3ce2f
 }

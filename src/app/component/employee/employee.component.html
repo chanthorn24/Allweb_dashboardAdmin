@@ -26,21 +26,29 @@
         </div>
         <!--select-->
     </div>
-    <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
-        <div *ngFor="let employee of obs | async ">
-            <mat-card class="card-employee" style="display: flex; justify-content: center; align-items: center; flex-direction: column; width: 209.8px; margin: 10px 5px;">
-                <a routerLink="/employee/detail/{{ employee.id }}" style="overflow: hidden; border-radius: 100px;">
-                    <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
-                </a>
-                <a routerLink="/employee/{{ employee.id }}">
-                    <h3 style="margin-bottom: 4px; color: black;">{{ employee.firstName + " " + employee.lastName }}</h3>
-                </a>
-                <mat-card-subtitle style="font-size: 11px; color: rgb(94, 94, 94);">{{ employee.position }}</mat-card-subtitle>
-            </mat-card>
+
+    <!-- Employee Card -->
+    <div fxHide.gt-lg>
+        <span>Columns</span>
+        <mat-slider [(ngModel)]="gridColumns" [thumbLabel]="true" [min]="3" [max]="6"></mat-slider>
+    </div>
+    <div>
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" fxFlex.xl="20%" *ngFor="let employee of obs | async ">
+                <mat-card class="card-employee" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <a routerLink="/employee/detail/{{ employee.id }}" style="overflow: hidden; border-radius: 100px;">
+                        <img width="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
+                    </a>
+                    <a routerLink="/employee/{{ employee.id }}">
+                        <h3 style="margin-bottom: 4px; color: black;">{{ employee.firstName + " " + employee.lastName }}</h3>
+                    </a>
+                    <mat-card-subtitle style="font-size: 11px; color: rgb(94, 94, 94);">{{ employee.position }}</mat-card-subtitle>
+                </mat-card>
+            </div>
         </div>
     </div>
     <div>
-        <mat-paginator style="background-color: #fafafa" [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons aria-label="Select page of Department">
+        <mat-paginator style="background-color: #fafafa" [pageSizeOptions]="[gridColumns*4, gridColumns*8, gridColumns*16]" showFirstLastButtons aria-label="Select page of Department">
         </mat-paginator>
     </div>
     <mat-spinner *ngIf="spinner" style="margin: 0 auto;"></mat-spinner>

@@ -46,6 +46,7 @@ import { ProjectUserComponent } from './component/project-user/project-user.comp
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { EmployeeDepartmentComponent, DialogEmployeeDepartment, DialogUpdateDepartment, DialogDeleteDepartment } from './component/employee-department/employee-department.component';
 import { DialogDeletePosition, DialogEmployeePosition, DialogUpdatePosition, EmployeePositionComponent } from './component/employee-position/employee-position.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { DialogDeletePosition, DialogEmployeePosition, DialogUpdatePosition, Emp
     ReactiveFormsModule,
     MatNativeDateModule,
     NgApexchartsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule,
   ],
   providers: [AuthGuard, AuthService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]

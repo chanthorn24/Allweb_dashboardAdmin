@@ -7,3 +7,7 @@ a {
 h4 {
     margin: 0;
 } */
+.emp-detail-profile > h3{
+    color: #204290;
+    font-weight: 600;
+}

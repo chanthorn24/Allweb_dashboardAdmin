@@ -1,9 +1,9 @@
 <div style="width: 22vw; padding: 1em">
-    <h1 mat-dialog-title>Personal Information</h1>
-    <form [formGroup]="formGroup">
+    <h1 mat-dialog-title>Bank Information</h1>
+    <form>
         <div mat-dialog-content>
 
-            <mat-form-field appearance="outline" style="width: 100%" formControlName="bank">
+            <mat-form-field appearance="outline" style="width: 100%" name="bankName">
                 <mat-label>Bank Name</mat-label>
                 <mat-select disableRipple [(value)]="updateBankAccount.bank_id">
                     <mat-option *ngFor=" let bank of banks" value="{{ bank.id }}">{{
@@ -12,19 +12,17 @@
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Account Number</mat-label>
-                <input matInput required [(ngModel)]="updateBankAccount.number" formControlName="bank_no"
-                    name="nationality">
+                <input matInput required [(ngModel)]="updateBankAccount.number" name="AccountNumber">
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Account Name</mat-label>
-                <input matInput required [(ngModel)]="updateBankAccount.name" formControlName="bank_name">
+                <input matInput required [(ngModel)]="updateBankAccount.name" name="BankAccountName">
             </mat-form-field>
-
 
         </div>
         <div mat-dialog-actions>
             <button mat-button mat-dialog-close color="warn">Cancel</button>
-            <button type="submit" mat-raised-button color="primary" (click)="updateBankInfo()">OK</button>
+            <button type="submit" mat-raised-button color="primary" (click)="submit()">OK</button>
         </div>
     </form>
 </div>

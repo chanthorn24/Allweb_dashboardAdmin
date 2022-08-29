@@ -58,15 +58,8 @@ export class ProfileUserComponent implements OnInit {
       this.getUserInfo();
     });
   }
-  editFamilyDialog() {
-    const dialogRef = this.dialog.open(DialogPersonalInformation, {
-      autoFocus: false
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // this.getLeaveType();
-    });
-  }
-  addFamilyDialog() {
+
+  FamilyDialog() {
     const dialogRef = this.dialog.open(DialogFamiliyInformation, {
       autoFocus: false
     });
@@ -165,7 +158,24 @@ export class DialogPersonalInformation implements OnInit {
   selector: 'family-information-dialog',
   templateUrl: 'family-information-dialog.html'
 })
-export class DialogFamiliyInformation {
+export class DialogFamiliyInformation implements OnInit {
+  constructor(
+    private dialogRef: DialogRef<DialogBankInformation>,
+    private api: ApiService,
+    private snackBar: SnackbarService,
+  ) { }
+
+  public families = {
+    id: "",
+    family: getUser.family,
+    name: getUser.family[0].name,
+    phone: "",
+    family_relationship_id: ""
+  }
+  ngOnInit(): void {
+    console.log(getUser.family[0].name);
+  }
+
 
 }
 /**
@@ -182,17 +192,22 @@ export class DialogBankInformation implements OnInit {
     private snackBar: SnackbarService,
   ) { }
   selectBank!: string;
-
-  formGroup = new FormGroup({
-    bank_name: new FormControl(''),
-    bank_no: new FormControl(''),
-    bank_id: new FormControl(''),
-  });
   public updateBankAccount = {
     id: getUser.account_id,
     name: getUser.bank_name,
     number: getUser.bank_no,
-    bank_id: ""
+    bank_id: "",
+    user_id: "",
+  }
+
+  submit() {
+    //if user already has a  bank info
+    if (getUser.bank) {
+      this.updateBankInfo();
+    }
+    else {
+      this.createBankInfo();
+    }
   }
   updateBankInfo() {
     console.log(this.selectBank);
@@ -212,6 +227,26 @@ export class DialogBankInformation implements OnInit {
           console.log(err);
         }
       });
+    } else {
+      this.snackBar.openSnackBarWarn('No valid input');
+    }
+  }
+  createBankInfo() {
+    this.updateBankAccount.user_id = getUser.id;
+    console.log(this.updateBankAccount);
+
+    if (this.updateBankAccount.name && this.updateBankAccount.number && this.updateBankAccount.bank_id) {
+      console.log("ere", this.updateBankAccount);
+      this.api.createBankAccount(this.updateBankAccount).subscribe({
+        next: res => {
+          this.snackBar.openSnackBarSuccess('Created Successfully');
+          this.dialogRef.close();
+        },
+        error: err => {
+          this.snackBar.openSnackBarFail('Cannot add bank account information')
+
+        }
+      })
     } else {
       this.snackBar.openSnackBarWarn('No valid input');
     }

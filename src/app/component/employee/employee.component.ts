@@ -39,6 +39,9 @@ export class EmployeeComponent implements OnInit {
   //disable button add employee
   disable: boolean = false;
 
+  //grid
+  gridColumns: any = 4;
+
   //spnner
   spinner = true;
 

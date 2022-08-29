@@ -11,6 +11,8 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 })
 export class DashboardUserComponent implements OnInit {
 
+  //user name
+  user_name: any = "";
 
   //attendance
   public option = {
@@ -82,7 +84,11 @@ export class DashboardUserComponent implements OnInit {
     let email = this.auth.getEmail();
     this.api.getOneUserByEmail(email).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
+          console.log(res.data);
+          //user name
+          this.user_name = res.data[0].firstName + " " + res.data[0].lastName;
+
           this.option.employee_id = res.data[0].id;
           this.api.getTypeAttendance(this.option.employee_id).subscribe({
             next: (res) => {
@@ -90,7 +96,11 @@ export class DashboardUserComponent implements OnInit {
                 this.option.emp_attendance_type_id = res.data.attendance_type;
                 this.option.time = res.data.date_time;
                 this.option.click = res.data.click;
-                this.checkTime = res.data.data[0].created.date;
+
+                let length = res.data.data.length;
+                console.log(length);
+
+                this.checkTime = res.data.data[length-1].created.date;
                 if(this.option.click == 0) {
                   this.disable = true;
                 }

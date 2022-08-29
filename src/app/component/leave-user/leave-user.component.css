@@ -3,7 +3,7 @@
 }
 .mat-row:nth-child(2n){
     background-color: #f9fafb;
-   
+
   }
 
   .mat-row:not(:nth-child(n)){
@@ -24,26 +24,26 @@
     font-size: 14px;
   }
     */
-
-    /* @import url('../leave-user/leave-user.component.css'); */
-.table__section{
-  width: 100%;
-  margin: 2em 0;
-
-}
-.mat-row .mat-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
-}
-.mat-header-cell{
-    font-weight: 600;
-}
-.mat-header-cell{
-  background-color:#f9fafb;
-  color: #000;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-
+ /* @import url('../leave-user/leave-user.component.css'); */
+ 
+ .table__section {
+     width: 100%;
+     margin: 2em 0;
+ }
+ 
+ .mat-row .mat-cell {
+     border-bottom: 1px solid transparent;
+     border-top: 1px solid transparent;
+     cursor: pointer;
+ }
+ 
+ .mat-header-cell {
+     font-weight: 600;
+ }
+ 
+ .mat-header-cell {
+     background-color: #f9fafb;
+     color: #000;
+     font-weight: 500;
+     font-size: 14px;
+ }

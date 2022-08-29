@@ -163,4 +163,24 @@ export class ApiService {
   public getTypeAttendance(user_id: any) {
     return this.http.get<any>(this.URL + '/employee/attendance/get-type/' + user_id);
   }
+  //get all attendance type
+  public getAllAttendanceTypes() {
+    return this.http.get<any>(this.URL + '/employee/attendance/type');
+  }
+  //get attendance type by id
+  public getAttendanceTypeById(id: any) {
+    return this.http.get<any>(this.URL + '/employee/attendance/type/' + id);
+  }
+  //create attendance type
+  public addAttendanceType(data: any) {
+    return this.http.post<any>(this.URL + '/employee/attendance/type/create', data);
+  }
+  //update attendance type
+  public updateAttendanceType(data: any) {
+    return this.http.put<any>(this.URL + '/employee/attendance/type/update/' + data.id, data);
+  }
+  //delete attendance type
+  public deleteAttendanceType(id: any) {
+    return this.http.delete<any>(this.URL + '/employee/attendance/type/delete/' + id);
+  }
 }

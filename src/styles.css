@@ -23,6 +23,9 @@ a:hover {
     color: rgb(132, 131, 131);
 }
 
+
+/** Snack bar **/
+
 .blue-snackbar {
     background-color: #3bbd9f;
     color: #fff;
@@ -36,4 +39,14 @@ a:hover {
 .warn-snackbar {
     background-color: rgb(16, 88, 165);
     color: white;
+}
+
+
+/** Actions table **/
+
+.mat-column-actions {
+    width: 15%;
+    text-align: center !important;
+    padding-left: 20px !important;
+    font-weight: bold;
 }

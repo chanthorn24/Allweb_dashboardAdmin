@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
   public chartOptions!: Partial<ChartOptions>;
   public columnchartOptions!: Partial<ColumnChartOptions>;
   constructor(private authService: AuthService, private router: Router) {
+    //pie charts
     this.chartOptions = {
       series: [50, 16],
       chart: {
@@ -56,6 +57,8 @@ export class DashboardComponent implements OnInit {
         }
       ]
     };
+
+    //column chart
     this.columnchartOptions = {
       series: [
         {
@@ -74,7 +77,7 @@ export class DashboardComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "55%",
+          columnWidth: "50%",
           endingShape: "rounded"
         }
       },

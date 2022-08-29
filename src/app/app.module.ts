@@ -47,6 +47,11 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
 import { EmployeeDepartmentComponent, DialogEmployeeDepartment, DialogUpdateDepartment, DialogDeleteDepartment } from './component/employee-department/employee-department.component';
 import { DialogDeletePosition, DialogEmployeePosition, DialogUpdatePosition, EmployeePositionComponent } from './component/employee-position/employee-position.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EmployeeRoleComponent } from './component/employee-role/employee-role.component';
+import { EmployeeBankComponent } from './component/employee-bank/employee-bank.component';
+import { EmployeeDegreeComponent } from './component/employee-degree/employee-degree.component';
+import { EmployeeFamilyComponent } from './component/employee-family/employee-family.component';
+import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateAttendanceType, EmployeeAttendanceTypeComponent } from './component/employee-attendance-type/employee-attendance-type.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +98,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     DialogEditEmployeeLeave,
     DialogDeleteUserLeave,
     DialogEditUserLeave,
+    EmployeeRoleComponent,
+    EmployeeBankComponent,
+    EmployeeDegreeComponent,
+    EmployeeFamilyComponent,
+    EmployeeAttendanceTypeComponent,
+    DialogEmployeeAttendanceType,
+    DialogDeleteAttendanceType,
+    DialogUpdateAttendanceType,
   ],
   imports: [
     BrowserModule,

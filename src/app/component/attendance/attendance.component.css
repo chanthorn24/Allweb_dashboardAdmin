@@ -1,17 +1,11 @@
-.card-layout{
-    width: 29%;
-    margin: 2%;
-    height: 21em;
-    padding: 1em;
-}
-.circle{
+.circle {
     height: 6em;
     width: 6em;
     background-color: rgba(144, 144, 144, 0.1);
     border-radius: 100%;
-    border: 1em solid #F89926 ;
+    border: 1em solid #F89926;
     display: inline-block;
-    text-align:center;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,117 +13,124 @@
     font-weight: 500;
 }
 
-.statistics{
+.statistics {
     margin: 1.4em 0;
 }
-.statistics__time{
+
+.statistics__time {
     display: flex;
     justify-content: space-between;
 }
-.today ::ng-deep.mat-progress-bar-fill::after  {
+
+.today ::ng-deep.mat-progress-bar-fill::after {
     background-color: #F89926;
 }
-.thismonth ::ng-deep.mat-progress-bar-fill::after  {
+
+.thismonth ::ng-deep.mat-progress-bar-fill::after {
     background-color: #00c886;
 }
+
+
 /* Customer Stepper */
 
 .container__activity {
     width: 90%;
-  }
-  
-  .step {
-    
+}
+
+.step {
     padding: 10px;
-    
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    
     background-color: cream;
-  }
-  
-  .v-stepper {
+}
+
+.v-stepper {
     position: relative;
-  /*   visibility: visible; */
-  }
-  
-  
-  /* regular step */
-  .step .circle {
+    /*   visibility: visible; */
+}
+
+
+/* regular step */
+
+.step .circle {
     background-color: white;
     border: 3px solid gray;
     border-radius: 100%;
-    width: 20px;    /* +6 for border */
+    width: 20px;
+    /* +6 for border */
     height: 20px;
     display: inline-block;
-  }
-  
-  .step .line {
-      top: 23px;
+}
+
+.step .line {
+    top: 23px;
     left: 12px;
-  /*   height: 120px; */
+    /*   height: 120px; */
     height: 100%;
-      
-      position: absolute;
-      border-left: 3px solid #F89926;;
-  }
-  
-  .step.completed .circle {
+    position: absolute;
+    border-left: 3px solid #F89926;
+    ;
+}
+
+.step.completed .circle {
     visibility: visible;
     background-color: #F89926;
     border-color: #F89926;
-  }
-  
-  .step.completed .line {
+}
+
+.step.completed .line {
     border-left: 3px solid #F89926;
-  }
-  
-  .step.active .circle {
-  visibility: visible;
+}
+
+.step.active .circle {
+    visibility: visible;
     border-color: #F89926;
-  }
-  
-  .step.empty .circle {
-      visibility: hidden;
-  }
-  
-  .step.empty .line {
-  /*     visibility: hidden; */
-  /*   height: 150%; */
+}
+
+.step.empty .circle {
+    visibility: hidden;
+}
+
+.step.empty .line {
+    /*     visibility: hidden; */
+    /*   height: 150%; */
     top: 0;
     height: 150%;
-  }
-  
-  
-  .step:last-child .line {
+}
+
+.step:last-child .line {
     border-left: 3px solid white;
-    z-index: -1; /* behind the circle to completely hide */
-  }
-  
-  .content {
+    z-index: -1;
+    /* behind the circle to completely hide */
+}
+
+.content {
     margin-left: 20px;
     display: block;
-  }
-  
-  
-  /* codepen override */
-  html *
-  {
-     font-size: 15px !important;
-     color: #000 !important;
-     font-family: Arial !important;
-  }
-  .bold{
-      font-weight: 500;
-  }
-.container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-   height:100px; 
-   width: 100%;
 }
-  .option{
+
+
+/* codepen override */
+
+html * {
+    font-size: 15px !important;
+    color: #000 !important;
+    font-family: Arial !important;
+}
+
+.bold {
+    font-weight: 500;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 100px;
-  }
+    width: 100%;
+}
+
+.option {
+    height: 100px;
+}

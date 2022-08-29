@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AuthService } from './../services/auth.service';
+import { ApiService } from '../services/api.service';
 // export interface ChildrenItems {
 //     state: string;
 //     name: string;
@@ -53,6 +54,9 @@ import { AuthService } from './../services/auth.service';
   styleUrls: ['./navigation-user.component.css']
 })
 export class NavigationUserComponent {
+  //user name
+  user_name: any = "";
+  imageURL: any = "";
 
   //sub menu
   showSubmenu: boolean = true;
@@ -67,12 +71,27 @@ export class NavigationUserComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService,
+    private api: ApiService,
+    private auth: AuthService,
+  ) { }
 
   logout() {
     this.authService.logout();
   }
   ngOnInit(): void {
+    //email user
+    let email = this.auth.getEmail();
+    this.api.getOneUserByEmail(email).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.user_name = res.data[0].firstName + " " + res.data[0].lastName;
+          this.imageURL = res.data[0].imageURL;
+        }
+      }
+    })
   }
 
 }

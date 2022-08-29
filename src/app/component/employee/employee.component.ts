@@ -4,10 +4,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ApiService } from 'src/app/services/api.service';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs/internal/Observable';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 //select error
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -69,18 +69,12 @@ export class EmployeeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.disable = !this.disable;
-      this.api.getUser().subscribe({
-      next: (res) => {
-        this.employees = res.data;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+      this.getEmployeeData();
     });
   }
 
-  ngOnInit(): void {
+  //get employee data
+  getEmployeeData() {
     this.api.getUser().subscribe({
       next: (res) => {
         this.dataSource = new MatTableDataSource<Employees>(res.data);
@@ -97,6 +91,10 @@ export class EmployeeComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void {
+    this.getEmployeeData();
+  }
+
 }
 
 @Component({
@@ -104,14 +102,11 @@ export class EmployeeComponent implements OnInit {
   templateUrl: './dialog-elements-dialog.html',
 })
 export class DialogElementsDialog {
-  //snackbar
-  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-  duration = 5;
+
   constructor(
     private api: ApiService,
-    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<DialogElementsDialog>,
+    private snackBar: SnackbarService,
   ) { }
 
 
@@ -217,13 +212,13 @@ export class DialogElementsDialog {
       next: (res) => {
         if (res.success) {
           this.dialogRef.close();
-          this.openSnackBarSuccess(res.message);
+          this.snackBar.openSnackBarSuccess(res.message);
         }
 
       },
       error: (error) => {
         console.log(error);
-        this.openSnackBarError(error.error.message);
+        this.snackBar.openSnackBarFail(error.error.message);
 
       }
     })
@@ -231,23 +226,6 @@ export class DialogElementsDialog {
     this.userCollection.dateOfBith = new Date();
     this.userCollection.joinDate = new Date();
 
-  }
-
-  openSnackBarSuccess(message: string) {
-    this._snackBar.open(message, 'Cancel', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: this.duration * 1000,
-      panelClass: ['blue-snackbar']
-    });
-  }
-  openSnackBarError(message: string) {
-    this._snackBar.open(message, 'Cancel', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: this.duration * 1000,
-      panelClass: ['red-snackbar']
-    });
   }
 
   ngOnInit(): void {

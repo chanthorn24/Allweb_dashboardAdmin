@@ -4,110 +4,122 @@
         <h3 style="margin: 0;">Welcome</h3>
         <span style="margin-left: 5px; font-size: 24px; font-weight: 400;">Admin!</span>
     </div>
-    <div style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center;">
-        <mat-card style="margin: 20px 10px; width: 17vw; display: flex; flex-direction: row; align-items: center;">
-            <div style="width: 70%;">
-                <mat-card-title>
-                    <div class="mat-h1">
-                        Employees
-                    </div>
-                </mat-card-title>
-                <mat-card-content style="display: flex; justify-content: center">
-                    10
-                </mat-card-content>
-            </div>
-            <div>
-                <button mat-fab color="primary" style="height: 70px; width: 70px;">
-                <div class="icon">
-                  <mat-icon [inline]="true">people_outline</mat-icon>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid" style="padding-top: 10px;">
+        <div fxFlex="25%" fxFlex.sm="50%">
+            <mat-card style="display: flex; flex-direction: row; align-items: center; height: 86px;">
+                <div style="width: 70%;">
+                    <mat-card-title>
+                        <div class="mat-h1">
+                            Employees
+                        </div>
+                    </mat-card-title>
+                    <mat-card-content style="display: flex; justify-content: center">
+                        10
+                    </mat-card-content>
                 </div>
-        </button>
-            </div>
-        </mat-card>
-        <mat-card style="margin: 20px 10px; width: 17vw; display: flex; flex-direction: row; align-items: center;">
-            <div style="width: 70%;">
-                <mat-card-title>
-                    <div class="mat-h1">
-                        New Employee
+                <div>
+                    <button mat-fab color="primary" style="height: 70px; width: 70px;">
+                    <div class="icon">
+                      <mat-icon [inline]="true">people_outline</mat-icon>
                     </div>
-                </mat-card-title>
-                <mat-card-content style="display: flex; justify-content: center">
-                    0
-                </mat-card-content>
-            </div>
-            <div>
-                <button mat-fab color="primary" style="height: 70px; width: 70px;">
-                <div class="icon">
-                  <mat-icon [inline]="true">person_add</mat-icon>
+                  </button>
                 </div>
-        </button>
-            </div>
-        </mat-card>
-        <mat-card style="margin: 20px 10px; width: 17vw; display: flex; flex-direction: row; align-items: center;">
-            <div style="width: 70%;">
-                <mat-card-title>
-                    <div class="mat-h1">
-                        Leave
+            </mat-card>
+        </div>
+        <div fxFlex="25%" fxFlex.sm="50%">
+            <mat-card style="display: flex; flex-direction: row; align-items: center; height: 86px;">
+                <div style="width: 70%;">
+                    <mat-card-title>
+                        <div class="mat-h1">
+                            New Employee
+                        </div>
+                    </mat-card-title>
+                    <mat-card-content style="display: flex; justify-content: center">
+                        0
+                    </mat-card-content>
+                </div>
+                <div>
+                    <button mat-fab color="primary" style="height: 70px; width: 70px;">
+                    <div class="icon">
+                      <mat-icon [inline]="true">person_add</mat-icon>
                     </div>
-                </mat-card-title>
-                <mat-card-content style="display: flex; justify-content: center">
-                    0
-                </mat-card-content>
-            </div>
-            <div>
-                <button mat-fab color="primary" style="height: 70px; width: 70px;">
-                <div class="icon">
-                  <mat-icon [inline]="true">event_note</mat-icon>
+                  </button>
                 </div>
-        </button>
-            </div>
-        </mat-card>
-        <mat-card style="margin: 20px 10px; width: 17vw; display: flex; flex-direction: row; align-items: center;">
-            <div style="width: 70%;">
-                <mat-card-title>
-                    <div class="mat-h1">
-                        Attendance
+            </mat-card>
+        </div>
+        <div fxFlex="25%" fxFlex.sm="50%">
+            <mat-card style="display: flex; flex-direction: row; align-items: center; height: 86px;">
+                <div style="width: 70%;">
+                    <mat-card-title>
+                        <div class="mat-h1">
+                            Leave
+                        </div>
+                    </mat-card-title>
+                    <mat-card-content style="display: flex; justify-content: center">
+                        0
+                    </mat-card-content>
+                </div>
+                <div>
+                    <button mat-fab color="primary" style="height: 70px; width: 70px;">
+                    <div class="icon">
+                      <mat-icon [inline]="true">event_note</mat-icon>
                     </div>
-                </mat-card-title>
-                <mat-card-content style="display: flex; justify-content: center">
-                    0
-                </mat-card-content>
-            </div>
-            <div>
-                <button mat-fab color="primary" style="height: 70px; width: 70px; ">
-                <div class="icon">
-                  <mat-icon [inline]="true">event_available</mat-icon>
+                  </button>
                 </div>
-        </button>
-            </div>
-        </mat-card>
+            </mat-card>
+        </div>
+        <div fxFlex="25%" fxFlex.sm="50%">
+            <mat-card style="display: flex; flex-direction: row; align-items: center; height: 86px;">
+                <div style="width: 70%;">
+                    <mat-card-title>
+                        <div class="mat-h1">
+                            Attendance
+                        </div>
+                    </mat-card-title>
+                    <mat-card-content style="display: flex; justify-content: center">
+                        0
+                    </mat-card-content>
+                </div>
+                <div>
+                    <button mat-fab color="primary" style="height: 70px; width: 70px; ">
+                    <div class="icon">
+                      <mat-icon [inline]="true">event_available</mat-icon>
+                    </div>
+                  </button>
+                </div>
+            </mat-card>
+        </div>
     </div>
-    <div style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center;">
-        <mat-card style="margin: 20px 10px; width: 37.5vw;">
-            <mat-card-header>
-                <div class="mat-h1">
-                    Total revenue
-                </div>
-            </mat-card-header>
-            <mat-card-content>
-                <div id="chart">
-                    <apx-chart [series]="columnchartOptions.series" [chart]="columnchartOptions.chart" [dataLabels]="columnchartOptions.dataLabels" [plotOptions]="columnchartOptions.plotOptions" [yaxis]="columnchartOptions.yaxis" [legend]="columnchartOptions.legend" [fill]="columnchartOptions.fill"
-                        [stroke]="columnchartOptions.stroke" [tooltip]="columnchartOptions.tooltip" [xaxis]="columnchartOptions.xaxis"></apx-chart>
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <mat-card style="margin: 20px 10px; width: 37.5vw; height: 410px;">
-            <mat-card-header>
-                <div class="mat-h1">
-                    Exployee structure
-                </div>
-            </mat-card-header>
-            <mat-card-content>
-                <div id="chart">
-                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels" [responsive]="chartOptions.responsive"></apx-chart>
-                </div>
-            </mat-card-content>
-        </mat-card>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid" style="padding-top: 20px;">
+        <div fxFlex="50%" fxFlex.md="100%">
+            <mat-card style="height: 410px;">
+                <mat-card-header>
+                    <div class="mat-h1">
+                        Total revenue
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <div id="chart">
+                        <apx-chart [series]="columnchartOptions.series" [chart]="columnchartOptions.chart" [dataLabels]="columnchartOptions.dataLabels" [plotOptions]="columnchartOptions.plotOptions" [yaxis]="columnchartOptions.yaxis" [legend]="columnchartOptions.legend" [fill]="columnchartOptions.fill"
+                            [stroke]="columnchartOptions.stroke" [tooltip]="columnchartOptions.tooltip" [xaxis]="columnchartOptions.xaxis"></apx-chart>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxFLex="100%" fxFlex.md="100%">
+            <mat-card style="height: 410px; width: 38.385vw;">
+                <mat-card-header>
+                    <div class=" mat-h1 ">
+                        Exployee structure
+                    </div>
+                </mat-card-header>
+                <mat-card-content style="margin-top: 30px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <div id="chart ">
+                        <apx-chart [series]="chartOptions.series " [chart]="chartOptions.chart " [labels]="chartOptions.labels " [responsive]="chartOptions.responsive "></apx-chart>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
 
 </div>

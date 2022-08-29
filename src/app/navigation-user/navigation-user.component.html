@@ -59,7 +59,7 @@
                         </a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a style="margin: -16px; padding: 10px 3.8rem 10px 16px;" routerLink="/employee/detail/1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a style="margin: -16px; padding: 10px 3.4rem 10px 16px;" routerLink="/employee/detail/1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <!-- <mat-icon>people</mat-icon> -->
                             <h3>Update Profile</h3>
                         </a>
@@ -83,8 +83,8 @@
                     <button mat-button [matMenuTriggerFor]="menu" style="height: 66px;">
                       <!-- <mat-icon>account_circle</mat-icon> -->
                       <div style="display: flex; align-items: center">
-                        <img height="30px" width="30px" style="border: 2px solid #F89926; border-radius: 30px;" src="https://th.bing.com/th/id/OIP.GlXqxcR9EmviN5kuwaUsMQHaIB?pid=ImgDet&rs=1" alt="#">
-                        <h6 style="margin-left: 10px;">User name</h6>
+                        <img height="30px" width="30px" style="border: 2px solid #F89926; border-radius: 30px;" src="{{ imageURL ? imageURL : '/assets/images/profile_user.png' }}" alt="#">
+                        <h6 style="margin-left: 10px;">{{ user_name }}</h6>
                       </div>
                     </button>
                     <mat-menu #menu="matMenu">

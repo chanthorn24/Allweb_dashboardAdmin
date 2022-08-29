@@ -10,151 +10,137 @@
         <h4 style="margin-left: 3px;">/ Attendance</h4>
     </div>
 </div>
-<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-    <mat-card class="card-layout">
-        <h2>Timesheet<span style="font-weight: 400;"> {{ time | date : 'dd MMM YYYY  h:mm:ss a' }} </span> </h2>
-        <mat-card>
-            <div style="font-weight: 400; font-size: 1.5em" *ngIf="checkType == 1 || checkType == 3">Clock In at</div>
-            <div style="font-weight: 400; font-size: 1.5em " *ngIf="checkType == 2 || checkType == 4">Clock Out at</div>
-            <div style="font-weight: 300; font-size: 1.2em"> {{dateTime}} {{ clockTime[checkType-1] | date : 'h:mm:ss a'}}</div>
-        </mat-card>
-        <div style="transform: translateX(30%);margin: 1em;">
-
-            <!--Total hours work-->
-            <div class="circle">{{ workTimeHour | number : ".1-1"}} Hours</div>
-
-        </div>
-    </mat-card>
-    <mat-card class="card-layout">
-        <h2>Statistics</h2>
-        <mat-card class="statistics">
-            <div>
-                <div class="statistics__time">
-                    <div>Today</div>
-                    <div>{{ workTimeHour | number : ".1-1"}}<span> / 8hrs</span></div>
-                </div>
-                <mat-progress-bar mode="determinate" [value]="workTimeHour*100/8" tyle="border-radius: 10px;" class="today">
-                </mat-progress-bar>
+<div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="33%" fxFlex.sm="50%">
+        <mat-card style="height: 300px;">
+            <h2>Timesheet<span style="font-weight: 400;"> {{ time | date : 'dd MMM YYYY  h:mm:ss a' }} </span> </h2>
+            <mat-card>
+                <div style="font-weight: 400; font-size: 1.5em" *ngIf="checkType == 1 || checkType == 3">Clock In at</div>
+                <div style="font-weight: 400; font-size: 1.5em " *ngIf="checkType == 2 || checkType == 4">Clock Out at</div>
+                <div style="font-weight: 300; font-size: 1.2em"> {{dateTime}} {{ clockTime[checkType-1] | date : 'h:mm:ss a'}}</div>
+            </mat-card>
+            <div style="transform: translateX(30%);margin: 1em;">
+                <!--Total hours work-->
+                <div class="circle">{{ workTimeHour | number : ".1-1"}} Hours</div>
             </div>
         </mat-card>
-        <mat-card class="statistics">
-            <div>
-                <div class="statistics__time">
-                    <div>This Week</div>
-                    <div>7<span> / 8hrs</span></div>
+    </div>
+    <div fxFlex="33%" fxFlex.sm="50%">
+        <mat-card style="height: 300px;">
+            <h2>Statistics</h2>
+            <mat-card class="statistics">
+                <div>
+                    <div class="statistics__time">
+                        <div>Today</div>
+                        <div>{{ workTimeHour | number : ".1-1"}}<span> / 8hrs</span></div>
+                    </div>
+                    <mat-progress-bar mode="determinate" [value]="workTimeHour*100/8" tyle="border-radius: 10px;" class="today">
+                    </mat-progress-bar>
                 </div>
-                <mat-progress-bar mode="determinate" value="30" style="border-radius: 10px;" class="thisweek">
-                </mat-progress-bar>
+            </mat-card>
+            <mat-card class="statistics">
+                <div>
+                    <div class="statistics__time">
+                        <div>This Week</div>
+                        <div>7<span> / 8hrs</span></div>
+                    </div>
+                    <mat-progress-bar mode="determinate" value="30" style="border-radius: 10px;" class="thisweek">
+                    </mat-progress-bar>
+                </div>
+            </mat-card>
+            <mat-card class="statistics">
+                <div>
+                    <div class="statistics__time">
+                        <div>This Month</div>
+                        <div>7<span> / 8hrs</span></div>
+                    </div>
+                    <mat-progress-bar mode="determinate" value="40" style="border-radius: 10px;" class="thismonth">
+                    </mat-progress-bar>
+                </div>
+            </mat-card>
+
+        </mat-card>
+    </div>
+    <div fxFlex="34%" fxFlex.sm="50%">
+        <mat-card style="height: 300px;">
+            <h2>Today Activity</h2>
+            <div class="container__activity">
+                <!-- active -->
+                <div class="step completed">
+                    <div class="v-stepper">
+                        <div class="circle"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="content" *ngIf="checkType == 1 || checkType == 2 || checkType == 3 || checkType == 4">
+                        <span class="bold"> Clock In at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[0] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[0]" style="color: red;">Missed</span>
+                        </div>
+                    </div>
+                    <div class="content" *ngIf="!checkType">
+                        <span class="bold"> Clock In at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="step active">
+                    <div class="v-stepper">
+                        <div class="circle"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="content" *ngIf="checkType == 2 || checkType == 3 || checkType == 4">
+                        <span class="bold"> Clock Out at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[1] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[1]" style="color: red;">Missed</span>
+                        </div>
+                    </div>
+                    <div class="content" *ngIf="!checkType">
+                        <span class="bold"> Clock In at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="step completed">
+                    <div class="v-stepper">
+                        <div class="circle"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="content" *ngIf="checkType == 3 || checkType == 4">
+                        <span class="bold"> Clock In at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[2] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[2]" style="color: red;">Missed</span>
+                        </div>
+                    </div>
+                    <div class="content" *ngIf="!checkType">
+                        <span class="bold"> Clock In at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="step active">
+                    <div class="v-stepper">
+                        <div class="circle"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="content" *ngIf="checkType == 4">
+                        <span class="bold"> Clock Out at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[3] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[3]" style="color: red;">Missed</span>
+                        </div>
+                    </div>
+                    <div class="content" *ngIf="!checkType">
+                        <span class="bold"> Clock In at</span>
+                        <div style="display: flex;">
+                            <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
+                        </div>
+                    </div>
+                </div>
             </div>
         </mat-card>
-        <mat-card class="statistics">
-            <div>
-                <div class="statistics__time">
-                    <div>This Month</div>
-                    <div>7<span> / 8hrs</span></div>
-                </div>
-                <mat-progress-bar mode="determinate" value="40" style="border-radius: 10px;" class="thismonth">
-                </mat-progress-bar>
-            </div>
-        </mat-card>
-
-    </mat-card>
-    <mat-card class="card-layout">
-        <h2>Today Activity</h2>
-        <div class="container__activity">
-
-
-            <!-- active -->
-            <div class="step completed">
-                <div class="v-stepper">
-                    <div class="circle"></div>
-                    <div class="line"></div>
-                </div>
-
-                <div class="content" *ngIf="checkType == 1 || checkType == 2 || checkType == 3 || checkType == 4">
-                    <span class="bold"> Clock In at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[0] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[0]" style="color: red;">Missed</span>
-                    </div>
-                </div>
-                <div class="content" *ngIf="!checkType">
-                    <span class="bold"> Clock In at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
-                    </div>
-                </div>
-
-            </div>
-            <div class="step active">
-                <div class="v-stepper">
-                    <div class="circle"></div>
-                    <div class="line"></div>
-                </div>
-
-                <div class="content" *ngIf="checkType == 2 || checkType == 3 || checkType == 4">
-                    <span class="bold"> Clock Out at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[1] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[1]" style="color: red;">Missed</span>
-                    </div>
-                </div>
-                <div class="content" *ngIf="!checkType">
-                    <span class="bold"> Clock In at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
-                    </div>
-                </div>
-
-            </div>
-            <div class="step completed">
-                <div class="v-stepper">
-                    <div class="circle"></div>
-                    <div class="line"></div>
-                </div>
-
-                <div class="content" *ngIf="checkType == 3 || checkType == 4">
-                    <span class="bold"> Clock In at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[2] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[2]" style="color: red;">Missed</span>
-                    </div>
-                </div>
-                <div class="content" *ngIf="!checkType">
-                    <span class="bold"> Clock In at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
-                    </div>
-                </div>
-
-            </div>
-            <div class="step active">
-                <div class="v-stepper">
-                    <div class="circle"></div>
-                    <div class="line"></div>
-                </div>
-
-                <div class="content" *ngIf="checkType == 4">
-                    <span class="bold"> Clock Out at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon><span>{{ clockTime[3] | date : 'h:mm:ss a'}}</span><span *ngIf="!clockTime[3]" style="color: red;">Missed</span>
-                    </div>
-                </div>
-                <div class="content" *ngIf="!checkType">
-                    <span class="bold"> Clock In at</span>
-                    <div style="display: flex;">
-                        <mat-icon style="font-size: 1.45em;">access_time</mat-icon>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-        </div>
-
-
-
-
-
-    </mat-card>
+    </div>
 
 
 </div>

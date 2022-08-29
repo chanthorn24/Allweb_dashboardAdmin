@@ -8,23 +8,33 @@
             <h4 style="margin-left: 3px;">/ Detail</h4>
         </div>
         <mat-card style="display: flex; flex-direction: row">
-            <div
-                style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
+            <div style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
                 <div>
-                    <img width="100px" height="100px" style="border-radius: 100px;"
-                        src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
+                    <img width="100px" height="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
                 </div>
-                <div style="margin-left: 10px;">
+                <div style="margin-left: 10px; width: 50%;">
                     <h3 style="font-weight: 600;">{{ employee.lastName + " " + employee.firstName }}</h3>
                     <h4>{{ employee.department }}</h4>
                     <h4>{{ employee.position }}</h4>
                     <div style="display: flex; flex-direction: row; align-items: center;">
-                        <h4 style="font-weight: 600;">Employee ID : </h4>
-                        <h4>{{ employee.id }}</h4>
-                    </div>
-                    <div style="display: flex; flex-direction: row; align-items: center;">
-                        <h4 style="font-weight: 600;">Date of join : </h4>
-                        <h4>{{ employee.joinDate.date | date: "yyyy-MM-dd" }}</h4>
+                        <table style="border-spacing: 0 !important; width: 100%;">
+                            <tr>
+                                <td>
+                                    <h4 style="font-weight: 600;">Employee ID</h4>
+                                </td>
+                                <td>
+                                    <h4><span style="margin-right: 10px;">:</span>{{ employee.id }}</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4 style="font-weight: 600;">Date of join</h4>
+                                </td>
+                                <td>
+                                    <h4><span style="margin-right: 10px;">:</span>{{ employee.joinDate.date | date: "yyyy MMM dd" }}</h4>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -32,23 +42,23 @@
                 <table>
                     <tr>
                         <td>Phone</td>
-                        <td>{{ employee.phone }}</td>
+                        <td><span style="margin-right: 10px;">:</span>{{ employee.phone }}</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td>{{ employee.email }}</td>
+                        <td><span style="margin-right: 10px;">:</span>{{ employee.email }}</td>
                     </tr>
                     <tr>
                         <td>Birthday</td>
-                        <td>{{ employee.dateOfBirth.date | date: "yyyy-MM-dd" }}</td>
+                        <td><span style="margin-right: 10px;">:</span>{{ employee.dateOfBirth.date | date: "yyyy MMM dd" }}</td>
                     </tr>
                     <tr>
                         <td>Address</td>
-                        <td>{{ employee.address }}</td>
+                        <td><span style="margin-right: 10px;">:</span>{{ employee.address }}</td>
                     </tr>
                     <tr>
                         <td>Gender</td>
-                        <td>{{ employee.gender }}</td>
+                        <td><span style="margin-right: 10px;">:</span>{{ employee.gender }}</td>
                     </tr>
                 </table>
             </div>

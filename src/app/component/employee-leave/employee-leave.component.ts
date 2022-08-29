@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { parse } from 'date-fns';
 import { map, Observable, startWith } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthGuard } from 'src/app/services/auth.guard';
@@ -136,12 +137,18 @@ export class DialogEmployeeLeave {
   //set defualt select admin
   user_email = "allweb.rms.symfony@gmail.com";
 
+  //employee leave
   public empLeave: any = {
     email: "",
     emp_leave_reason_id: "",
     start: "",
     end: "",
     description: "",
+  }
+
+  //employee leave type
+  public leaveTypes: any = {
+    name: "",
   }
 
   //format date
@@ -179,6 +186,14 @@ export class DialogEmployeeLeave {
       startWith(''),
       map(value => this._filter(value || '')),
     );
+    this.api.getLeaveReason().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.leaveTypes = res.data;
+        }
+      }
+    })
+
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -188,7 +203,7 @@ export class DialogEmployeeLeave {
 
 }
 
-
+//update leave
 @Component({
   selector: 'dialog-edit-employee-leave',
   templateUrl: './dialog-edit-employee-leave.html',
@@ -204,6 +219,7 @@ export class DialogEditEmployeeLeave {
   ){}
   email = new FormControl('', [Validators.required, Validators.required]);
 
+  //employee leave info
   public empLeave: any = {
     email: "",
     emp_leave_reason_id: "",
@@ -213,13 +229,18 @@ export class DialogEditEmployeeLeave {
     status: "",
   }
 
+  //employee leave type
+  public leaveTypes: any = {
+    name: "",
+  }
+
   //format date
   formatDate(date: any) {
     let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     return formatted_date;
   }
 
-  //create leave user
+  //update leave user
   updateLeave() {
     this.empLeave.start = this.formatDate(this.empLeave.start);
     this.empLeave.end = this.formatDate(this.empLeave.end);
@@ -245,11 +266,19 @@ export class DialogEditEmployeeLeave {
   ngOnInit(): void {
     this.api.getOneLeaveUser(leave_id).subscribe({
       next: (res) => {
-        this.empLeave.description = res.data[0].description;
-        this.empLeave.start = res.data[0].start.date;
-        this.empLeave.end = res.data[0].end.date;
         this.empLeave.emp_leave_reason_id = res.data[0].emp_leave_reason_id;
+        this.empLeave.description = res.data[0].description;
+        this.empLeave.start = parse(res.data[0].start.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.end = parse(res.data[0].end.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
       },
+    })
+
+    this.api.getLeaveReason().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.leaveTypes = res.data;
+        }
+      }
     })
   }
 }

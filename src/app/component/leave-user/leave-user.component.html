@@ -15,50 +15,48 @@
     </div>
 </div>
 
-<div style="padding: 2em;">
-    <div style="display: flex; justify-content:center; align-items: center;  ">
-
-        <mat-card style="margin: 1%; width: 31%;height: 5em; display:  flex;justify-content: space-between; align-items: center;">
-            <div>
-                <div style="font-size: 1.8em; line-height: 1.8em;">Total Leave</div>
-                <div style="font-size: 1.2em">{{ total_leave }}</div>
-            </div>
-            <div>
-                <button style="width: 70px; height: 70px;" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+<div>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="33%" fxFlex.sm="50%">
+            <mat-card style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 1.8em; line-height: 1.8em;">Total Leave</div>
+                    <div style="font-size: 1.2em">{{ total_leave }}</div>
+                </div>
+                <div>
+                    <button style="width: 70px; height: 70px;" mat-fab color="primary" aria-label="Example icon button with a delete icon">
                     <mat-icon style="transform: scale(1.1);">people</mat-icon>
                 </button>
-            </div>
-
-
-        </mat-card>
-        <mat-card style="margin: 1%; width: 31%;height: 5em; display:  flex;justify-content: space-between; align-items: center;">
-            <div>
-                <div style="font-size: 1.8em; line-height: 1.8em;">Monthly Leave</div>
-                <div style="font-size: 1.2em">02</div>
-            </div>
-            <div>
-                <button style="width: 5em;height:5em;" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                </div>
+            </mat-card>
+        </div>
+        <div fxFlex="33%" fxFlex.sm="50%">
+            <mat-card style="display:  flex;justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 1.8em; line-height: 1.8em;">Monthly Leave</div>
+                    <div style="font-size: 1.2em">02</div>
+                </div>
+                <div>
+                    <button style="width: 5em;height:5em;" mat-fab color="primary" aria-label="Example icon button with a delete icon">
                     <mat-icon style="transform: scale(1.4);">apps</mat-icon>
                 </button>
-            </div>
-
-
-        </mat-card>
-        <mat-card style="margin: 1%; width: 31%;height: 5em; display:  flex;justify-content: space-between; align-items: center;">
-            <div>
-                <div style="font-size: 1.8em; line-height: 1.8em;">Pending Request</div>
-                <div style="font-size: 1.2em">02</div>
-            </div>
-            <div>
-                <button style="width: 5em;height:5em;" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                </div>
+            </mat-card>
+        </div>
+        <div fxFlex="34%" fxFlex.sm="50%">
+            <mat-card style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 1.8em; line-height: 1.8em;">Pending Request</div>
+                    <div style="font-size: 1.2em">02</div>
+                </div>
+                <div>
+                    <button style="width: 5em;height:5em;" mat-fab color="primary" aria-label="Example icon button with a delete icon">
                     <mat-icon style="transform: scale(1.4);">explorer</mat-icon>
                     <i class="bi bi-send-exclamation"></i>
                 </button>
-            </div>
-
-
-        </mat-card>
-
+                </div>
+            </mat-card>
+        </div>
     </div>
 
 

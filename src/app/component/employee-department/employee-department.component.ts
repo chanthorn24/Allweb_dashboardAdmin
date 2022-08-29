@@ -23,15 +23,14 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
 
   dataSource!: MatTableDataSource<Department>;
   spinner = true;
-  constructor(private dialog: MatDialog, private api: ApiService) { }
+  constructor(
+    private dialog: MatDialog,
+    private api: ApiService
+  ) { }
+
+
   @ViewChild(MatTable) table!: MatTable<Department>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  ngOnInit(): void {
-
-  }
-  ngAfterViewInit() {
-    this.getDepartment();
-  }
 
 
   ///create dialog
@@ -81,7 +80,12 @@ export class EmployeeDepartmentComponent implements AfterViewInit {
     })
   }
 
+  ngOnInit(): void {
 
+  }
+  ngAfterViewInit() {
+    this.getDepartment();
+  }
 }
 
 @Component({
@@ -212,6 +216,7 @@ export class DialogUpdateDepartment implements OnInit {
 
 
 }
+
 //**Delete Dialog */
 @Component({
   selector: 'app-employee-department',
@@ -231,7 +236,6 @@ export class DialogDeleteDepartment {
     }
     return;
   }
-
 
   deleteDepartment() {
     this.api.deleteDepartment(id).subscribe({
@@ -253,6 +257,4 @@ export class DialogDeleteDepartment {
       panelClass: ['red-snackbar']
     });
   }
-
-
 }

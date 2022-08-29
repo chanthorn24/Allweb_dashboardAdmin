@@ -153,6 +153,9 @@ export class ApiService {
     return this.http.put<any>(this.URL + `/employee/bank/update/${data.id}`, data);
 
   }
+  public createBankAccount(data: any) {
+    return this.http.post<any>(this.URL + '/employee/bank/account/create', data);
+  }
 
   //*** User Take ATTENDANCE**/
   //take attendance

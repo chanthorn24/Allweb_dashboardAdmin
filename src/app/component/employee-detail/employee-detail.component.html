@@ -9,31 +9,36 @@
         </div>
         <mat-card style="display: flex; flex-direction: row">
             <div
-                style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
+                style="display: flex; flex-direction: row; align-items:center;width : 50%; border-right: 1px solid rgba(0,0,0,.7); padding: 0 20px;">
                 <div>
-                    <img width="100px" height="100px" style="border-radius: 100px;"
+                    <img width="200px" height="200px" style="border-radius: 100px;"
                         src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
                 </div>
-                <div style="margin-left: 10px;">
-                    <h3 style="font-weight: 600;">{{ employee.lastName + " " + employee.firstName }}</h3>
-                    <h4>{{ employee.department }}</h4>
-                    <h4>{{ employee.position }}</h4>
-                    <div style="display: flex; flex-direction: row; align-items: center;">
-                        <h4 style="font-weight: 600;">Employee ID : </h4>
-                        <h4>{{ employee.id }}</h4>
+                <button mat-icon-button>
+                    <mat-icon style="color: white; background-color: orange; border-radius: 100%; padding: 5px; ">edit
+                    </mat-icon>
+                </button>
+                <div
+                    style="margin-left: 40px;width: 100%; display: flex;justify-content: space-around; align-items: flex-start;">
+                    <div class="emp-detail-profile">
+                        <h3>Full Name : </h3>
+                        <h3>Position : </h3>
+                        <h3>Department : </h3>
+                        <h3>Employee Id : </h3>
+                        <h3>Joined Date :</h3>
                     </div>
-                    <div style="display: flex; flex-direction: row; align-items: center;">
-                        <h4 style="font-weight: 600;">Date of join : </h4>
-                        <h4>{{ employee.joinDate.date | date: "yyyy-MM-dd" }}</h4>
+                    <div>
+                        <h3>{{employee.lastName + " " + employee.firstName }}</h3>
+                        <h3> {{ employee.position }}</h3>
+                        <h3>{{ employee.department }}</h3>
+                        <h3>{{ employee.id }}</h3>
+                        <h3>{{ employee.joinDate.date | date: "yyyy-MM-dd" }}</h3>
                     </div>
                 </div>
             </div>
             <div style="display: flex; flex-direction: column; width: 50%; padding: 0 20px;">
                 <table>
-                    <tr>
-                        <td>Phone</td>
-                        <td>{{ employee.phone }}</td>
-                    </tr>
+
                     <tr>
                         <td>Email</td>
                         <td>{{ employee.email }}</td>
@@ -51,6 +56,10 @@
                         <td>{{ employee.gender }}</td>
                     </tr>
                 </table>
+                <button mat-icon-button>
+                    <mat-icon style="color: rgb(45, 224, 90); ">add_box
+                    </mat-icon>
+                </button>
             </div>
         </mat-card>
         <ng-container *ngIf="(asyncTabs | async) === null">

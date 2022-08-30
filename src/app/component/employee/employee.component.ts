@@ -102,6 +102,8 @@ export class EmployeeComponent implements OnInit {
   templateUrl: './dialog-elements-dialog.html',
 })
 export class DialogElementsDialog {
+  //password
+  hide = true;
 
   constructor(
     private api: ApiService,

@@ -326,15 +326,21 @@
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Password</mat-label>
-                <input matInput placeholder="Input password" [(ngModel)]="userCollection.password" name="password" required>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Input password" [(ngModel)]="userCollection.password" name="password" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
             </mat-form-field>
         </div>
         <div style="padding: 0 10px;">
             <mat-form-field appearance="outline" style="width: 380px;">
                 <mat-label>Confirm Password</mat-label>
-                <input matInput placeholder="Input password" [(ngModel)]="userCollection.repeat_password" name="reapeat_password" required>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Input password" [(ngModel)]="userCollection.repeat_password" name="reapeat_password" required>
                 <mat-error>{{getErrorMessage()}}</mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
             </mat-form-field>
         </div>
     </div>

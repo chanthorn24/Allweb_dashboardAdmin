@@ -1,18 +1,18 @@
 <div style="width: 30vw; padding: 1em">
-    <h1 mat-dialog-title>Department</h1>
+    <h1 mat-dialog-title>Family</h1>
     <form>
         <div mat-dialog-content>
             <div>
                 <mat-form-field class="example-full-width" appearance="outline" style="width: 100%;">
-                    <mat-label>Input Attendance Type Name</mat-label>
-                    <input type="text" aria-label="Name" matInput required [(ngModel)]="bankType.name" [formControl]="name" name="name">
+                    <mat-label>Input Family Type</mat-label>
+                    <input type="text" aria-label="Name" matInput required [(ngModel)]="familyType.name" [formControl]="name" name="name">
                     <mat-error>{{ getErrorMessage()}}</mat-error>
                 </mat-form-field>
             </div>
         </div>
         <div mat-dialog-actions>
             <button mat-button mat-dialog-close color="warn">Cancel</button>
-            <button type="submit" mat-raised-button color="primary" (click)="updateBankType()">Update</button>
+            <button type="submit" mat-raised-button color="primary" (click)="updateFamilyType()">Update</button>
         </div>
     </form>
 </div>

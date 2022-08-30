@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { id } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root'
@@ -155,6 +156,95 @@ export class ApiService {
   }
   public createBankAccount(data: any) {
     return this.http.post<any>(this.URL + '/employee/bank/account/create', data);
+  }
+
+  //*** Bank type **/
+  //get all bank type
+  public getAllBankType() {
+    return this.http.get<any>(this.URL + '/employee/bank');
+  }
+  //get by id
+  public getBankTypeById(id: any) {
+    return this.http.get<any>(this.URL + '/employee/bank/' + id);
+  }
+  //create bank type
+  public createBankType(data: any) {
+    return this.http.post(this.URL + '/employee/bank/create', data);
+  }
+  //update bank type
+  public updateBankType(data: any) {
+    return this.http.put<any>(this.URL + '/employee/bank/update/' + data.id, data);
+  }
+  //delete bank type
+  public deleteBankType(id: any) {
+    return this.http.delete<any>(this.URL + '/employee/bank/delete/' + id);
+  }
+
+  //*** Degree **/
+  //get all degree
+  public getAllDegree() {
+    return this.http.get<any>(this.URL + '/employee/degree');
+  }
+  //get by id
+  public getDegreeById(id: any) {
+    return this.http.get<any>(this.URL + '/employee/degree/' + id);
+  }
+  //create degree
+  public createDegree(data: any) {
+    return this.http.post<any>(this.URL + '/employee/degree/create', data);
+  }
+  //update degree
+  public updateDegree(data: any) {
+    return this.http.put<any>(this.URL + '/employee/degree/update/' + data.id, data);
+  }
+  //delete degree
+  public deleteDegree(id: any) {
+    return this.http.delete<any>(this.URL + '/employee/degree/delete/' + id);
+  }
+
+  //*** Roles **/
+  //get all role
+  public getAllRole() {
+    return this.http.get<any>(this.URL + '/role');
+  }
+  //get by id
+  public getRoleById(id: any) {
+    return this.http.get<any>(this.URL + '/role/' + id);
+  }
+  //create degree
+  public createRole(data: any) {
+    return this.http.post<any>(this.URL + '/role/create', data);
+  }
+  //update degree
+  public updateRole(data: any) {
+    return this.http.put<any>(this.URL + '/role/update/' + data.id, data);
+  }
+  //delete degree
+  public deleteRole(id: any) {
+    return this.http.delete<any>(this.URL + '/role/delete/' + id);
+  }
+
+
+  //*** Family **/
+  //get all family
+  public getAllFamily() {
+    return this.http.get<any>(this.URL + '/employee/family/relationship');
+  }
+  //get by id
+  public getFamilyById(id: any) {
+    return this.http.get<any>(this.URL + '/employee/family/relationship/' + id);
+  }
+  //create degree
+  public createFamily(data: any) {
+    return this.http.post<any>(this.URL + '/employee/family/relationship/create', data);
+  }
+  //update degree
+  public updateFamily(data: any) {
+    return this.http.put<any>(this.URL + '/employee/family/relationship/update/' + data.id, data);
+  }
+  //delete degree
+  public deleteFamily(id: any) {
+    return this.http.delete<any>(this.URL + '/employee/family/relationship/delete/' + id);
   }
 
   //*** User Take ATTENDANCE**/

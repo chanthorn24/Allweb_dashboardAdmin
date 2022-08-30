@@ -1,1 +1,23 @@
-<div>sdfadfdf</div>
+<div style="width: 22vw; padding: 1em">
+    <h1 mat-dialog-title>Family Information</h1>
+    <form>
+        <div mat-dialog-content>
+
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>School Name</mat-label>
+                <input matInput required name="scool" [(ngModel)]="education.school">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" name="bankName">
+                <mat-label>Degree</mat-label>
+                <mat-select disableRipple [(value)]="education.school_degree_id">
+                    <mat-option *ngFor=" let degree of education.schooDegrees" value="{{ degree.id }}">{{
+                        degree.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close color="warn">Cancel</button>
+            <button type="submit" mat-raised-button color="primary" (click)="submit()">OK</button>
+        </div>
+    </form>
+</div>

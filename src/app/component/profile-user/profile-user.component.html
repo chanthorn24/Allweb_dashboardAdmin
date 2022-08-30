@@ -56,7 +56,7 @@
                             <td>{{ ef.phone }}</td>
                             <td>
                                 <button mat-icon-button>
-                                  <!-- <mat-icon (click)="editFamilyDialog()">edit</mat-icon> -->
+                                  <mat-icon (click)="editFamilyDialog()">edit</mat-icon>
                                 </button>
                             </td>
                         </tr>
@@ -115,7 +115,7 @@
                     <button mat-icon-button>
                         <mat-icon *ngIf="employee.school"
                             style="color: white; background-color: orange; border-radius: 100%; padding: 5px;"
-                            (click)="editEducationDialog()">edit
+                            (click)="addEducationDialog()">edit
                         </mat-icon>
                         <mat-icon *ngIf="!employee.school" style="color: rgb(45, 224, 90); "
                             (click)="addEducationDialog()">

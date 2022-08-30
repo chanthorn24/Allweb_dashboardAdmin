@@ -7,10 +7,12 @@
             </a>
             <h4 style="margin-left: 3px;">/ Detail</h4>
         </div>
-        <mat-card style="display: flex; flex-direction: row">
-            <div style="display: flex; flex-direction: row; width: 50%; border-right: 2px solid black; padding: 0 20px;">
+        <mat-card style="display: flex; flex-direction: row;  ">
+            <div
+                style="display: flex; flex-direction: row; align-items: center;width: 50%; border-right: 2px solid black; padding: 0 20px;">
                 <div>
-                    <img width="100px" height="100px" style="border-radius: 100px;" src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
+                    <img width="100px" height="100px" style="border-radius: 100px;"
+                        src="{{ employee.imageURL ? employee.imageURL : '/assets/images/profile_user.png' }}" alt="#">
                 </div>
                 <div style="margin-left: 10px;">
                     <h3 style="font-weight: 600;">{{ employee.lastName + " " + employee.firstName }}</h3>
@@ -22,23 +24,21 @@
                     </div>
                     <div style="display: flex; flex-direction: row; align-items: center;">
                         <h4 style="font-weight: 600;">Date of join : </h4>
-                        <h4>{{ employee.joinDate.date | date: "yyyy-MM-dd" }}</h4>
+                        <h4>{{ employee.joinDate.date | date: "dd MMM yyyy" }}</h4>
                     </div>
                 </div>
             </div>
             <div style="display: flex; flex-direction: column; width: 50%; padding: 0 20px;">
                 <table>
-                    <tr>
-                        <td>Phone</td>
-                        <td>{{ employee.phone }}</td>
-                    </tr>
+
                     <tr>
                         <td>Email</td>
                         <td><span style="margin-right: 10px;">:</span>{{ employee.email }}</td>
                     </tr>
                     <tr>
                         <td>Birthday</td>
-                        <td><span style="margin-right: 10px;">:</span>{{ employee.dateOfBirth.date | date: "yyyy MMM dd" }}</td>
+                        <td><span style="margin-right: 10px;">:</span>{{ employee.dateOfBirth.date | date: "yyyy MMM dd"
+                            }}</td>
                     </tr>
                     <tr>
                         <td>Address</td>
@@ -50,8 +50,9 @@
                     </tr>
                 </table>
                 <button mat-icon-button>
-                    <mat-icon style="color: rgb(45, 224, 90); ">add_box
-                    </mat-icon>
+                    <mat-icon (click)="openPersonaInfoDialog()"
+                        style="color: white; background-color: orange; border-radius: 100%; padding: 5px;">
+                        edit</mat-icon>
                 </button>
             </div>
         </mat-card>

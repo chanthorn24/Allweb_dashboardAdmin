@@ -30,7 +30,7 @@ import { ReportComponent } from './component/report/report.component';
 import { DialogAddLeaveType, DialogDeleteLeaveType, DialogUpdateLeaveType, LeaveTypeComponent } from './component/leave-type/leave-type.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { DialogEmployeeLeave, EmployeeLeaveComponent, DialogDeleteLeave, DialogEditEmployeeLeave } from './component/employee-leave/employee-leave.component';
-import { EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
+import { DialogPersonalInfo, EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
 import { LoginComponent } from './component/login/login.component';
 import { NavigationUserComponent } from './navigation-user/navigation-user.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
@@ -106,18 +106,6 @@ import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateA
     DialogEmployeeAttendanceType,
     DialogDeleteAttendanceType,
     DialogUpdateAttendanceType,
-    DialogEmployeeBank,
-    DialogDeleteBank,
-    DialogUpdateBank,
-    DialogDeletedegree,
-    DialogEmployeedegree,
-    DialogUpdatedegree,
-    DialogDeleterole,
-    DialogUpdaterole,
-    DialogEmployeerole,
-    DialogDeletefamily,
-    DialogUpdatefamily,
-    DialogEmployeefamily
   ],
   imports: [
     BrowserModule,

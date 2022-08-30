@@ -156,6 +156,15 @@ export class ApiService {
   public createBankAccount(data: any) {
     return this.http.post<any>(this.URL + '/employee/bank/account/create', data);
   }
+  //Education
+  public getSchoolDegree() {
+    return this.http.get<any>(this.URL + '/employee/degree');
+  }
+  public createSchool(data: any) {
+    return this.http.post<any>(this.URL + '/employee/education/create', data);
+  }
+
+
 
   //*** User Take ATTENDANCE**/
   //take attendance

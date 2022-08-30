@@ -2,7 +2,8 @@
     <div style="padding-bottom: 30px;" fxLayout="row wrap" fxLayoutGap="16px grid" *ngFor="let employee of employees">
         <div fxFlex="50%" fxFlex.sm="100%">
             <mat-card style="height: 200px;">
-                <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                <mat-card-title
+                    style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                     <div>Personal Information</div>
                     <button mat-icon-button (click)="editPersonalDialog()">
                         <mat-icon style="color: white; background-color: orange; border-radius: 100%; padding: 5px;">
@@ -56,7 +57,7 @@
                             <td>{{ ef.phone }}</td>
                             <td>
                                 <button mat-icon-button>
-                                  <mat-icon (click)="editFamilyDialog()">edit</mat-icon>
+                                    <mat-icon>edit</mat-icon>
                                 </button>
                             </td>
                         </tr>
@@ -77,7 +78,8 @@
         </div>
         <div fxFlex="50%" fxFlex.sm="100%">
             <mat-card style="height: 148px">
-                <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+                <mat-card-title
+                    style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
                     <div>Bank Information</div>
                     <button mat-icon-button>
                         <mat-icon *ngIf="employee.bank"
@@ -110,12 +112,13 @@
         </div>
         <div fxFlex="50%" fxFlex.sm="100%">
             <mat-card style="height: 148px;">
-                <mat-card-title style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+                <mat-card-title
+                    style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
                     <div>Education Information</div>
                     <button mat-icon-button>
                         <mat-icon *ngIf="employee.school"
                             style="color: white; background-color: orange; border-radius: 100%; padding: 5px;"
-                            (click)="editEducationDialog()">edit
+                            (click)="addEducationDialog()">edit
                         </mat-icon>
                         <mat-icon *ngIf="!employee.school" style="color: rgb(45, 224, 90); "
                             (click)="addEducationDialog()">

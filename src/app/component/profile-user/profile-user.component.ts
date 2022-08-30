@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
 let getUser: any = {};
+let degrees: any;
 @Component({
   selector: 'app-profile-user',
   templateUrl: './profile-user.component.html',
@@ -35,8 +36,22 @@ export class ProfileUserComponent implements OnInit {
     })
 
   }
+  getAllDegree() {
+    this.api.getSchoolDegree().subscribe({
+      next: (res) => {
+        if (res.success) {
+          degrees = res.data;
+          console.log(res);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
 
   ngOnInit(): void {
+    this.getAllDegree();
     getUser = this.employees[0];
 
     console.log(this.employees);
@@ -64,24 +79,16 @@ export class ProfileUserComponent implements OnInit {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
-      // this.getLeaveType();
+      this.getUserInfo();
     });
   }
 
-  editEducationDialog() {
-    const dialogRef = this.dialog.open(DialogEducationInformation, {
-      autoFocus: false
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // this.getLeaveType();
-    });
-  }
   addEducationDialog() {
     const dialogRef = this.dialog.open(DialogEducationInformation, {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
-      // this.getLeaveType();
+      this.getUserInfo();
     });
   }
 
@@ -127,15 +134,6 @@ export class DialogPersonalInformation implements OnInit {
 
 
 
-  }
-  changeGender(e: any) {
-    console.log(e.target.value);
-    // this.personal.is_married = e.target.value;
-    if (e.target.value === 'true') {
-      this.personal.is_married = true;
-    } else {
-      this.personal.is_married = false;
-    }
   }
 
   public personal: any = {
@@ -238,13 +236,14 @@ export class DialogBankInformation implements OnInit {
     if (this.updateBankAccount.name && this.updateBankAccount.number && this.updateBankAccount.bank_id) {
       console.log("ere", this.updateBankAccount);
       this.api.createBankAccount(this.updateBankAccount).subscribe({
-        next: res => {
-          this.snackBar.openSnackBarSuccess('Created Successfully');
-          this.dialogRef.close();
+        next: (res) => {
+          if (res.success) {
+            this.snackBar.openSnackBarSuccess('Created Successfully');
+            this.dialogRef.close();
+          }
         },
-        error: err => {
-          this.snackBar.openSnackBarFail('Cannot add bank account information')
-
+        error: (err) => {
+          this.snackBar.openSnackBarFail(err.message);
         }
       })
     } else {
@@ -259,7 +258,7 @@ export class DialogBankInformation implements OnInit {
     this.api.getAllBank().subscribe({
       next: res => {
         console.log(res);
-        this.banks = res.message;
+        this.banks = res.data;
         console.log(this.banks);
       },
       error: err => {
@@ -280,6 +279,38 @@ export class DialogBankInformation implements OnInit {
   selector: 'Bank-information-dialog',
   templateUrl: 'education-information-dialog.html'
 })
-export class DialogEducationInformation {
+export class DialogEducationInformation implements OnInit {
+  constructor(
+    private dialogRef: DialogRef<DialogBankInformation>,
+    private api: ApiService,
+    private snackBar: SnackbarService,
+  ) { }
 
+  public education = {
+    id: getUser.id,
+    school_degree_id: "",
+    school: getUser.school,
+    schooDegrees: degrees
+  }
+  submit() {
+    if (this.education.school && this.education.school_degree_id) {
+      this.api.createSchool(this.education).subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.success) {
+            this.snackBar.openSnackBarSuccess('Created family information successfully');
+            this.dialogRef.close();
+          }
+        },
+        error: (err) => {
+          this.snackBar.openSnackBarFail("Something went wrong")
+        }
+      })
+    } else {
+      this.snackBar.openSnackBarWarn('No valid input ');
+    }
+  }
+  ngOnInit(): void {
+
+  }
 }

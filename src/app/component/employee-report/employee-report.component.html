@@ -2,13 +2,15 @@
     <div style="display: flex; justify-content: space-between;">
         <h1 class="mat-h1" style="font-weight: 500;">Reports</h1>
         <div>
-            <button mat-button style="color: #F89926">
-              <i class="far fa-file-export" style="transform: rotate(-180deg);"></i>
-              Export CSV
+
+            <button mat-button (click)="exporter.exportTable('xlsx', {fileName:'EmployeeReport_'+formatted})"
+                style=" color: #F89926">
+                <i class="far fa-file-export" style="transform: rotate(-180deg);"></i>
+                Export CSV
             </button>
             <button mat-raised-button color="primary">
-              <i class="far fa-file-import"></i>
-              Import CSV
+                <i class="far fa-file-import"></i>
+                Import CSV
             </button>
         </div>
 
@@ -37,7 +39,7 @@
     </mat-form-field>
 
     <div class="mat-elevation-z2">
-        <table mat-table [dataSource]="dataSource" style="width: 100%;">
+        <table mat-table matTableExporter #exporter="matTableExporter" [dataSource]="dataSource" style="width: 100%;">
 
             <!-- Position Column -->
             <ng-container matColumnDef="position">
@@ -69,7 +71,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
 </div>

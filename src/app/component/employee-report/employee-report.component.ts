@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-employee-report',
@@ -11,12 +13,13 @@ import { Router } from '@angular/router';
 })
 export class EmployeeReportComponent implements AfterViewInit {
 
-
-
+  formatted!: string;
+  datenow = new Date();
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) { }
+
+  ) { this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US') }
 
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -24,6 +27,7 @@ export class EmployeeReportComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

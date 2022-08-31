@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 import { AuthGuard } from './services/auth.guard';
 import { AuthService } from './services/auth.service';
@@ -141,6 +141,7 @@ import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateA
     NgApexchartsModule,
     HttpClientModule,
     FlexLayoutModule,
+    MatTableExporterModule,
   ],
   providers: [AuthGuard, AuthService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]

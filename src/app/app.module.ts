@@ -24,34 +24,96 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { EmployeeComponent, DialogElementsDialog } from './component/employee/employee.component';
+import {
+  EmployeeComponent,
+  DialogElementsDialog,
+} from './component/employee/employee.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { ReportComponent } from './component/report/report.component';
-import { DialogAddLeaveType, DialogDeleteLeaveType, DialogUpdateLeaveType, LeaveTypeComponent } from './component/leave-type/leave-type.component';
+import {
+  DialogAddLeaveType,
+  DialogDeleteLeaveType,
+  DialogUpdateLeaveType,
+  LeaveTypeComponent,
+} from './component/leave-type/leave-type.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
-import { DialogEmployeeLeave, EmployeeLeaveComponent, DialogDeleteLeave, DialogEditEmployeeLeave } from './component/employee-leave/employee-leave.component';
-import { DialogPersonalInfo, EmployeeDetailComponent } from './component/employee-detail/employee-detail.component';
+import {
+  DialogEmployeeLeave,
+  EmployeeLeaveComponent,
+  DialogDeleteLeave,
+  DialogEditEmployeeLeave,
+} from './component/employee-leave/employee-leave.component';
+import {
+  DialogPersonalInfo,
+  EmployeeDetailComponent,
+} from './component/employee-detail/employee-detail.component';
 import { LoginComponent } from './component/login/login.component';
 import { NavigationUserComponent } from './navigation-user/navigation-user.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
-import { DialogDeleteUserLeave, DialogEditUserLeave, LeaveUserComponent } from './component/leave-user/leave-user.component';
+import {
+  DialogDeleteUserLeave,
+  DialogEditUserLeave,
+  LeaveUserComponent,
+} from './component/leave-user/leave-user.component';
 import { DialogElementsExampleDialog } from './component/leave-user/leave-user.component';
 import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
-import { DialogAddFamilyInfo, DialogBankInformation, DialogEducationInformation, DialogFamiliyInformation, DialogPersonalInformation, ProfileUserComponent } from './component/profile-user/profile-user.component';
+import {
+  DialogAddFamilyInfo,
+  DialogBankInformation,
+  DialogEducationInformation,
+  DialogFamiliyInformation,
+  DialogPersonalInformation,
+  ProfileUserComponent,
+} from './component/profile-user/profile-user.component';
 import { ProjectUserComponent } from './component/project-user/project-user.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
-import { EmployeeDepartmentComponent, DialogEmployeeDepartment, DialogUpdateDepartment, DialogDeleteDepartment } from './component/employee-department/employee-department.component';
-import { DialogDeletePosition, DialogEmployeePosition, DialogUpdatePosition, EmployeePositionComponent } from './component/employee-position/employee-position.component';
+import {
+  EmployeeDepartmentComponent,
+  DialogEmployeeDepartment,
+  DialogUpdateDepartment,
+  DialogDeleteDepartment,
+} from './component/employee-department/employee-department.component';
+import {
+  DialogDeletePosition,
+  DialogEmployeePosition,
+  DialogUpdatePosition,
+  EmployeePositionComponent,
+} from './component/employee-position/employee-position.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DialogDeleterole, DialogEmployeerole, DialogUpdaterole, EmployeeRoleComponent } from './component/employee-role/employee-role.component';
-import { DialogDeleteBank, DialogEmployeeBank, DialogUpdateBank, EmployeeBankComponent } from './component/employee-bank/employee-bank.component';
-import { DialogDeletedegree, DialogEmployeedegree, DialogUpdatedegree, EmployeeDegreeComponent } from './component/employee-degree/employee-degree.component';
-import { DialogDeletefamily, DialogEmployeefamily, DialogUpdatefamily, EmployeeFamilyComponent } from './component/employee-family/employee-family.component';
-import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateAttendanceType, EmployeeAttendanceTypeComponent } from './component/employee-attendance-type/employee-attendance-type.component';
+import {
+  DialogDeleterole,
+  DialogEmployeerole,
+  DialogUpdaterole,
+  EmployeeRoleComponent,
+} from './component/employee-role/employee-role.component';
+import {
+  DialogDeleteBank,
+  DialogEmployeeBank,
+  DialogUpdateBank,
+  EmployeeBankComponent,
+} from './component/employee-bank/employee-bank.component';
+import {
+  DialogDeletedegree,
+  DialogEmployeedegree,
+  DialogUpdatedegree,
+  EmployeeDegreeComponent,
+} from './component/employee-degree/employee-degree.component';
+import {
+  DialogDeletefamily,
+  DialogEmployeefamily,
+  DialogUpdatefamily,
+  EmployeeFamilyComponent,
+} from './component/employee-family/employee-family.component';
+import {
+  DialogDeleteAttendanceType,
+  DialogEmployeeAttendanceType,
+  DialogUpdateAttendanceType,
+  EmployeeAttendanceTypeComponent,
+} from './component/employee-attendance-type/employee-attendance-type.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +181,7 @@ import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateA
     DialogDeletefamily,
     DialogEmployeefamily,
     DialogUpdatefamily,
-    DialogAddFamilyInfo
+    DialogAddFamilyInfo,
   ],
   imports: [
     BrowserModule,
@@ -143,7 +205,12 @@ import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateA
     FlexLayoutModule,
     MatTableExporterModule,
   ],
-  providers: [AuthGuard, AuthService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthGuard,
+    AuthService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

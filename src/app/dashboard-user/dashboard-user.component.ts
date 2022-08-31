@@ -7,76 +7,80 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 @Component({
   selector: 'app-dashboard-user',
   templateUrl: './dashboard-user.component.html',
-  styleUrls: ['./dashboard-user.component.css']
+  styleUrls: ['./dashboard-user.component.css'],
 })
 export class DashboardUserComponent implements OnInit {
-
   //user name
-  user_name: any = "";
+  user_name: any = '';
 
   //attendance
   public option = {
-    time!: "",
-    emp_attendance_type_id!: "",
-    employee_id: "",
+    time: '',
+    emp_attendance_type_id: '',
+    employee_id: '',
     click: 0,
-  }
+  };
   //disable button
   disable: boolean = false;
 
-  constructor
-  (private auth:  AuthService,
-  private router: Router,
-  private api: ApiService,
-  private snackBar: SnackbarService,
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private api: ApiService,
+    private snackBar: SnackbarService
   ) {}
 
   time!: any;
   checkTime!: any;
-  checkName: string = "Clock in";
-  checkType: string = "in";
+  checkName: string = 'Clock in';
+  checkType: string = 'in';
 
   reloadCurrentRoute() {
-    console.log("Work");
+    console.log('Work');
 
     const currentRoute = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentRoute]);
-    })
+    });
   }
 
   checkIn() {
     this.api.takeAttendance(this.option).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           this.disable = true;
           this.option.click -= 1;
-          this.checkName = "Clock in";
+          this.checkName = 'Clock in';
           this.checkTime = new Date();
 
-          this.snackBar.openSnackBarSuccess(this.checkName + " successfully!")
+          this.snackBar.openSnackBarSuccess(this.checkName + ' successfully!');
         }
-      }
-    })
+      },
+    });
   }
   checkOut() {
     this.api.takeAttendance(this.option).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           this.disable = true;
           this.option.click -= 1;
-          this.checkName = "Clock out";
+          this.checkName = 'Clock out';
           this.checkTime = new Date();
 
-          this.snackBar.openSnackBarSuccess(this.checkName + " successfully!")
+          this.snackBar.openSnackBarSuccess(this.checkName + ' successfully!');
         }
-      }
-    })
+      },
+    });
   }
 
   //format date
   formatDate(date: any) {
-    let formatted_date = ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
+    let formatted_date =
+      ('0' + date.getHours()).slice(-2) +
+      ':' +
+      ('0' + date.getMinutes()).slice(-2) +
+      ':' +
+      ('0' + date.getSeconds()).slice(-2);
     return formatted_date;
   }
 
@@ -87,12 +91,12 @@ export class DashboardUserComponent implements OnInit {
         if (res.success) {
           console.log(res.data);
           //user name
-          this.user_name = res.data[0].firstName + " " + res.data[0].lastName;
+          this.user_name = res.data[0].firstName + ' ' + res.data[0].lastName;
 
           this.option.employee_id = res.data[0].id;
           this.api.getTypeAttendance(this.option.employee_id).subscribe({
             next: (res) => {
-              if(res.success) {
+              if (res.success) {
                 this.option.emp_attendance_type_id = res.data.attendance_type;
                 this.option.time = res.data.date_time;
                 this.option.click = res.data.click;
@@ -100,44 +104,41 @@ export class DashboardUserComponent implements OnInit {
                 let length = res.data.data.length;
                 console.log(length);
 
-                this.checkTime = res.data.data[length-1].created.date;
-                if(this.option.click == 0) {
+                this.checkTime = res.data.data[length - 1].created.date;
+                if (this.option.click == 0) {
                   this.disable = true;
                 }
               }
-            }
-          })
+            },
+          });
         }
-      }
-    })
-
+      },
+    });
 
     if (this.auth.isAdmin()) {
-      this.router.navigateByUrl("/");
+      this.router.navigateByUrl('/');
     }
     setInterval(() => {
       this.time = new Date(); //set time variable with current date
 
       let current_time = this.formatDate(this.time);
 
-      if(current_time == "17:30:00") {
-        this.option.emp_attendance_type_id = "4";
+      if (current_time == '18:00:00') {
+        this.option.emp_attendance_type_id = '4';
         this.disable = false;
       }
-      if(current_time == "13:30:00") {
-        this.option.emp_attendance_type_id = "3";
+      if (current_time == '13:30:00') {
+        this.option.emp_attendance_type_id = '3';
         this.disable = false;
       }
-      if(current_time == "12:00:00") {
-        this.option.emp_attendance_type_id = "2";
+      if (current_time == '12:00:00') {
+        this.option.emp_attendance_type_id = '2';
         this.disable = false;
       }
-      if(current_time == "06:30:00") {
-        this.option.emp_attendance_type_id = "1";
+      if (current_time == '06:30:00') {
+        this.option.emp_attendance_type_id = '1';
         this.disable = false;
       }
-
-      }, 1000); // set it every one seconds
-    }
-
+    }, 1000); // set it every one seconds
+  }
 }

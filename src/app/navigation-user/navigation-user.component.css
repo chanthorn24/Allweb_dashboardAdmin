@@ -76,7 +76,7 @@ h4 {
 .active {
     border-radius: 5px !important;
     border-left: 3px solid #2986cc;
-    background-color: #F89926 !important;
+    background-color: rgb(2, 83, 204) !important;
     color: white !important;
 }
 

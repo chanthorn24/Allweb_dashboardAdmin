@@ -14,12 +14,12 @@
                     </div>
                 </div>
                 <div style="margin-left: 20px;">
-                    <button *ngIf="!option.emp_attendance_type_id" disabled mat-raised-button color="primary" style="height: 60px;" (click)="checkIn()">
+                    <button *ngIf="!option.emp_attendance_type_id" disabled mat-raised-button style="height: 60px; color: white;" (click)="checkIn()">
                       <mat-icon>keyboard_tab</mat-icon>
                       Clock in
                     </button>
 
-                    <button *ngIf="option.emp_attendance_type_id == '1' || option.emp_attendance_type_id == '3'" [disabled]="disable" mat-raised-button color="primary" style="height: 60px;" (click)="checkIn()">
+                    <button *ngIf="option.emp_attendance_type_id == '1' || option.emp_attendance_type_id == '3'" [disabled]="disable" mat-raised-button style="height: 60px; background-color: rgb(0, 197, 251); color: white;" (click)="checkIn()">
                       <mat-icon>keyboard_tab</mat-icon>
                       Clock in
                     </button>

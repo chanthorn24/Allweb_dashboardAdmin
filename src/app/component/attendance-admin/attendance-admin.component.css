@@ -1,0 +1,130 @@
+.clendar-container {
+    height: 365px;
+    width: auto;
+    overflow: auto;
+}
+
+table {
+    width: 100vw;
+}
+
+th {
+    text-align: center !important;
+}
+
+td {
+    text-align: center;
+    border-left: 1px solid #e0e0e0;
+}
+
+.mat-column-total {
+    width: 600px;
+}
+
+.mat-column-name {
+    width: 480px;
+}
+
+td.mat-column-star,
+td.mat-cell {
+    text-align: center;
+    border-left: 1px solid #e0e0e0;
+    width: 160px;
+}
+
+th.mat-column-position,
+td.mat-column-position {
+    padding-left: 8px;
+}
+
+.mat-table-sticky-border-elem-right {
+    border-left: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky-border-elem-left {
+    border-right: 1px solid #e0e0e0;
+}
+
+
+/** Sticky head **/
+
+.mat-cell {
+    position: static;
+    z-index: 100;
+}
+
+.mat-column-id {
+    position: sticky;
+    z-index: 200;
+    left: 0;
+}
+
+.mat-column-name {
+    position: sticky;
+    z-index: 200;
+    left: 56px;
+    background-color: white;
+}
+
+.mat-column-total {
+    position: sticky;
+    z-index: 200;
+    left: 331px;
+    background-color: white;
+}
+
+.mat-header-cell {
+    position: sticky;
+    z-index: 300;
+    top: 0;
+    background-color: white;
+}
+
+th.mat-column-a1,
+th.mat-column-a2,
+th.mat-column-a3,
+th.mat-column-a4,
+th.mat-column-a5,
+th.mat-column-a6,
+th.mat-column-a7,
+th.mat-column-a8 {
+    position: sticky;
+    z-index: 190;
+    top: 0;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: rgb(0, 197, 251);
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(235, 37, 37);
+}
+
+
+/** Fill input **/
+
+
+/* iput color */
+
+input.mat-input-element {
+    color: red;
+}

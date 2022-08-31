@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 import { AuthGuard } from './services/auth.guard';
 import { AuthService } from './services/auth.service';
@@ -41,7 +41,7 @@ import { EmployeeReportComponent } from './component/employee-report/employee-re
 import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
-import { DialogBankInformation, DialogEducationInformation, DialogFamiliyInformation, DialogPersonalInformation, ProfileUserComponent } from './component/profile-user/profile-user.component';
+import { DialogAddFamilyInfo, DialogBankInformation, DialogEducationInformation, DialogFamiliyInformation, DialogPersonalInformation, ProfileUserComponent } from './component/profile-user/profile-user.component';
 import { ProjectUserComponent } from './component/project-user/project-user.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { EmployeeDepartmentComponent, DialogEmployeeDepartment, DialogUpdateDepartment, DialogDeleteDepartment } from './component/employee-department/employee-department.component';
@@ -119,7 +119,7 @@ import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateA
     DialogDeletefamily,
     DialogEmployeefamily,
     DialogUpdatefamily,
-
+    DialogAddFamilyInfo
   ],
   imports: [
     BrowserModule,
@@ -141,6 +141,7 @@ import { DialogDeleteAttendanceType, DialogEmployeeAttendanceType, DialogUpdateA
     NgApexchartsModule,
     HttpClientModule,
     FlexLayoutModule,
+    MatTableExporterModule,
   ],
   providers: [AuthGuard, AuthService, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]

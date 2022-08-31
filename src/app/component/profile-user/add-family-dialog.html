@@ -1,0 +1,67 @@
+<div style="width: 22vw; height: 60vh; padding: 1em">
+    <h1>Add Family Information</h1>
+    <form>
+        <div mat-dialog-content>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Full Name</mat-label>
+                <input matInput required name="fullname" [(ngModel)]="family[0].name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Phone Number</mat-label>
+                <input matInput required name="phone" [(ngModel)]="family[0].phone">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" name="bankName">
+                <mat-label>Family Relationship</mat-label>
+                <mat-select disableRipple [(value)]="family[0].family_relationship_id">
+                    <mat-option *ngFor="let fam of createFamily.family" [value]="fam.id">
+                        {{fam.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <h3>Employee's Family</h3>
+        <div mat-dialog-content>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Full Name</mat-label>
+                <input matInput required name="fullname" [(ngModel)]="family[1].name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Phone Number</mat-label>
+                <input matInput required name="phone" [(ngModel)]="family[1].phone">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" name="bankName">
+                <mat-label>Family Relationship</mat-label>
+                <mat-select disableRipple [(value)]="family[1].family_relationship_id">
+                    <mat-option *ngFor="let fam of createFamily.family" [value]="fam.id">
+                        {{fam.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <h3>Employee's Family</h3>
+        <div mat-dialog-content>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Full Name</mat-label>
+                <input matInput required name="fullname" [(ngModel)]="family[2].name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Phone Number</mat-label>
+                <input matInput required name="phone" [(ngModel)]="family[2].phone">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" name="bankName">
+                <mat-label>Family Relationship</mat-label>
+                <mat-select disableRipple [(value)]="family[2].family_relationship_id">
+                    <mat-option *ngFor="let fam of createFamily.family" [value]="fam.id">
+                        {{fam.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close color="warn">Cancel</button>
+            <button type="submit" mat-raised-button color="primary" (click)="addFamilyInfo()">Create</button>
+        </div>
+    </form>
+
+</div>

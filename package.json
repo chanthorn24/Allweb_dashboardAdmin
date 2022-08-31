@@ -24,6 +24,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "apexcharts": "^3.35.4",
     "date-fns": "^2.29.2",
+    "mat-table-exporter": "^10.2.4",
     "ng-apexcharts": "^1.7.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

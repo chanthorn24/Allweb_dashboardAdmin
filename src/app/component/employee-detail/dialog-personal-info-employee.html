@@ -1,4 +1,6 @@
+<h2 style="margin-bottom: 10px;">Update Personal Information</h2>
 <form style="width: 25vw; padding: 5px">
+
     <div mat-dialog-content>
 
         <mat-form-field appearance="outline" style="width: 100%;">
@@ -10,18 +12,18 @@
             <input matInput required [(ngModel)]="personal.lastName" name="lastname">
         </mat-form-field>
         <label for="married">Gender</label>
-        <mat-radio-group [(ngModel)]="personal.gender" name="gender">
+
+        <mat-radio-group [(ngModel)]="personal.gender" name="gender" required>
             <mat-radio-button style="margin-left: 10px;" value="male" name="radio1">
                 Male
             </mat-radio-button>
             <mat-radio-button style="margin-left: 5px;" value="female" name="radio2">Female
             </mat-radio-button>
-
         </mat-radio-group>
-        <mat-form-field appearance="outline">
+
+        <mat-form-field appearance="outline" style="width: 100%;margin-top: 14px">
             <mat-label>DateOfBirth</mat-label>
-            <input matInput [matDatepicker]="datepicker" name="dateofbirth" [(ngModel)]="dateOfBirth">
-            <mat-hint>MM/DD/YYYY</mat-hint>
+            <input matInput [matDatepicker]="datepicker" name="dateofbirth" [(ngModel)]="dateOfBirth" required>
             <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
             <mat-datepicker #datepicker>
                 <mat-datepicker-actions>
@@ -30,24 +32,23 @@
                 </mat-datepicker-actions>
             </mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 100%" name="bankName">
+        <mat-form-field appearance="outline" style="width: 100%" name="bankName" required>
             <mat-label>Department</mat-label>
             <mat-select disableRipple [(value)]="personal.emp_department_id">
                 <mat-option *ngFor="let department of departments" [value]="department.id">
                     {{ department.name }}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 100%" name="position">
+        <mat-form-field appearance="outline" style="width: 100%" name="position" required>
             <mat-label>Position</mat-label>
             <mat-select disableRipple [(value)]="personal.emp_position_id">
                 <mat-option *ngFor=" let position of positions" [value]="position.id">{{
                     position.name }}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Joined Date</mat-label>
-            <input matInput [matDatepicker]="datepicker1" name="joinDate" [(ngModel)]="joinDate">
-            <mat-hint>MM/DD/YYYY</mat-hint>
+            <input matInput [matDatepicker]="datepicker1" name="joinDate" [(ngModel)]="joinDate" required>
             <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
             <mat-datepicker #datepicker1>
                 <mat-datepicker-actions>
@@ -56,13 +57,13 @@
                 </mat-datepicker-actions>
             </mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-form-field appearance="outline" style="width: 100%;" required>
             <mat-label>Email</mat-label>
             <input matInput required [(ngModel)]="personal.email" name="email">
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-form-field appearance="outline" style="width: 100%;" required>
             <mat-label>Address</mat-label>
-            <input matInput required [(ngModel)]="personal.address" name="address">
+            <input matInput type="email" [(ngModel)]="personal.address" name="address">
         </mat-form-field>
 
     </div>

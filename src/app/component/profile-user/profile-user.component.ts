@@ -9,6 +9,9 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 
 let getUser: any = {};
 let degrees: any;
+let famRowId: any;
+let familyRel: any;
+let famIndex: any;
 @Component({
   selector: 'app-profile-user',
   templateUrl: './profile-user.component.html',
@@ -24,12 +27,14 @@ export class ProfileUserComponent implements OnInit {
 
   getUserInfo() {
     console.log("update");
+
     let user_id = this.employees[0].id;
     this.api.getOneUser(user_id).subscribe({
       next: (res) => {
         if (res.success) {
           this.employees = res.data;
           console.log(this.employees);
+
         }
 
       }
@@ -49,13 +54,26 @@ export class ProfileUserComponent implements OnInit {
       }
     })
   }
+  getAllFamilyRelationship() {
+    this.api.getFamilyRelationship().subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.success) {
+          familyRel = res.data;
+
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.getAllDegree();
+    this.getAllFamilyRelationship();
     getUser = this.employees[0];
-
-    console.log(this.employees);
-    console.log(getUser);
+    console.log(getUser.family.length);
   }
   editPersonalDialog() {
     const dialogRef = this.dialog.open(DialogPersonalInformation, {
@@ -74,13 +92,26 @@ export class ProfileUserComponent implements OnInit {
     });
   }
 
-  FamilyDialog() {
+  FamilyDialog(id: any, index: any) {
+    famRowId = id;
+    famIndex = index;
+    console.log(famRowId);
     const dialogRef = this.dialog.open(DialogFamiliyInformation, {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getUserInfo();
     });
+
+  }
+  addFamilyDialog() {
+    const dialogRef = this.dialog.open(DialogAddFamilyInfo, {
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getUserInfo();
+    });
+
   }
 
   addEducationDialog() {
@@ -149,6 +180,7 @@ export class DialogPersonalInformation implements OnInit {
 
   }
 }
+
 /**
  * family Information
  */
@@ -158,21 +190,116 @@ export class DialogPersonalInformation implements OnInit {
 })
 export class DialogFamiliyInformation implements OnInit {
   constructor(
-    private dialogRef: DialogRef<DialogBankInformation>,
+    private dialogRef: DialogRef<DialogFamiliyInformation>,
     private api: ApiService,
     private snackBar: SnackbarService,
   ) { }
 
   public families = {
-    id: "",
-    family: getUser.family,
-    name: getUser.family[0].name,
-    phone: "",
-    family_relationship_id: ""
+    id: getUser.family[famIndex].id,
+    family: familyRel,
+    name: getUser.family[famIndex].name,
+    phone: getUser.family[famIndex].phone,
+    family_relationship_id: getUser.family[famIndex].relationship_id,
   }
   ngOnInit(): void {
-    console.log(getUser.family[0].name);
   }
+  updateFamilyInfo() {
+    if (this.families.name && this.families.phone && this.families.family_relationship_id) {
+      this.api.updateFamily(this.families).subscribe({
+        next: (res) => {
+          if (res.success) {
+            this.snackBar.openSnackBarSuccess(res.message);
+            this.dialogRef.close();
+          }
+        },
+        error: (error) => {
+          this.snackBar.openSnackBarFail(error.message);
+        }
+      });
+    } else {
+      this.snackBar.openSnackBarWarn('No valid input');
+    }
+  }
+
+
+}
+@Component({
+  selector: 'add-family-information-dialog',
+  templateUrl: 'add-family-dialog.html'
+})
+export class DialogAddFamilyInfo implements OnInit {
+
+  family: any = [
+    {
+      name!: "",
+      phone!: "",
+      family_relationship_id!: "",
+      employee_id: getUser.id,
+    },
+    {
+      name!: "",
+      phone!: "",
+      family_relationship_id!: "",
+      employee_id: getUser.id,
+
+    },
+    {
+      name!: "",
+      phone!: "",
+      family_relationship_id!: "",
+      employee_id: getUser.id,
+    },
+  ];
+  public collection: any = {
+    family: ""
+  }
+  public createFamily = {
+    family: familyRel,
+
+
+  }
+  constructor(
+    private dialogRef: DialogRef<DialogAddFamilyInfo>,
+    private api: ApiService,
+    private snackBar: SnackbarService,
+  ) { }
+
+  addFamilyInfo() {
+    this.collection.family = this.family;
+    if (this.family[0].name
+      && this.family[0].phone
+      && this.family[0].family_relationship_id
+      && this.family[1].name
+      && this.family[1].phone
+      && this.family[1].family_relationship_id
+      && this.family[2].name
+      && this.family[2].phone
+      && this.family[2].family_relationship_id) {
+      this.api.createFamily(this.collection).subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.success) {
+            this.snackBar.openSnackBarSuccess(res.message);
+            this.dialogRef.close();
+
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          this.snackBar.openSnackBarFail(error.message);
+          console.log(this.collection);
+        }
+      })
+    } else {
+
+      this.snackBar.openSnackBarWarn('No valid input');
+    }
+  }
+  ngOnInit(): void {
+
+  }
+
 
 
 }

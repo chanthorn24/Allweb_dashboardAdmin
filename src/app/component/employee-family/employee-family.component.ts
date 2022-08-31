@@ -20,7 +20,7 @@ let id: any;
 })
 export class EmployeeFamilyComponent implements OnInit {
 
-    //table column
+  //table column
   displayedColumns: string[] = ['id', 'name', 'actions'];
 
   dataSource!: MatTableDataSource<familyType>;
@@ -101,7 +101,7 @@ export class DialogEmployeefamily {
   ) { }
 
 
-getErrorMessage() {
+  getErrorMessage() {
     if (this.name.hasError('required')) {
       return 'You must enter a value';
     }
@@ -111,7 +111,7 @@ getErrorMessage() {
   //create attendance
   createFamilyType() {
     if (this.familyType.name) {
-      this.api.createFamily(this.familyType).subscribe({
+      this.api.createFamilyRelationship(this.familyType).subscribe({
         next: (res) => {
           console.log(res);
 
@@ -152,7 +152,7 @@ export class DialogUpdatefamily implements OnInit {
   ) { }
 
 
-getErrorMessage() {
+  getErrorMessage() {
     if (this.name.hasError('required')) {
       return 'You must enter a value';
     }

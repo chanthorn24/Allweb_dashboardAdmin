@@ -249,6 +249,9 @@ export class ApiService {
   }
   //update degree
   public updateFamily(data: any) {
+    return this.http.put<any>(this.URL + '/employee/family/update/' + data.id, data);
+  }
+  public updateFamilyRelationship(data: any) {
     return this.http.put<any>(this.URL + '/employee/family/relationship/update/' + data.id, data);
   }
   //delete degree

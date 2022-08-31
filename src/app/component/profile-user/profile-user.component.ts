@@ -9,6 +9,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 
 let getUser: any = {};
 let degrees: any;
+let famRowId: any;
 @Component({
   selector: 'app-profile-user',
   templateUrl: './profile-user.component.html',
@@ -24,6 +25,7 @@ export class ProfileUserComponent implements OnInit {
 
   getUserInfo() {
     console.log("update");
+
     let user_id = this.employees[0].id;
     this.api.getOneUser(user_id).subscribe({
       next: (res) => {
@@ -74,13 +76,25 @@ export class ProfileUserComponent implements OnInit {
     });
   }
 
-  FamilyDialog() {
+  FamilyDialog(id: any) {
+    famRowId = id;
+    console.log(famRowId);
     const dialogRef = this.dialog.open(DialogFamiliyInformation, {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getUserInfo();
     });
+
+  }
+  addFamilyDialog() {
+    const dialogRef = this.dialog.open(DialogFamiliyInformation, {
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getUserInfo();
+    });
+
   }
 
   addEducationDialog() {
@@ -162,16 +176,36 @@ export class DialogFamiliyInformation implements OnInit {
     private api: ApiService,
     private snackBar: SnackbarService,
   ) { }
-
+  index = famRowId - 1;
   public families = {
-    id: "",
+    id: getUser.family[this.index].id,
     family: getUser.family,
-    name: getUser.family[0].name,
-    phone: "",
-    family_relationship_id: ""
+    name: getUser.family[this.index].name,
+    phone: getUser.family[this.index].phone,
+    family_relationship_id: getUser.family[this.index].relationship_id,
   }
   ngOnInit(): void {
-    console.log(getUser.family[0].name);
+    console.log(this.families);
+
+  }
+  updateFamilyInfo() {
+    if (this.families.name && this.families.phone && this.families.family_relationship_id) {
+      this.api.updateFamily(this.families).subscribe({
+        next: (res) => {
+          if (res.success) {
+
+            this.snackBar.openSnackBarSuccess(res.message);
+            this.dialogRef.close();
+
+          }
+        },
+        error: (error) => {
+          this.snackBar.openSnackBarFail(error.message);
+        }
+      });
+    } else {
+      this.snackBar.openSnackBarWarn('No valid input');
+    }
   }
 
 

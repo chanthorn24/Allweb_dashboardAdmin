@@ -244,8 +244,11 @@ export class ApiService {
     return this.http.get<any>(this.URL + '/employee/family/relationship/' + id);
   }
   //create degree
-  public createFamily(data: any) {
+  public createFamilyRelationship(data: any) {
     return this.http.post<any>(this.URL + '/employee/family/relationship/create', data);
+  }
+  public createFamily(data: any) {
+    return this.http.post<any>(this.URL + '/employee/family/create', data);
   }
   //update degree
   public updateFamily(data: any) {
@@ -257,6 +260,9 @@ export class ApiService {
   //delete degree
   public deleteFamily(id: any) {
     return this.http.delete<any>(this.URL + '/employee/family/relationship/delete/' + id);
+  }
+  public getFamilyRelationship() {
+    return this.http.get<any>(this.URL + '/employee/family/relationship');
   }
 
   //*** User Take ATTENDANCE**/

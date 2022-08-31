@@ -13,8 +13,8 @@
             <mat-form-field appearance="outline" style="width: 100%" name="bankName">
                 <mat-label>Family Relationship</mat-label>
                 <mat-select disableRipple [(value)]="families.family_relationship_id">
-                    <mat-option *ngFor="let fam of families.family" [value]="fam.relationship_id">
-                        {{fam.relationship}}
+                    <mat-option *ngFor="let fam of families.family" [value]="fam.id">
+                        {{fam.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

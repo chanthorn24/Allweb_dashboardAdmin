@@ -51,13 +51,14 @@
                             <td>Phone number</td>
                             <td>Status</td>
                         </tr>
-                        <tr *ngFor="let ef of employee.family">
+                        <tr *ngFor="let ef of employee.family; let i = index">
                             <td>{{ ef.name }}</td>
                             <td>{{ ef.relationship }}</td>
                             <td>{{ ef.phone }}</td>
                             <td>
                                 <button mat-icon-button>
-                                    <mat-icon (click)="FamilyDialog(ef.id)">edit</mat-icon>
+                                    <mat-icon style=" color: white; background-color: orange; border-radius: 100%; padding:
+                            5px;" (click)="FamilyDialog(ef.id,i)">edit</mat-icon>
                                 </button>
                             </td>
                         </tr>

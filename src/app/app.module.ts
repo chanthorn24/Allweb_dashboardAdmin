@@ -58,7 +58,7 @@ import {
 } from './component/leave-user/leave-user.component';
 import { DialogElementsExampleDialog } from './component/leave-user/leave-user.component';
 import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
-import { AttendanceReportComponent } from './component/attendance-report/attendance-report.component';
+import { EmployeeLeaveReport } from './component/eamployee-leave-report/employee-leave-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
 import {
@@ -139,7 +139,7 @@ import { EmployeeReportAttendanceComponent } from './component/employee-report-a
     LeaveUserComponent,
     DialogElementsExampleDialog,
     EmployeeReportComponent,
-    AttendanceReportComponent,
+    EmployeeLeaveReport,
     AttendanceAdminComponent,
     ProfileUserComponent,
     DialogPersonalInformation,

@@ -51,7 +51,7 @@
 }
 
 .submenu.expanded {
-    height: 150px;
+    height: 100px;
 }
 
 .subreport {
@@ -61,7 +61,7 @@
 }
 
 .subreport.expanded {
-    height: 100px;
+    height: 150px;
 }
 
 .subsetting {

@@ -12,6 +12,7 @@ import { EmployeeDetailComponent } from './component/employee-detail/employee-de
 import { EmployeeFamilyComponent } from './component/employee-family/employee-family.component';
 import { EmployeeLeaveComponent } from './component/employee-leave/employee-leave.component';
 import { EmployeePositionComponent } from './component/employee-position/employee-position.component';
+import { EmployeeReportAttendanceComponent } from './component/employee-report-attendance/employee-report-attendance.component';
 import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
 import { EmployeeRoleComponent } from './component/employee-role/employee-role.component';
 import { EmployeeComponent } from './component/employee/employee.component';
@@ -48,7 +49,8 @@ const routes: Routes = [
   { path: "employee/position", component: EmployeePositionComponent, canActivate: [AuthGuard] },
   { path: "employee/leave/apply", component: LeaveUserComponent, canActivate: [AuthGuard] },
   { path: "report/employee", component: EmployeeReportComponent, canActivate: [AuthGuard] },
-  { path: "report/attendance", component: AttendanceReportComponent, canActivate: [AuthGuard] },
+  { path: "report/attendance", component: EmployeeReportAttendanceComponent, canActivate: [AuthGuard] },
+  { path: "report/leave", component: AttendanceReportComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

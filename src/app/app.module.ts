@@ -114,6 +114,7 @@ import {
   DialogUpdateAttendanceType,
   EmployeeAttendanceTypeComponent,
 } from './component/employee-attendance-type/employee-attendance-type.component';
+import { EmployeeReportAttendanceComponent } from './component/employee-report-attendance/employee-report-attendance.component';
 
 @NgModule({
   declarations: [
@@ -182,6 +183,7 @@ import {
     DialogEmployeefamily,
     DialogUpdatefamily,
     DialogAddFamilyInfo,
+    EmployeeReportAttendanceComponent,
   ],
   imports: [
     BrowserModule,

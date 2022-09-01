@@ -13,6 +13,13 @@ import { AuthService } from './../../services/auth.service';
 import { SnackbarService } from './../../services/snackbar.service';
 
 
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
 export interface leave {
   description: any,
   start: any,
@@ -50,15 +57,11 @@ export class EmployeeLeaveComponent implements OnInit {
     private authGard: AuthGuard,
     private route: Router,
     private api: ApiService,
-<<<<<<< HEAD
     private snackBar: SnackbarService,
-=======
->>>>>>> e93f8fdaafbf7c95fe975995ca57a6d6c028c6e4
   ) { }
   @ViewChild(MatTable) table!: MatTable<leave>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-<<<<<<< HEAD
 
   //calculate day leave
   getNumOfDay(start: any, end: any) {
@@ -66,8 +69,6 @@ export class EmployeeLeaveComponent implements OnInit {
 
     return numofDay;
   }
-=======
->>>>>>> e93f8fdaafbf7c95fe975995ca57a6d6c028c6e4
 
   //getAllLeav
   getAllLeave() {
@@ -86,7 +87,6 @@ export class EmployeeLeaveComponent implements OnInit {
     })
   }
 
-<<<<<<< HEAD
   //get all pending leave
   getPendingLeave() {
     this.api.getLeavePending().subscribe({
@@ -99,14 +99,6 @@ export class EmployeeLeaveComponent implements OnInit {
         }
       }
     })
-=======
-  ngOnInit(): void {
-    //call all leave
-    this.getAllLeave();
-    if (!this.authGard.isAdmin()) {
-      this.route.navigate(['/']);
-    }
->>>>>>> e93f8fdaafbf7c95fe975995ca57a6d6c028c6e4
   }
 
   //open Dialog

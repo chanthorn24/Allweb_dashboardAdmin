@@ -31,6 +31,10 @@ export class EmployeeLeaveReport implements OnInit {
       this.router.navigateByUrl('/account/dashboard');
     }
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
 
 export interface PeriodicElement {

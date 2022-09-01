@@ -55,7 +55,6 @@ import {
   LeaveUserComponent,
 } from './component/leave-user/leave-user.component';
 import { DialogElementsExampleDialog } from './component/leave-user/leave-user.component';
-import { EmployeeReportComponent } from './component/Reports/employee-report/employee-report.component';
 import { EmployeeLeaveReport } from './component/Reports/eamployee-leave-report/employee-leave-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
@@ -117,6 +116,7 @@ import { LoginComponent } from './component/Auth/login/login.component';
 import { ChangePasswordComponent } from './component/Auth/change-password/change-password.component';
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
+import { EmployeeReportComponent } from './component/Reports/employee-report/employee-report.component';
 
 @NgModule({
   declarations: [

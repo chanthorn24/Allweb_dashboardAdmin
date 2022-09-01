@@ -1,9 +1,30 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthGuard } from 'src/app/services/auth.guard';
+import { MatSort } from '@angular/material/sort';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+export interface Employee {
+  id: any,
+  firstName: any,
+  lastName: any,
+  dateOfBirth: any,
+  position: any,
+  department: any,
+  phone: any,
+  email: any,
+  address: any,
+  joinDate: any,
+
+}
 
 
 @Component({
@@ -11,62 +32,90 @@ import { formatDate } from '@angular/common';
   templateUrl: './employee-report.component.html',
   styleUrls: ['./employee-report.component.css']
 })
-export class EmployeeReportComponent implements AfterViewInit {
+export class EmployeeReportComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'name', 'dateOfBirth.date', 'position', 'department', 'joinDate.date', 'phone', 'email', 'address'];
+  dataSource!: MatTableDataSource<Employee>;
+  //auto complete
+  myControl = new FormControl('');
+  options: string[] = [];
+  filteredOptions!: Observable<string[]>;
 
+  //export file section
   formatted!: string;
   datenow = new Date();
+  public employee: any;
   constructor(
-    private authService: AuthService,
+    private dialog: MatDialog,
+    private authGard: AuthGuard,
     private router: Router,
+    private api: ApiService,
+  ) {
+    this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US')
+  }
+  @ViewChild(MatTable) table!: MatTable<Employee>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  ) { this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US') }
+  //get the employees
+  getAllEmployee() {
+    this.api.getUser().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.dataSource = new MatTableDataSource<Employee>(res.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          console.log("234234");
+          //get the name
+          res.data.forEach((e: any) => {
+            this.options.push(`${e.firstName} ${e.lastName}`)
+          });
+          console.log(this.options);
 
+        }
+      }
+    })
+  }
+  getAllDepartment() {
+    this.api.getDepartment().subscribe({
+      next: (res) => {
+        if (res.success) {
+          console.log(res);
+        }
+      }
+    })
+  }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  //search filter
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log("Here", this.dataSource);
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  //search autocomplete
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+  ngOnInit(): void {
+    this.getAllEmployee();
+    //auto complete
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
 
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    //date format for exporter
+    this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US');
 
     //security not allow admin route to this URL
-    if (!this.authService.isAdmin()) {
+    if (!this.authGard.isAdmin()) {
       this.router.navigateByUrl("/account/dashboard");
     }
   }
 
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' }
-];
 

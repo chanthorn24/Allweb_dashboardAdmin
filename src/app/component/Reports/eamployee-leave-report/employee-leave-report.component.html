@@ -3,7 +3,8 @@
         <h1 class="mat-h1" style="font-weight: 500;">Reports</h1>
         <div>
 
-            <button mat-button (click)="exporter.exportTable('xlsx', {fileName:'EmployeeReport_'+formatted})" style=" color: #F89926">
+            <button mat-button (click)="exporter.exportTable('xlsx', {fileName:'EmployeeReport_'+formatted})"
+                style=" color: #F89926">
                 <i class="far fa-file-export" style="transform: rotate(-180deg);"></i>
                 Export CSV
             </button>
@@ -21,6 +22,10 @@
         <h4 style="margin-left: 3px;">/ Leave </h4>
     </div>
 </div>
+<mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
 <div style="padding: 2em;">
     <mat-form-field class="example-full-width" appearance="outline" style="margin:1%">
         <mat-label>Search Employee name</mat-label>
@@ -70,7 +75,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
         </mat-paginator>
     </div>
 </div>

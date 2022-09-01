@@ -13,13 +13,6 @@ import { AuthService } from './../../services/auth.service';
 import { SnackbarService } from './../../services/snackbar.service';
 
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
 export interface leave {
   description: any,
   start: any,
@@ -48,16 +41,16 @@ export class EmployeeLeaveComponent implements OnInit {
     private authGard: AuthGuard,
     private route: Router,
     private api: ApiService,
-    ) { }
-    @ViewChild(MatTable) table!: MatTable<leave>;
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-    @ViewChild(MatSort) sort!: MatSort;
+  ) { }
+  @ViewChild(MatTable) table!: MatTable<leave>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   //getAllLeav
   getAllLeave() {
     this.api.getAllLeave().subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           this.total_leave = res.data.length;
           this.dataSource = new MatTableDataSource<leave>(res.data);
           this.dataSource.paginator = this.paginator;
@@ -73,7 +66,7 @@ export class EmployeeLeaveComponent implements OnInit {
   ngOnInit(): void {
     //call all leave
     this.getAllLeave();
-    if(!this.authGard.isAdmin()) {
+    if (!this.authGard.isAdmin()) {
       this.route.navigate(['/']);
     }
   }
@@ -131,7 +124,7 @@ export class DialogEmployeeLeave {
     private auth: AuthService,
     private snackBar: SnackbarService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
-  ){}
+  ) { }
 
 
   //set defualt select admin
@@ -165,7 +158,7 @@ export class DialogEmployeeLeave {
 
     this.api.createLeave(this.empLeave).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //success snackbar
           this.snackBar.openSnackBarSuccess("Create successfully");
 
@@ -216,7 +209,7 @@ export class DialogEditEmployeeLeave {
     private auth: AuthService,
     private snackBar: SnackbarService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
-  ){}
+  ) { }
   email = new FormControl('', [Validators.required, Validators.required]);
 
   //employee leave info
@@ -247,7 +240,7 @@ export class DialogEditEmployeeLeave {
 
     this.api.updateLeave(this.empLeave, leave_id).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //call snackbar
           this.snackBar.openSnackBarSuccess("Update successfully");
 
@@ -268,8 +261,8 @@ export class DialogEditEmployeeLeave {
       next: (res) => {
         this.empLeave.emp_leave_reason_id = res.data[0].emp_leave_reason_id;
         this.empLeave.description = res.data[0].description;
-        this.empLeave.start = parse(res.data[0].start.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
-        this.empLeave.end = parse(res.data[0].end.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.start = parse(res.data[0].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.end = parse(res.data[0].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date());
       },
     })
 
@@ -297,13 +290,13 @@ export class DialogDeleteLeave {
     private api: ApiService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
     private snackBar: SnackbarService,
-    ) { }
+  ) { }
 
 
   deleteDepartment() {
     this.api.deleteLeave(leave_id).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //snack bar service
           this.snackBar.openSnackBarSuccess("Deleted successfully");
           this.dialogRef.close();

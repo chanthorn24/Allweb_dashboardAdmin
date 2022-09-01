@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',

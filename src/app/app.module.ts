@@ -28,15 +28,13 @@ import {
   EmployeeComponent,
   DialogElementsDialog,
 } from './component/employee/employee.component';
-import { AttendanceComponent } from './component/attendance/attendance.component';
-import { ReportComponent } from './component/report/report.component';
+import { ReportUserComponent } from './component/report-user/report-user.component';
 import {
   DialogAddLeaveType,
   DialogDeleteLeaveType,
   DialogUpdateLeaveType,
   LeaveTypeComponent,
-} from './component/leave-type/leave-type.component';
-import { ChangePasswordComponent } from './component/change-password/change-password.component';
+} from './component/Settings/leave-type/leave-type.component';
 import {
   DialogEmployeeLeave,
   EmployeeLeaveComponent,
@@ -47,9 +45,7 @@ import {
   DialogPersonalInfo,
   EmployeeDetailComponent,
 } from './component/employee-detail/employee-detail.component';
-import { LoginComponent } from './component/login/login.component';
 import { NavigationUserComponent } from './navigation-user/navigation-user.component';
-import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 import {
   DialogDeleteUserLeave,
@@ -57,8 +53,8 @@ import {
   LeaveUserComponent,
 } from './component/leave-user/leave-user.component';
 import { DialogElementsExampleDialog } from './component/leave-user/leave-user.component';
-import { EmployeeReportComponent } from './component/employee-report/employee-report.component';
-import { EmployeeLeaveReport } from './component/eamployee-leave-report/employee-leave-report.component';
+import { EmployeeReportComponent } from './component/Reports/employee-report/employee-report.component';
+import { EmployeeLeaveReport } from './component/Reports/eamployee-leave-report/employee-leave-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AttendanceAdminComponent } from './component/attendance-admin/attendance-admin.component';
 import {
@@ -70,51 +66,55 @@ import {
   ProfileUserComponent,
 } from './component/profile-user/profile-user.component';
 import { ProjectUserComponent } from './component/project-user/project-user.component';
-import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import {
   EmployeeDepartmentComponent,
   DialogEmployeeDepartment,
   DialogUpdateDepartment,
   DialogDeleteDepartment,
-} from './component/employee-department/employee-department.component';
+} from './component/Settings/employee-department/employee-department.component';
 import {
   DialogDeletePosition,
   DialogEmployeePosition,
   DialogUpdatePosition,
   EmployeePositionComponent,
-} from './component/employee-position/employee-position.component';
+} from './component/Settings/employee-position/employee-position.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   DialogDeleterole,
   DialogEmployeerole,
   DialogUpdaterole,
   EmployeeRoleComponent,
-} from './component/employee-role/employee-role.component';
+} from './component/Settings/employee-role/employee-role.component';
 import {
   DialogDeleteBank,
   DialogEmployeeBank,
   DialogUpdateBank,
   EmployeeBankComponent,
-} from './component/employee-bank/employee-bank.component';
+} from './component/Settings/employee-bank/employee-bank.component';
 import {
   DialogDeletedegree,
   DialogEmployeedegree,
   DialogUpdatedegree,
   EmployeeDegreeComponent,
-} from './component/employee-degree/employee-degree.component';
+} from './component/Settings/employee-degree/employee-degree.component';
 import {
   DialogDeletefamily,
   DialogEmployeefamily,
   DialogUpdatefamily,
   EmployeeFamilyComponent,
-} from './component/employee-family/employee-family.component';
+} from './component/Settings/employee-family/employee-family.component';
 import {
   DialogDeleteAttendanceType,
   DialogEmployeeAttendanceType,
   DialogUpdateAttendanceType,
   EmployeeAttendanceTypeComponent,
-} from './component/employee-attendance-type/employee-attendance-type.component';
-import { EmployeeReportAttendanceComponent } from './component/employee-report-attendance/employee-report-attendance.component';
+} from './component/Settings/employee-attendance-type/employee-attendance-type.component';
+import { EmployeeReportAttendanceComponent } from './component/Reports/employee-report-attendance/employee-report-attendance.component';
+import { ResetPasswordComponent } from './component/Auth/reset-password/reset-password.component';
+import { LoginComponent } from './component/Auth/login/login.component';
+import { ChangePasswordComponent } from './component/Auth/change-password/change-password.component';
+import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
+import { AttendanceComponent } from './component/attendance/attendance.component';
 
 @NgModule({
   declarations: [
@@ -123,18 +123,19 @@ import { EmployeeReportAttendanceComponent } from './component/employee-report-a
     DashboardComponent,
     EmployeeComponent,
     AttendanceComponent,
-    ReportComponent,
+    ReportUserComponent,
     LeaveTypeComponent,
     DialogAddLeaveType,
     DialogUpdateLeaveType,
     DialogDeleteLeaveType,
     ChangePasswordComponent,
+    ForgotPasswordComponent,
+    LoginComponent,
+    ResetPasswordComponent,
     EmployeeLeaveComponent,
     DialogElementsDialog,
     EmployeeDetailComponent,
-    LoginComponent,
     NavigationUserComponent,
-    ForgotPasswordComponent,
     DashboardUserComponent,
     LeaveUserComponent,
     DialogElementsExampleDialog,
@@ -148,7 +149,6 @@ import { EmployeeReportAttendanceComponent } from './component/employee-report-a
     DialogFamiliyInformation,
     ProjectUserComponent,
     DialogEmployeeLeave,
-    ResetPasswordComponent,
     EmployeeDepartmentComponent,
     DialogEmployeeDepartment,
     EmployeePositionComponent,
@@ -215,4 +215,4 @@ import { EmployeeReportAttendanceComponent } from './component/employee-report-a
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

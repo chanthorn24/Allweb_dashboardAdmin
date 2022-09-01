@@ -14,10 +14,10 @@
         <label for="married">Gender</label>
 
         <mat-radio-group [(ngModel)]="personal.gender" name="gender" required>
-            <mat-radio-button style="margin-left: 10px;" value="male" name="radio1">
+            <mat-radio-button style="margin-left: 10px;" value="Male" name="radio1">
                 Male
             </mat-radio-button>
-            <mat-radio-button style="margin-left: 5px;" value="female" name="radio2">Female
+            <mat-radio-button style="margin-left: 5px;" value="Female" name="radio2">Female
             </mat-radio-button>
         </mat-radio-group>
 
@@ -42,8 +42,7 @@
         <mat-form-field appearance="outline" style="width: 100%" name="position" required>
             <mat-label>Position</mat-label>
             <mat-select disableRipple [(value)]="personal.emp_position_id">
-                <mat-option *ngFor=" let position of positions" [value]="position.id">{{
-                    position.name }}</mat-option>
+                <mat-option *ngFor=" let position of positions" [value]="position.id">{{ position.name }}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100%;">

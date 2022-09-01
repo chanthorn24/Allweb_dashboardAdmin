@@ -59,7 +59,7 @@
                         </a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a style="margin: -16px; padding: 10px 3.4rem 10px 16px;" routerLink="/employee/detail/1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a style="margin: -16px; padding: 10px 3.4rem 10px 16px;" routerLink="/employee/detail/{{ user_id }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                             <!-- <mat-icon>people</mat-icon> -->
                             <h3>Update Profile</h3>
                         </a>
@@ -88,7 +88,7 @@
                       </div>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item routerLink="/employee/detail/1">My profile</button>
+                        <button mat-menu-item routerLink="/employee/detail/{{ user_id }}">My profile</button>
                         <button mat-menu-item routerLink="/change password">Setting</button>
                         <button mat-menu-item (click)="logout()">Logout</button>
                     </mat-menu>

@@ -98,10 +98,11 @@
             <td mat-cell *matCellDef="let element">{{element.description ?? "No description"}}</td>
         </ng-container>
         <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <th mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let element">
-                <div>Pending</div>
-
+                <button *ngIf="element.status == 'Approved'" mat-raised-button style="border-radius: 25px; background-color: rgba(0, 201, 137, 0.8); color: white; font-weight: 500;">{{ element.status }}</button>
+                <button *ngIf="element.status == 'Pending'" mat-raised-button style="border-radius: 25px; background-color: rgb(240, 179, 24); color: white; font-weight: 500;">{{ element.status }}</button>
+                <button *ngIf="element.status == 'Declined'" mat-raised-button style="border-radius: 25px; color: rgb(247, 85, 70); font-weight: 500;">{{ element.status }}</button>
             </td>
         </ng-container>
         <!-- <ng-container matColumnDef="duration">
@@ -131,6 +132,6 @@
         </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator style="background-color: #fafafa;" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 </div>

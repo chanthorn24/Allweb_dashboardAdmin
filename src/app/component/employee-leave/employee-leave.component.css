@@ -1,23 +1,35 @@
 /* @import url('../leave-user/leave-user.component.css'); */
-.table__section{
+
+.table__section {
     width: 100%;
     margin: 2em 0;
- 
 }
+
 .mat-row .mat-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
     cursor: pointer;
-  }
-  .mat-header-cell{
-      font-weight: 600;
-  }
-  .mat-header-cell{
-    background-color:#f9fafb;
+}
+
+.mat-header-cell {
+    font-weight: 600;
+}
+
+.mat-header-cell {
+    background-color: #f9fafb;
     color: #000;
     font-weight: 500;
     font-size: 14px;
-  }
+}
 
-  
-  
+td {
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.disableAcc {
+    display: none;
+}
+
+.disable {
+    display: none;
+}

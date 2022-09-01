@@ -1,10 +1,10 @@
-<div style="width: 30vw; padding: 1em">
+<form style="width: 30vw; padding: 1em">
     <h1 mat-dialog-title>Apply For Leaves</h1>
     <div mat-dialog-content>
 
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Select Leave Type</mat-label>
-            <mat-select disableRipple [(ngModel)]="empLeave.emp_leave_reason_id">
+            <mat-select disableRipple [(ngModel)]="empLeave.emp_leave_reason_id" name="leavetype">
                 <mat-option value="1">Vacation</mat-option>
                 <mat-option value="2">Sick Leave</mat-option>
                 <mat-option value="3">Casual Leave</mat-option>
@@ -16,8 +16,8 @@
             <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Enter a date range</mat-label>
                 <mat-date-range-input [rangePicker]=" picker">
-                    <input matStartDate placeholder="Start date" [(ngModel)]="empLeave.start">
-                    <input matEndDate placeholder="End date" [(ngModel)]="empLeave.end">
+                    <input matStartDate placeholder="Start date" [(ngModel)]="empLeave.start" name="start">
+                    <input matEndDate placeholder="End date" [(ngModel)]="empLeave.end" name="end">
                 </mat-date-range-input>
                 <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -27,7 +27,8 @@
         </div>
         <mat-form-field class="example-full-width" appearance="fill" style="width: 100%;">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Ex. It makes me feel..." style="width: 100%;height: 100px;" [(ngModel)]="empLeave.description"></textarea>
+            <textarea required [formControl]="name" name="description" matInput placeholder="Ex. It makes me feel..." style="width: 100%;height: 100px;" [(ngModel)]="empLeave.description"></textarea>
+            <mat-error>{{ getErrorMessage()}}</mat-error>
         </mat-form-field>
 
     </div>
@@ -35,4 +36,4 @@
         <button mat-button mat-dialog-close color="warn">Cancel</button>
         <button mat-raised-button color="primary" style="background-color: green" (click)="createLeave()">APPLY</button>
     </div>
-</div>
+</form>

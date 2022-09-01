@@ -26,6 +26,7 @@ export interface leave {
   end: any,
   user_id: any,
   employee: any,
+  status: any,
   email: any,
   leave_reason: any,
 }
@@ -43,21 +44,37 @@ export class EmployeeLeaveComponent implements OnInit {
   //dashboard
   total_leave: number = 0;
 
+  //pending leave
+  pending_leaves: any = [];
+  total_leave_day: any = [];
+
+  //disable button add employee
+  disableAcc: boolean = false;
+  disable: boolean = false;
+
   constructor(
     private dialog: MatDialog,
     private authGard: AuthGuard,
     private route: Router,
     private api: ApiService,
-    ) { }
-    @ViewChild(MatTable) table!: MatTable<leave>;
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-    @ViewChild(MatSort) sort!: MatSort;
+    private snackBar: SnackbarService,
+  ) { }
+  @ViewChild(MatTable) table!: MatTable<leave>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  //calculate day leave
+  getNumOfDay(start: any, end: any) {
+    let numofDay = (end.getTime() - start.getTime()) / (1000 * 3600 * 24);;
+
+    return numofDay;
+  }
 
   //getAllLeav
   getAllLeave() {
     this.api.getAllLeave().subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           this.total_leave = res.data.length;
           this.dataSource = new MatTableDataSource<leave>(res.data);
           this.dataSource.paginator = this.paginator;
@@ -70,12 +87,18 @@ export class EmployeeLeaveComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    //call all leave
-    this.getAllLeave();
-    if(!this.authGard.isAdmin()) {
-      this.route.navigate(['/']);
-    }
+  //get all pending leave
+  getPendingLeave() {
+    this.api.getLeavePending().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.pending_leaves = res.data;
+          for (let i = 0; i < res.data.length; i++) {
+            this.total_leave_day[i] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()));
+          }
+        }
+      }
+    })
   }
 
   //open Dialog
@@ -86,6 +109,7 @@ export class EmployeeLeaveComponent implements OnInit {
     //after close
     dialogRef.afterClosed().subscribe(result => {
       this.getAllLeave();
+      this.getPendingLeave();
     });
   }
 
@@ -98,6 +122,7 @@ export class EmployeeLeaveComponent implements OnInit {
     //after close
     dialogRef.afterClosed().subscribe(result => {
       this.getAllLeave();
+      this.getPendingLeave();
     });
   }
 
@@ -111,7 +136,51 @@ export class EmployeeLeaveComponent implements OnInit {
     //after close
     dialogRef.afterClosed().subscribe(result => {
       this.getAllLeave();
+      this.getPendingLeave();
     });
+  }
+
+  //open delete Dialog
+  openAcceptDialog(id: any): void {
+    const dialogRef = this.dialog.open(DialogAcceptLeave, {
+      autoFocus: false,
+    });
+
+    leave_id = id;
+    //after close
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllLeave();
+      this.getPendingLeave();
+
+      this.disableAcc = !this.disableAcc;
+    });
+  }
+
+  //open delete Dialog
+  openDeclineDialog(id: any): void {
+    const dialogRef = this.dialog.open(DialogDeclineLeave, {
+      autoFocus: false,
+    });
+
+    leave_id = id;
+    //after close
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllLeave();
+      this.getPendingLeave();
+
+      this.disable = !this.disable;
+    });
+  }
+
+  ngOnInit(): void {
+    //call all leave
+    this.getAllLeave();
+    //get all pending
+    this.getPendingLeave();
+
+    if (!this.authGard.isAdmin()) {
+      this.route.navigate(['/']);
+    }
   }
 }
 
@@ -128,10 +197,9 @@ export class DialogEmployeeLeave {
 
   public constructor(
     private api: ApiService,
-    private auth: AuthService,
     private snackBar: SnackbarService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
-  ){}
+  ) { }
 
 
   //set defualt select admin
@@ -143,6 +211,7 @@ export class DialogEmployeeLeave {
     emp_leave_reason_id: "",
     start: "",
     end: "",
+    status: "Approved",
     description: "",
   }
 
@@ -165,7 +234,7 @@ export class DialogEmployeeLeave {
 
     this.api.createLeave(this.empLeave).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //success snackbar
           this.snackBar.openSnackBarSuccess("Create successfully");
 
@@ -213,10 +282,9 @@ export class DialogEditEmployeeLeave {
   myControl = new FormControl('');
   public constructor(
     private api: ApiService,
-    private auth: AuthService,
     private snackBar: SnackbarService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
-  ){}
+  ) { }
   email = new FormControl('', [Validators.required, Validators.required]);
 
   //employee leave info
@@ -247,7 +315,7 @@ export class DialogEditEmployeeLeave {
 
     this.api.updateLeave(this.empLeave, leave_id).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //call snackbar
           this.snackBar.openSnackBarSuccess("Update successfully");
 
@@ -266,10 +334,11 @@ export class DialogEditEmployeeLeave {
   ngOnInit(): void {
     this.api.getOneLeaveUser(leave_id).subscribe({
       next: (res) => {
+        this.empLeave.status = res.data[0].status;
         this.empLeave.emp_leave_reason_id = res.data[0].emp_leave_reason_id;
         this.empLeave.description = res.data[0].description;
-        this.empLeave.start = parse(res.data[0].start.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
-        this.empLeave.end = parse(res.data[0].end.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.start = parse(res.data[0].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.end = parse(res.data[0].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date());
       },
     })
 
@@ -297,13 +366,13 @@ export class DialogDeleteLeave {
     private api: ApiService,
     public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
     private snackBar: SnackbarService,
-    ) { }
+  ) { }
 
 
   deleteDepartment() {
     this.api.deleteLeave(leave_id).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //snack bar service
           this.snackBar.openSnackBarSuccess("Deleted successfully");
           this.dialogRef.close();
@@ -312,6 +381,80 @@ export class DialogDeleteLeave {
       error: (err) => {
         this.snackBar.openSnackBarFail("Deleted fail");
         console.log(err);
+      }
+    })
+  }
+}
+
+
+//**Accept Dialog */
+@Component({
+  selector: 'app-accept-employee-department',
+  templateUrl: 'dialog-accept-employee-leave.html'
+})
+export class DialogAcceptLeave {
+  //accept or decline
+  employee_leave: any = {
+    status: ""
+  }
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(
+    private api: ApiService,
+    public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
+    private snackBar: SnackbarService,
+  ) { }
+
+
+  //accept leave
+  acceptLeave() {
+    this.employee_leave.status = "Approved";
+    this.api.updateLeave(this.employee_leave, leave_id).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.dialogRef.close();
+          this.snackBar.openSnackBarSuccess("Approved successfully");
+        }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
+      }
+    })
+  }
+
+
+}
+//**Decline Dialog */
+@Component({
+  selector: 'app-decline-employee-department',
+  templateUrl: 'dialog-decline-employee-leave.html'
+})
+export class DialogDeclineLeave {
+
+  //accept or decline
+  employee_leave: any = {
+    status: ""
+  }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(
+    private api: ApiService,
+    public dialogRef: MatDialogRef<EmployeeLeaveComponent>,
+    private snackBar: SnackbarService,
+  ) { }
+
+
+  //accept leave
+  declineLeave() {
+    this.employee_leave.status = "Declined";
+    this.api.updateLeave(this.employee_leave, leave_id).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.dialogRef.close();
+          this.snackBar.openSnackBarSuccess("Decline successfully");
+        }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
       }
     })
   }

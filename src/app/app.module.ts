@@ -40,6 +40,8 @@ import {
   EmployeeLeaveComponent,
   DialogDeleteLeave,
   DialogEditEmployeeLeave,
+  DialogAcceptLeave,
+  DialogDeclineLeave,
 } from './component/employee-leave/employee-leave.component';
 import {
   DialogPersonalInfo,
@@ -184,6 +186,8 @@ import { AttendanceComponent } from './component/attendance/attendance.component
     DialogUpdatefamily,
     DialogAddFamilyInfo,
     EmployeeReportAttendanceComponent,
+    DialogAcceptLeave,
+    DialogDeclineLeave,
   ],
   imports: [
     BrowserModule,

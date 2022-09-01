@@ -16,6 +16,7 @@ export interface leave {
   start: any,
   end: any,
   employee: any,
+  status: any,
   leave_reason: any,
 }
 
@@ -87,13 +88,13 @@ export class LeaveUserComponent implements AfterViewInit {
   showFail: boolean = true;
   //get all leave user
   getAllLeave() {
-    let user_email= this.auth.getEmail();
+    let user_email = this.auth.getEmail();
     this.api.getOneUserByEmail(user_email).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           this.api.getLeaveByUser(res.data[0].id).subscribe({
             next: (res) => {
-              if(res.success) {
+              if (res.success) {
                 console.log(res);
 
                 this.showFail = true;
@@ -117,7 +118,7 @@ export class LeaveUserComponent implements AfterViewInit {
                 },
                 employee: "N/A",
                 leave_reason: "N/A",
-                status: "N/A"
+                status: "Pending"
               }]
               console.log(data);
 
@@ -176,10 +177,20 @@ export class DialogElementsExampleDialog {
     emp_leave_reason_id: "",
     start: "",
     end: "",
+    status: "Pending",
     description: "",
   }
 
   user_email!: any;
+
+  name = new FormControl('', [Validators.required]);
+
+  getErrorMessage() {
+    if (this.name.hasError('required')) {
+      return 'You must enter a value';
+    }
+    return '';
+  }
 
   //format date
   formatDate(date: any) {
@@ -191,15 +202,19 @@ export class DialogElementsExampleDialog {
   createLeave() {
     this.user_email = this.auth.getEmail();
     this.empLeave.email = this.user_email;
-    this.empLeave.start = this.formatDate(this.empLeave.start);
-    this.empLeave.end = this.formatDate(this.empLeave.end);
+    if (this.empLeave.start) {
+      this.empLeave.start = this.formatDate(this.empLeave.start);
+    }
+    if (this.empLeave.start) {
+      this.empLeave.end = this.formatDate(this.empLeave.end);
+    }
 
     console.log(this.empLeave);
 
 
     this.api.createLeave(this.empLeave).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //close the dialog
           this.dialogRef.close();
         }
@@ -224,7 +239,7 @@ export class DialogEditUserLeave {
     private auth: AuthService,
     private snackBar: SnackbarService,
     public dialogRef: MatDialogRef<LeaveUserComponent>,
-  ){}
+  ) { }
   email = new FormControl('', [Validators.required, Validators.required]);
 
   public empLeave: any = {
@@ -244,12 +259,16 @@ export class DialogEditUserLeave {
 
   //create leave user
   updateLeave() {
-    this.empLeave.start = this.formatDate(this.empLeave.start);
-    this.empLeave.end = this.formatDate(this.empLeave.end);
+    if (this.empLeave.start) {
+      this.empLeave.start = this.formatDate(this.empLeave.start);
+    }
+    if (this.empLeave.start) {
+      this.empLeave.end = this.formatDate(this.empLeave.end);
+    }
 
     this.api.updateLeave(this.empLeave, leave_id).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //call snackbar
           this.snackBar.openSnackBarSuccess("Update successfully");
 
@@ -268,9 +287,10 @@ export class DialogEditUserLeave {
   ngOnInit(): void {
     this.api.getOneLeaveUser(leave_id).subscribe({
       next: (res) => {
+        this.empLeave.status = res.data[0].status;
         this.empLeave.description = res.data[0].description;
-        this.empLeave.start = parse(res.data[0].start.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
-        this.empLeave.end = parse(res.data[0].end.date.slice(0,19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.start = parse(res.data[0].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date());
+        this.empLeave.end = parse(res.data[0].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date());
         this.empLeave.emp_leave_reason_id = res.data[0].emp_leave_reason_id;
       },
     })
@@ -290,13 +310,13 @@ export class DialogDeleteUserLeave {
     private api: ApiService,
     public dialogRef: MatDialogRef<LeaveUserComponent>,
     private snackBar: SnackbarService,
-    ) { }
+  ) { }
 
 
   deleteDepartment() {
     this.api.deleteLeave(leave_id).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           //snack bar service
           this.snackBar.openSnackBarSuccess("Deleted successfully");
           this.dialogRef.close();

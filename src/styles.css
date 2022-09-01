@@ -44,6 +44,11 @@ a:hover {
 
 /** Actions table **/
 
+.mat-column-status {
+    text-align: center !important;
+    margin: 0 !important;
+}
+
 .mat-column-actions {
     width: 15%;
     text-align: center !important;

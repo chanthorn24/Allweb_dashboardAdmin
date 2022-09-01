@@ -5,48 +5,6 @@ import { map, shareReplay } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AuthService } from './../services/auth.service';
 import { ApiService } from '../services/api.service';
-// export interface ChildrenItems {
-//     state: string;
-//     name: string;
-//     type?: string;
-//   }
-
-// export interface Menu {
-//     state: string;
-//     name: string;
-//     type: string;
-//     icon: string;
-//     children?: ChildrenItems[];
-// }
-
-// const MENUITEMS = [
-//     {
-//         state: 'dashboard',
-//         name: 'Dashboard',
-//         type: 'link',
-//         icon: 'dashboard'
-//     },
-//     {
-//         state: 'setting',
-//         name: 'Settings',
-//         type: 'sub',
-//         icon: 'settings',
-//         children: [
-//             {
-//                 state: 'station_management',
-//                 name: 'Station Management',
-//                 type: 'parent',
-//                 grand_children: [
-//                     { state: 'station', name: 'Station' },
-//                     { state: 'shifts_work', name: 'Shifts Work' },
-//                     { state: 'fuel_price', name: 'Fule Price' },
-//                     { state: 'tank_management', name: 'Tank Management' }
-//                 ]
-//             }
-//         ]
-//     }
-// ];
-
 
 @Component({
   selector: 'app-navigation-user',
@@ -57,6 +15,7 @@ export class NavigationUserComponent {
   //user name
   user_name: any = "";
   imageURL: any = "";
+  user_id!: number;
 
   //sub menu
   showSubmenu: boolean = true;
@@ -89,6 +48,7 @@ export class NavigationUserComponent {
         if (res.success) {
           this.user_name = res.data[0].firstName + " " + res.data[0].lastName;
           this.imageURL = res.data[0].imageURL;
+          this.user_id = res.data[0].id;
         }
       }
     })

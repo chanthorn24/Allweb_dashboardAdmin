@@ -1,7 +1,8 @@
-import { Component,OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from "ng-apexcharts";
 import { AuthService } from './../services/auth.service';
 import { Router } from '@angular/router';
+import { reduce } from 'rxjs';
 
 //column chart
 export type ColumnChartOptions = {
@@ -31,7 +32,7 @@ export type ChartOptions = {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-   @ViewChild("chart") chart!: ChartComponent;
+  @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   public columnchartOptions!: Partial<ColumnChartOptions>;
   constructor(private authService: AuthService, private router: Router) {
@@ -63,11 +64,13 @@ export class DashboardComponent implements OnInit {
       series: [
         {
           name: "Net Profit",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+          color: 'rgb(2, 83, 204)',
         },
         {
           name: "Revenue",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+          color: '#00c5fb',
         },
       ],
       chart: {
@@ -77,7 +80,7 @@ export class DashboardComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "50%",
+          columnWidth: "65%",
           endingShape: "rounded"
         }
       },
@@ -108,11 +111,12 @@ export class DashboardComponent implements OnInit {
         }
       },
       fill: {
-        opacity: 1
+        opacity: 1,
+        colors: ['rgb(2, 83, 204)', '#00c5fb'],
       },
       tooltip: {
         y: {
-          formatter: function(val: string) {
+          formatter: function (val: string) {
             return "$ " + val + " thousands";
           }
         }
@@ -122,7 +126,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     if (!this.authService.isAdmin()) {
       this.router.navigateByUrl('/account/dashboard');
-      }
+    }
   }
 
 }

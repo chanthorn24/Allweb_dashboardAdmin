@@ -1,8 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from './../services/auth.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { ChartComponent } from 'ng-apexcharts';
+
+//column chart
+export type ColumnChartOptions = {
+  series: any;
+  chart: any;
+  dataLabels: any;
+  plotOptions: any;
+  yaxis: any;
+  xaxis: any;
+  fill: any;
+  tooltip: any;
+  stroke: any;
+  legend: any;
+};
 
 @Component({
   selector: 'app-dashboard-user',
@@ -10,8 +25,13 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
   styleUrls: ['./dashboard-user.component.css'],
 })
 export class DashboardUserComponent implements OnInit {
+  @ViewChild("chart") chart!: ChartComponent;
+  public columnchartOption!: Partial<ColumnChartOptions>;
+
   //user name
   user_name: any = '';
+  imageURL!: string;
+  department!: string;
 
   //attendance
   public option = {
@@ -27,8 +47,73 @@ export class DashboardUserComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private api: ApiService,
-    private snackBar: SnackbarService
-  ) {}
+    private snackBar: SnackbarService,
+
+  ) {
+    //column chart
+    this.columnchartOption = {
+      series: [
+        {
+          name: "Attendance",
+          data: [20, 22, 21, 19, 18, 22, 22, 21, 20],
+          color: 'rgb(2, 83, 204)',
+        },
+        {
+          name: "Absent",
+          data: [2, 3, 1, 0, 6, 3, 2, 5, 0],
+          color: '#00c5fb',
+        },
+      ],
+      chart: {
+        type: "bar",
+        height: 250
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: "65%",
+          endingShape: "rounded"
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ["transparent"]
+      },
+      xaxis: {
+        categories: [
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct"
+        ]
+      },
+      yaxis: {
+        title: {
+          text: "$ (thousands)"
+        }
+      },
+      fill: {
+        opacity: 1,
+        colors: ['rgb(2, 83, 204)', '']
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: string) {
+            return "$ " + val + " thousands";
+          }
+        }
+      }
+    };
+  }
 
   time!: any;
   checkTime!: any;
@@ -84,14 +169,17 @@ export class DashboardUserComponent implements OnInit {
     return formatted_date;
   }
 
+  //chart column
+
   ngOnInit(): void {
     let email = this.auth.getEmail();
     this.api.getOneUserByEmail(email).subscribe({
       next: (res) => {
         if (res.success) {
-          console.log(res.data);
           //user name
           this.user_name = res.data[0].firstName + ' ' + res.data[0].lastName;
+          this.imageURL = res.data[0].imageURL;
+          this.department = res.data[0].department;
 
           this.option.employee_id = res.data[0].id;
           this.api.getTypeAttendance(this.option.employee_id).subscribe({
@@ -102,7 +190,7 @@ export class DashboardUserComponent implements OnInit {
                 this.option.click = res.data.click;
 
                 let length = res.data.data.length;
-                console.log(length);
+                // console.log(length);
 
                 this.checkTime = res.data.data[length - 1].created.date;
                 if (this.option.click == 0) {

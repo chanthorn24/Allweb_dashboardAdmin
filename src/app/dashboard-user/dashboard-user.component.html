@@ -42,16 +42,16 @@
             </div>
         </div>
     </mat-card>
-    <div style="display: flex; flex-direction: row;">
-        <div style="width: 50%;">
+    <div style="display: flex; flex-direction: row;" fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
             <mat-card style="height: auto; margin: 15px 0;">
-                <div style="display: flex; align-items: center; flex-direction: row; border-bottom: 1px solid black;  margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; flex-direction: row; border-bottom: 1px solid black;  margin-bottom: 10px; padding-bottom: 20px;">
                     <mat-card-content style="margin: 0;">
-                        <img width="60px" height="60px" style="border-radius: 60px;" src="https://th.bing.com/th/id/OIP.9nyTpzPgpvxBs2vYCYxytgHaG0?pid=ImgDet&rs=1" alt="#">
+                        <img width="90px" height="90px" style="border-radius: 90px; border: 2px solid orange;" src="{{ imageURL ? imageURL : '/assets/images/profile_user.png' }}" alt="#">
                     </mat-card-content>
                     <div style="margin: 10px;">
-                        <div style="font-weight: 500; font-size: 18px;">User Name</div>
-                        <div>Department</div>
+                        <div style="font-weight: 500; font-size: 18px; margin-bottom: 5px;">{{ user_name }}</div>
+                        <div class="mat-h5" style="margin: 0;">{{ department }}</div>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center; flex-direction: row; justify-content: space-between;">
@@ -64,27 +64,30 @@
                         <div style="font-size: 16px; font-weight: 500;">0</div>
                     </div>
                     <div>
-                        <h3>Attendance</h3>
-                        <div style="font-size: 16px; font-weight: 500;">10</div>
+                        <h3>Attendance This Month</h3>
+                        <div style="font-size: 16px; font-weight: 500;">10 / 30</div>
                     </div>
                 </div>
             </mat-card>
-            <mat-card style="height: 250px; margin: 15px 0;">
+            <mat-card style="height: auto; margin: 15px 0;">
                 <mat-card-header>
-                    <h3 style="font-weight: 500;">Notices</h3>
+                    <h3 style="font-weight: 500;">Attendance</h3>
                 </mat-card-header>
                 <mat-card-content>
-                    Text content
+                    <div id="chart">
+                        <apx-chart [series]="columnchartOption.series" [chart]="columnchartOption.chart" [dataLabels]="columnchartOption.dataLabels" [plotOptions]="columnchartOption.plotOptions" [yaxis]="columnchartOption.yaxis" [legend]="columnchartOption.legend" [fill]="columnchartOption.fill"
+                            [stroke]="columnchartOption.stroke" [tooltip]="columnchartOption.tooltip" [xaxis]="columnchartOption.xaxis"></apx-chart>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </div>
-        <div style="width: 50%;">
-            <mat-card style="height: 87%; margin: 15px;">
+        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <mat-card style="margin-top: 15px; height: 517px;">
                 <mat-card-header>
                     <h3 style="font-weight: 500;">Events</h3>
                 </mat-card-header>
-                <mat-card-content>
-                    Text content
+                <mat-card-content style="color: orange;">
+                    No event today.
                 </mat-card-content>
             </mat-card>
         </div>

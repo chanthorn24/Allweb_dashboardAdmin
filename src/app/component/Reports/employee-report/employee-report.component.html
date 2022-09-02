@@ -18,7 +18,7 @@
         <h4 style="margin-left: 3px;">/ Employee </h4>
     </div>
 </div>
-<div style="padding: 2em;">
+<div>
 
     <!--Search section-->
     <div style="margin: -14px 0 14px 0; ">
@@ -28,8 +28,8 @@
                 <form style="width: 55%;display: flex;align-items: center; justify-content: space-between ">
                     <mat-form-field appearance="outline" style="padding: 0; margin-top: 20px">
                         <mat-label>Search Name</mat-label>
-                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
-                            [matAutocomplete]="auto" [(ngModel)]="value">
+                        <input type="text" placeholder="Pick one" aria-label="Number" (keyup.enter)="getOneEmployee()"
+                            matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="value">
                         <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''"
                             style="color: #d64633;">
                             <mat-icon>close</mat-icon>

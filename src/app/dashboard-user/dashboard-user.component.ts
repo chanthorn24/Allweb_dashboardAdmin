@@ -192,7 +192,9 @@ export class DashboardUserComponent implements OnInit {
                 let length = res.data.data.length;
                 // console.log(length);
 
-                this.checkTime = res.data.data[length - 1].created.date;
+                if (length > 1) {
+                  this.checkTime = res.data.data[length - 1].created.date;
+                }
                 if (this.option.click == 0) {
                   this.disable = true;
                 }

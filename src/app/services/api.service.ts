@@ -274,6 +274,10 @@ export class ApiService {
   public takeAttendance(data: any) {
     return this.http.post<any>(this.URL + '/employee/attendance/create', data);
   }
+  //get all attendance monthly
+  public getMonthlyAttendanceUser(id: any) {
+    return this.http.get<any>(this.URL + '/employee/attendance/user/' + id);
+  }
   //get type attendance
   public getTypeAttendance(user_id: any) {
     return this.http.get<any>(this.URL + '/employee/attendance/get-type/' + user_id);

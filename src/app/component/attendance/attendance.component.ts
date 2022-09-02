@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { parse } from 'date-fns';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { concat } from 'rxjs';
 
 
 
@@ -26,6 +27,22 @@ export class AttendanceComponent implements OnInit {
   checkType!: any;
   workTimeHour!: any;
 
+  //monthly attendance each user
+  attendance_user: any = [];
+  attendance: any = [];
+
+  //number of day
+  days = new Array();
+
+  //total day in current month
+  total_day!: number;
+  //get current month
+  date = new Date();
+  currentYear = this.date.getFullYear();
+  currentMonth = this.date.getMonth() + 1;
+  currentDay = this.date.getDate();
+
+
 
   constructor(
     private api: ApiService,
@@ -33,7 +50,7 @@ export class AttendanceComponent implements OnInit {
   ) { }
 
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['no', 'date', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'total hours'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
@@ -46,26 +63,94 @@ export class AttendanceComponent implements OnInit {
   //calculate work time
   getWorkTime(start: any, end: any) {
     let RELAX_TIME = 1.5;
-
-    if(start.getTime() >= 48600000) {
+    if (start.getTime() >= 48600000) {
       RELAX_TIME = 0;
     }
 
-
-    let duration = (end.getTime() - start.getTime())/3600000;
-
+    let duration = (end.getTime() - start.getTime()) / 3600000;
     return duration - RELAX_TIME;
+  }
+  //get number of day
+  getDaysInMonth(year: any, month: any) {
+    return new Date(year, month, 0).getDate();
   }
 
 
   ngOnInit(): void {
+    // 👇️ Current Month
+    this.total_day = this.getDaysInMonth(this.currentYear, this.currentMonth);
+    for (let i = 1; i <= this.currentDay; i++) {
+      //looping through days in month
+
+      let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), i);
+
+      if (newDate.getDay() == 0) {
+        //if Sunday
+        // this.displayedColumns[i + 2].day = 'Sun';
+        this.days.push('Sun');
+      }
+      if (newDate.getDay() == 1) {
+        //if Monday
+        // this.displayedColumns[i + 2].day = 'Mon';
+        this.days.push('Mon');
+      }
+      if (newDate.getDay() == 2) {
+        //if Tueday
+        // this.displayedColumns[i + 2].day = 'Tue';
+        this.days.push('Tue');
+      }
+      if (newDate.getDay() == 3) {
+        //if Wednesday
+        // this.displayedColumns[i + 2].day = 'Wed';
+        this.days.push('Web');
+      }
+      if (newDate.getDay() == 4) {
+        //if thursday
+        // this.displayedColumns[i + 2].day = 'Thu';
+        this.days.push('Thu');
+      }
+      if (newDate.getDay() == 5) {
+        //if friday
+        // this.displayedColumns[i + 2].day = 'Fri';
+        this.days.push('Fri');
+      }
+
+      if (newDate.getDay() == 6) {
+        //if Saturday
+        // this.displayedColumns[i + 2].day = 'Sat';
+        this.days.push('Sat');
+      }
+    }
+    console.log(this.days);
+
+
     let email = this.auth.getEmail();
     this.api.getOneUserByEmail(email).subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
+          this.api.getMonthlyAttendanceUser(res.data[0].id).subscribe({
+            next: (res) => {
+              if (res.success) {
+                this.attendance_user = res.data;
+                let j = 0;
+                let arrayStore = [];
+                this.attendance[j] = this.attendance_user[0];
+                for (let i = 1; i < res.data.length; i++) {
+                  if (this.attendance_user[i].created.date.slice(0, 10) == this.attendance_user[i - 1].created.date.slice(0, 10)) {
+                    arrayStore[i] = this.attendance_user[i];
+                    this.attendance[j] = [this.attendance[j], arrayStore[i]];
+                  } else {
+                    j++;
+                    this.attendance[j] = this.attendance_user[i];
+                  }
+                }
+                console.log(this.attendance);
+              }
+            }
+          })
           this.api.getTypeAttendance(res.data[0].id).subscribe({
             next: (res) => {
-              if(res.success) {
+              if (res.success) {
                 let length = res.data.data.length;
 
                 // if(length == 1) {
@@ -78,14 +163,14 @@ export class AttendanceComponent implements OnInit {
                 //   this.clockTime[5] = this.clockTime[0].slice(0,19);
                 // }
 
-                  for(let i=0; i<length; i++) {
-                    this.checkType = res.data.data[i].attendance_type;
-                    this.clockTime[this.checkType-1] = res.data.data[i].created.date;
-                    if(i == 0) {
-                      this.clockTime[5] = this.clockTime[this.checkType-1].slice(0,19);
-                    }
+                for (let i = 0; i < length; i++) {
+                  this.checkType = res.data.data[i].attendance_type;
+                  this.clockTime[this.checkType - 1] = res.data.data[i].created.date;
+                  if (i == 0) {
+                    this.clockTime[5] = this.clockTime[this.checkType - 1].slice(0, 19);
                   }
-                  // this.clockTime[5] = this.clockTime[0].slice(0,19);
+                }
+                // this.clockTime[5] = this.clockTime[0].slice(0,19);
 
 
                 let dateT = parse(this.clockTime[5], 'yyyy-M-d HH:mm:ss', new Date());

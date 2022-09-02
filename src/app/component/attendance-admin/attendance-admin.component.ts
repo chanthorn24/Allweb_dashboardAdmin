@@ -99,8 +99,6 @@ export class AttendanceAdminComponent implements OnInit {
 
       let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), i);
 
-      console.log(newDate);
-
       if (newDate.getDay() == 0) {
         //if Sunday
         // this.displayedColumns[i + 2].day = 'Sun';

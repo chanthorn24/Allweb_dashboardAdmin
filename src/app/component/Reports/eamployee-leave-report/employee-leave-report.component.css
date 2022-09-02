@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+    height: 8px;
+  }
+   
+::-webkit-scrollbar-track {
+    background: #ffc47d; 
+    border-radius: 10px;
+  }
+   
+::-webkit-scrollbar-thumb {
+    background: #F89926; 
+    border-radius: 10px;
+  }
+
+  .mat-form-field-wrapper{
+    padding-bottom: 0;
+  }

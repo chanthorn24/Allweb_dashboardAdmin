@@ -1,68 +1,188 @@
-import { formatDate } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { formatDate } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthGuard } from 'src/app/services/auth.guard';
+import { MatSort } from '@angular/material/sort';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { SnackbarService } from 'src/app/services/snackbar.service';
+import { parse } from 'date-fns';
+
+export interface Employee {
+  id: any,
+  firstName: any,
+  lastName: any,
+  email: any,
+  start: any,
+  end: any,
+  // totalLeave: any,
+  status: any,
+  leave_reason: any,
+
+}
+
+
 
 @Component({
   selector: 'app-employee-leave-report',
   templateUrl: './employee-leave-report.component.html',
-  styleUrls: ['./employee-leave-report.component.css'],
+  styleUrls: ['./employee-leave-report.component.css']
 })
 export class EmployeeLeaveReport implements OnInit {
+  displayedColumns: string[] = ['id', 'name', 'email', 'leaveType', 'start.date', 'end.date', 'totalLeave', 'status'];
+  dataSource!: MatTableDataSource<Employee>;
+  //auto complete
+  myControl = new FormControl('');
+  options: string[] = [];
+  filteredOptions!: Observable<string[]>;
+
+  //clear input search
+  value = "";
+  length = 0;
+
+  isLoading = true;
+  //export file section
   formatted!: string;
   datenow = new Date();
-  constructor(private authService: AuthService, private router: Router) {
-    this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US');
+
+  public employee: any;
+  id: any;
+
+  totalLeave: any = [];
+
+
+  constructor(
+    private dialog: MatDialog,
+    private authGard: AuthGuard,
+    private router: Router,
+    private api: ApiService,
+    private snackBar: SnackbarService,
+  ) {
+    this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US')
   }
+  @ViewChild(MatTable) table!: MatTable<Employee>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  //get the employees
+  getAllLeave() {
+    this.api.getLeaveApproved().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.length = res.data.length;
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+          // get the name
+          res.data.forEach((e: any, i: any) => {
+            this.totalLeave[res.data[i].id] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
+            this.options.push(`${e.id} ${e.firstName} ${e.lastName}`)
+          });
+          this.dataSource = new MatTableDataSource<Employee>(res.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
 
-  ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-
-    //security not allow admin route to this URL
-    if (!this.authService.isAdmin()) {
-      this.router.navigateByUrl('/account/dashboard');
+        }
+        //loading
+        this.isLoading = false;
+      }
+    })
+  }
+  getOneEmployee() {
+    if (this.value) {
+      this.id = this.value.split(' ')[0]; //get the id
+      console.log("id", this.id);
+      //check it the number
+      if (Number(this.id)) {
+        this.isLoading = true;
+        this.api.getLeaveByUser(this.id).subscribe({
+          next: (res) => {
+            if (res.success) {
+              this.length = res.data.length;
+              this.dataSource = new MatTableDataSource<Employee>(res.data);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            }
+            //loading
+            this.isLoading = false;
+            this.snackBar.openSnackBarSuccess('Search successfully')
+          },
+          error: (error) => {
+            this.isLoading = false;
+            this.snackBar.openSnackBarFail("Invalid input");
+          }
+        })
+      } else {
+        this.snackBar.openSnackBarFail('Employee not exist')
+      }
+    } else {
+      this.getAllLeave(); //get all data back if no input is got
+      this.snackBar.openSnackBarWarn('Input to search')
     }
   }
+  getNumOfDay(start: any, end: any) {
+    let numofDay = (end.getTime() - start.getTime()) / (1000 * 3600 * 24);;
+
+    return numofDay;
+  }
+  reset() {
+    if (this.value) {
+      this.value = "";
+      this.getAllLeave();
+    } else {
+      this.snackBar.openSnackBarWarn('Cannot Reset');
+    }
+  }
+
+  download() {
+    this.snackBar.openSnackBarSuccess('Data is being downloaded');
+  }
+  getAllDepartment() {
+    this.api.getDepartment().subscribe({
+      next: (res) => {
+        if (res.success) {
+          console.log(res);
+
+        }
+      }
+    })
+  }
+
+  //search filter
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log("Here", this.dataSource);
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
+  //search autocomplete
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+  ngOnInit(): void {
+    this.getAllLeave();
+    //auto complete
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+
+    //date format for exporter
+    this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US');
+
+    //security not allow admin route to this URL
+    if (!this.authGard.isAdmin()) {
+      this.router.navigateByUrl("/account/dashboard");
+    }
+  }
+
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];

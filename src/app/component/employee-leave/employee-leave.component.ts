@@ -43,6 +43,8 @@ export class EmployeeLeaveComponent implements OnInit {
 
   //dashboard
   total_leave: number = 0;
+  total_pendding: number = 0;
+  total_type: number = 0;
 
   //pending leave
   pending_leaves: any = [];
@@ -93,6 +95,7 @@ export class EmployeeLeaveComponent implements OnInit {
       next: (res) => {
         if (res.success) {
           this.pending_leaves = res.data;
+          this.total_pendding = res.data.length;
           for (let i = 0; i < res.data.length; i++) {
             this.total_leave_day[i] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()));
           }
@@ -177,6 +180,14 @@ export class EmployeeLeaveComponent implements OnInit {
     this.getAllLeave();
     //get all pending
     this.getPendingLeave();
+
+    this.api.getLeaveReason().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.total_type = res.data.length;
+        }
+      }
+    })
 
     if (!this.authGard.isAdmin()) {
       this.route.navigate(['/']);

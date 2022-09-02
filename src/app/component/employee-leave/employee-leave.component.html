@@ -19,12 +19,11 @@
         <div fxFlex="33%" fxFlex.sm="50%">
             <mat-card style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <div style="font-size: 1.8em; line-height: 1.8em;">Total Leave</div>
-                    <div style="font-size: 1.2em">{{ total_leave }}</div>
+                    <div style="font-size: 1.8em; line-height: 1.8em;">Pendding Request</div>
+                    <div style="font-size: 30px; font-weight: 900; color: rgba(0, 201, 137, 0.8);">{{ total_pendding | number: '2.' }}</div>
                 </div>
                 <div>
-                    <button style="width: 5em;height:5em;" mat-fab color="primary"
-                        aria-label="Example icon button with a delete icon">
+                    <button style="width: 5em;height:5em; background-color: rgb(2, 83, 204);" mat-fab aria-label="Example icon button with a delete icon">
                         <mat-icon style="transform: scale(1.4);">people</mat-icon>
                     </button>
                 </div>
@@ -33,12 +32,11 @@
         <div fxFlex="33%" fxFlex.sm="50%">
             <mat-card style="display:  flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <div style="font-size: 1.8em; line-height: 1.8em;">Leave Department</div>
-                    <div style="font-size: 1.2em">02</div>
+                    <div style="font-size: 1.8em; line-height: 1.8em;">Total Leave</div>
+                    <div style="font-size: 30px; font-weight: 900; color: rgb(247, 85, 70);">{{ total_leave | number: '2.' }}</div>
                 </div>
                 <div>
-                    <button style="width: 5em;height:5em;" mat-fab color="primary"
-                        aria-label="Example icon button with a delete icon">
+                    <button style="width: 5em; height: 5em; background-color: rgb(2, 83, 204);" mat-fab aria-label="Example icon button with a delete icon">
                         <mat-icon style="transform: scale(1.4);">apps</mat-icon>
                     </button>
                 </div>
@@ -48,11 +46,10 @@
             <mat-card style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
                     <div style="font-size: 1.8em; line-height: 1.8em;">Leave Type</div>
-                    <div style="font-size: 1.2em">02</div>
+                    <div style="font-size: 30px; font-weight: 900; color: orange;">{{ total_type | number: '2.' }}</div>
                 </div>
                 <div>
-                    <button style="width: 5em;height:5em;" mat-fab color="primary"
-                        aria-label="Example icon button with a delete icon">
+                    <button style="width: 5em; height: 5em; background-color: rgb(2, 83, 204);" mat-fab color="primary" aria-label="Example icon button with a delete icon">
                         <mat-icon style="transform: scale(1.4);">explorer</mat-icon>
                     </button>
                 </div>
@@ -153,11 +150,6 @@
         </tr>
 
     </table>
-<<<<<<< HEAD
     <mat-paginator style="background-color: #fafafa !important; margin: -25px 0 30px 0; " [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-=======
-    <mat-paginator style="background-color: #fafafa; margin: -25px 0 30px 0; " [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButtons aria-label="Select page of periodic elements">
->>>>>>> e93f8fdaafbf7c95fe975995ca57a6d6c028c6e4
-    </mat-paginator>
-</div>
+        <mat-paginator style="background-color: #fafafa; margin: -25px 0 30px 0; " [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+        </mat-paginator>

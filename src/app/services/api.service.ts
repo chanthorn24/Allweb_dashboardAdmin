@@ -130,6 +130,9 @@ export class ApiService {
   public getLeavePending() {
     return this.http.get<any>(this.URL + '/employee/leave/user/request/pending');
   }
+  public getLeaveApproved() {
+    return this.http.get<any>(this.URL + '/employee/leave/user/request/approved');
+  }
   //getOne leave
   public getOneLeaveUser(id: any) {
     return this.http.get<any>(this.URL + '/employee/leave/' + id);

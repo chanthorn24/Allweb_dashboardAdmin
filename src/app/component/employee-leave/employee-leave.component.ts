@@ -97,7 +97,7 @@ export class EmployeeLeaveComponent implements OnInit {
           this.pending_leaves = res.data;
           this.total_pendding = res.data.length;
           for (let i = 0; i < res.data.length; i++) {
-            this.total_leave_day[i] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()));
+            this.total_leave_day[i] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
           }
         }
       }

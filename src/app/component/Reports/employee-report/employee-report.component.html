@@ -5,7 +5,7 @@
             <button mat-raised-button
                 (click)="exporter.exportTable('xlsx', {fileName:'EmployeeReport_'+formatted, columnWidths: [10,20,20,20,20,20,20,40,80]})"
                 (click)="download()" style="background-color: #F89926; color: #fff; margin-right: 30px">
-                <i class="fa-solid fa-down-to-line"></i>
+                <i style="margin-right:6px;" class="fa-solid fa-file-excel"></i>
                 Download Excel
             </button>
         </div>
@@ -28,8 +28,9 @@
                 <form style="width: 55%;display: flex;align-items: center; justify-content: space-between ">
                     <mat-form-field appearance="outline" style="padding: 0; margin-top: 20px">
                         <mat-label>Search Name</mat-label>
-                        <input type="text" placeholder="Pick one" aria-label="Number" (keyup.enter)="getOneEmployee()"
-                            matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="value">
+                        <input type="text" placeholder="Search name" aria-label="Number"
+                            (keyup.enter)="getOneEmployee()" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                            [(ngModel)]="value">
                         <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''"
                             style="color: #d64633;">
                             <mat-icon>close</mat-icon>

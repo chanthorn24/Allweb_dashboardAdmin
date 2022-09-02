@@ -4,7 +4,7 @@
         <div>
             <button mat-raised-button
                 (click)="exporter.exportTable('xlsx', {fileName:'EmployeeReport_'+formatted, columnWidths: [10,20,20,20,20,20,20,40,80]})"
-                style="background-color: #F89926; color: #fff; margin-right: 30px">
+                (click)="download()" style="background-color: #F89926; color: #fff; margin-right: 30px">
                 <i class="fa-solid fa-down-to-line"></i>
                 Download Excel
             </button>
@@ -20,20 +20,49 @@
 </div>
 <div style="padding: 2em;">
 
+    <!--Search section-->
+    <div style="margin: -14px 0 14px 0; ">
 
-    <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Search Name</mat-label>
-        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
-            [matAutocomplete]="auto" (keyup)="applyFilter($event)" #input>
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+        <mat-card>
+            <div>
+                <form style="width: 55%;display: flex;align-items: center; justify-content: space-between ">
+                    <mat-form-field appearance="outline" style="padding: 0; margin-top: 20px">
+                        <mat-label>Search Name</mat-label>
+                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+                            [matAutocomplete]="auto" [(ngModel)]="value">
+                        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''"
+                            style="color: #d64633;">
+                            <mat-icon>close</mat-icon>
+                        </button><button *ngIf="!value" matSuffix mat-icon-button style="color: rgb(30, 140, 243)">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <div style="display: flex; align-items:center">
+                        <button type="submit" mat-raised-button color="primary" (click)="getOneEmployee()">
+                            <mat-icon style="margin-right: 4px;">search</mat-icon> Search
+                        </button>
+                        <button type="reset" mat-raised-button color="warn" style="margin-left: 30px;"
+                            (click)="reset()">
+                            <mat-icon style="margin-right: 8px;">settings_backup_restore</mat-icon>
+                            Reset
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </mat-card>
+    </div>
+    <div>
+        <h2 style="color: rgb(30, 140, 243);">Employees Report ( {{length}} )</h2>
 
+    </div>
 
     <div class="mat-elevation-z2" style="font-size: 10px; overflow-x: scroll;">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
         <table mat-table matTableExporter #exporter="matTableExporter" mat-table [dataSource]="dataSource"
             class="mat-elevation-z4 table__section" matSort style="width: 90vw; ">
             <!-- Position Column -->
@@ -87,13 +116,10 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;">
 
             </tr>
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-            </tr>
 
         </table>
     </div>
+
     <mat-paginator style="background-color: #fafafa;" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
         aria-label="Select page of periodic elements">
     </mat-paginator>

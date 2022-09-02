@@ -8,9 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthGuard } from 'src/app/services/auth.guard';
 import { MatSort } from '@angular/material/sort';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 export interface Employee {
   id: any,
@@ -40,15 +41,22 @@ export class EmployeeReportComponent implements OnInit {
   options: string[] = [];
   filteredOptions!: Observable<string[]>;
 
+  //clear input search
+  value = "";
+  length = 0;
+  isLoading = true;
   //export file section
   formatted!: string;
   datenow = new Date();
+
   public employee: any;
+  id: any;
   constructor(
     private dialog: MatDialog,
     private authGard: AuthGuard,
     private router: Router,
     private api: ApiService,
+    private snackBar: SnackbarService,
   ) {
     this.formatted = formatDate(this.datenow, 'dd-MM-yyyy', 'en-US')
   }
@@ -61,25 +69,75 @@ export class EmployeeReportComponent implements OnInit {
     this.api.getUser().subscribe({
       next: (res) => {
         if (res.success) {
+          this.length = res.data.length;
           this.dataSource = new MatTableDataSource<Employee>(res.data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-          console.log("234234");
           //get the name
           res.data.forEach((e: any) => {
-            this.options.push(`${e.firstName} ${e.lastName}`)
+            this.options.push(`${e.id} ${e.firstName} ${e.lastName}`)
           });
-          console.log(this.options);
-
         }
+        //loading
+        this.isLoading = false;
       }
     })
+  }
+  getOneEmployee() {
+    if (this.value) {
+      this.id = this.value.split(' ')[0]; //get the id
+      //check it the number
+      if (Number(this.id)) {
+        this.isLoading = true;
+        this.api.getOneUser(this.id).subscribe({
+          next: (res) => {
+            if (res.success) {
+              this.length = res.data.length;
+              this.dataSource = new MatTableDataSource<Employee>(res.data);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            }
+            //loading
+            this.isLoading = false;
+            this.snackBar.openSnackBarSuccess('Search successfully')
+          },
+          error: (error) => {
+            this.isLoading = false;
+            this.snackBar.openSnackBarFail("Invalid input");
+          }
+        })
+      } else {
+        this.snackBar.openSnackBarFail('Employee not exist')
+      }
+    } else {
+      this.getAllEmployee(); //get all data back if no input is got
+      this.snackBar.openSnackBarWarn('Input to search')
+    }
+  }
+  reset() {
+    // this.form.resetForm();
+    // Object.keys(this.form.controls).forEach(key => {
+    //   this.form.controls[key].setErrors(null)
+    // });
+    if (this.value) {
+      this.value = "";
+      this.getAllEmployee();
+    } else {
+      console.log("txcv2");
+
+      this.snackBar.openSnackBarWarn('Cannot Reset');
+    }
+  }
+
+  download() {
+    this.snackBar.openSnackBarSuccess('Data is being downloaded');
   }
   getAllDepartment() {
     this.api.getDepartment().subscribe({
       next: (res) => {
         if (res.success) {
           console.log(res);
+
         }
       }
     })

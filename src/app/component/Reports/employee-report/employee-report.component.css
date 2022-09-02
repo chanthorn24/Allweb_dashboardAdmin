@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-    height: 10px;
+    height: 8px;
   }
    
 ::-webkit-scrollbar-track {
@@ -10,4 +10,8 @@
 ::-webkit-scrollbar-thumb {
     background: #F89926; 
     border-radius: 10px;
+  }
+
+  .mat-form-field-wrapper{
+    padding-bottom: 0;
   }

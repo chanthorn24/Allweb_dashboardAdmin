@@ -1,7 +1,9 @@
+import { DialogRef } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-change-password',
@@ -11,11 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ChangePasswordComponent implements OnInit {
 
   hide: boolean = true;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
-  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  duration = 5;
   constructor(
-    private _snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private snackBar: SnackbarService,
     private api: ApiService,
     private authApi: AuthService,
   ) { }
@@ -33,30 +33,57 @@ export class ChangePasswordComponent implements OnInit {
         this.api.changePassword(this.changePassword).subscribe({
           next: (res) => {
             console.log(res);
-            this.openSnackBarWarning('Password Changed Successfully', 'blue-snackbar');
+            if (res.success) {
+              this.openDialog();
+            }
           },
           error: (err) => {
             console.log(err);
-            this.openSnackBarWarning('Old password is incorrect', 'red-snackbar');
+            this.snackBar.openSnackBarFail('Incorrect password');
           }
         })
       } else {
-        this.openSnackBarWarning('Old and New Password has to be different', 'warn-snackbar');
+        this.snackBar.openSnackBarWarn('Old and new password have to be different')
       }
+    } else {
+      this.snackBar.openSnackBarWarn('No valid input');
     }
 
   }
+  reset() {
+    this.changePassword.old_password = '';
+    this.changePassword.new_password = '';
+  }
 
-  openSnackBarWarning(data: any, className: any) {
-    this._snackBar.open(data, 'Cancel', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: this.duration * 1000,
-      panelClass: [className]
+  //open edit Dialog
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogChangePassword, {
+      autoFocus: false,
+    });
+    //after close
+    dialogRef.afterClosed().subscribe(result => {
+      this.reset();
     });
   }
 
   ngOnInit(): void {
     this.changePassword.email = this.authApi.getEmail();
+  }
+}
+
+@Component({
+  selector: 'dialog-change-password',
+  templateUrl: './dialog-change-password.html',
+})
+export class DialogChangePassword {
+
+  constructor(private authService: AuthService, private dialogRef: DialogRef) { }
+
+  logout() {
+    this.authService.logout();
+    this.close();
+  }
+  close() {
+    this.dialogRef.close();
   }
 }

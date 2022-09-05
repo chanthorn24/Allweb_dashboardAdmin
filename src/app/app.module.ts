@@ -113,7 +113,7 @@ import {
 import { EmployeeReportAttendanceComponent } from './component/Reports/employee-report-attendance/employee-report-attendance.component';
 import { ResetPasswordComponent } from './component/Auth/reset-password/reset-password.component';
 import { LoginComponent } from './component/Auth/login/login.component';
-import { ChangePasswordComponent } from './component/Auth/change-password/change-password.component';
+import { ChangePasswordComponent, DialogChangePassword } from './component/Auth/change-password/change-password.component';
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { EmployeeReportComponent } from './component/Reports/employee-report/employee-report.component';
@@ -188,6 +188,8 @@ import { EmployeeReportComponent } from './component/Reports/employee-report/emp
     EmployeeReportAttendanceComponent,
     DialogAcceptLeave,
     DialogDeclineLeave,
+    DialogChangePassword,
+
   ],
   imports: [
     BrowserModule,

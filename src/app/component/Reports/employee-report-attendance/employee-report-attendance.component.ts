@@ -15,16 +15,18 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { parse } from 'date-fns';
 
 export interface Employee {
-  user_id: any,
+  employeeId: any,
   firstName: any,
   lastName: any,
   email: any,
-  start: any,
-  end: any,
-  // totalLeave: any,
-  status: any,
-  leave_reason: any,
+  date: any,
 
+  attendance_type: any,
+  attendance_type1: any,
+  attendance_type2: any,
+  attendance_type3: any,
+  attendance_type4: any,
+  totalhours: any,
 }
 
 @Component({
@@ -33,7 +35,7 @@ export interface Employee {
   styleUrls: ['./employee-report-attendance.component.css']
 })
 export class EmployeeReportAttendanceComponent implements OnInit {
-  displayedColumns: string[] = ['user_id', 'name', 'email', 'leaveType', 'start.date', 'end.date', 'totalLeave', 'status'];
+  displayedColumns: string[] = ['employeeId', 'name', 'email', 'created.date', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
   dataSource!: MatTableDataSource<Employee>;
   //auto complete
   myControl = new FormControl('');
@@ -69,16 +71,15 @@ export class EmployeeReportAttendanceComponent implements OnInit {
 
   //get the employees
   getAllLeave() {
-    this.api.getLeaveApproved().subscribe({
+    this.api.getAllAttendanceEmpDaily().subscribe({
       next: (res) => {
         if (res.success) {
           this.length = res.data.length;
-
           // get the name
-          res.data.forEach((e: any, i: any) => {
-            this.totalLeave[res.data[i].user_id] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
-            this.options.push(`${e.user_id} ${e.firstName} ${e.lastName}`)
-          });
+          // res.data.forEach((e: any, i: any) => {
+          //   this.totalLeave[res.data[i].user_id] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
+          //   this.options.push(`${e.user_id} ${e.firstName} ${e.lastName}`)
+          // });
           this.dataSource = new MatTableDataSource<Employee>(res.data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;

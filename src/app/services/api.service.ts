@@ -305,4 +305,7 @@ export class ApiService {
   public deleteAttendanceType(id: any) {
     return this.http.delete<any>(this.URL + '/employee/attendance/type/delete/' + id);
   }
+  public getAllAttendanceEmpDaily() {
+    return this.http.get<any>(this.URL + '/employee/attendance/daily/users');
+  }
 }

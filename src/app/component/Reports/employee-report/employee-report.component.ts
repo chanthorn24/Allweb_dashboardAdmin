@@ -115,18 +115,9 @@ export class EmployeeReportComponent implements OnInit {
     }
   }
   reset() {
-    // this.form.resetForm();
-    // Object.keys(this.form.controls).forEach(key => {
-    //   this.form.controls[key].setErrors(null)
-    // });
-    if (this.value) {
-      this.value = "";
-      this.getAllEmployee();
-    } else {
-      console.log("txcv2");
+    this.value = "";
+    this.getAllEmployee();
 
-      this.snackBar.openSnackBarWarn('Cannot Reset');
-    }
   }
 
   download() {

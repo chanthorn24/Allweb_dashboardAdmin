@@ -15,7 +15,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { parse } from 'date-fns';
 
 export interface Employee {
-  id: any,
+  user_id: any,
   firstName: any,
   lastName: any,
   email: any,
@@ -35,7 +35,7 @@ export interface Employee {
   styleUrls: ['./employee-leave-report.component.css']
 })
 export class EmployeeLeaveReport implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'leaveType', 'start.date', 'end.date', 'totalLeave', 'status'];
+  displayedColumns: string[] = ['user_id', 'name', 'email', 'leaveType', 'start.date', 'end.date', 'totalLeave', 'status'];
   dataSource!: MatTableDataSource<Employee>;
   //auto complete
   myControl = new FormControl('');
@@ -58,7 +58,6 @@ export class EmployeeLeaveReport implements OnInit {
 
 
   constructor(
-    private dialog: MatDialog,
     private authGard: AuthGuard,
     private router: Router,
     private api: ApiService,
@@ -79,8 +78,8 @@ export class EmployeeLeaveReport implements OnInit {
 
           // get the name
           res.data.forEach((e: any, i: any) => {
-            this.totalLeave[res.data[i].id] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
-            this.options.push(`${e.id} ${e.firstName} ${e.lastName}`)
+            this.totalLeave[res.data[i].user_id] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
+            this.options.push(`${e.user_id} ${e.firstName} ${e.lastName}`)
           });
           this.dataSource = new MatTableDataSource<Employee>(res.data);
           this.dataSource.paginator = this.paginator;
@@ -103,13 +102,17 @@ export class EmployeeLeaveReport implements OnInit {
           next: (res) => {
             if (res.success) {
               this.length = res.data.length;
-              this.dataSource = new MatTableDataSource<Employee>(res.data);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
+              res.data.forEach((e: any) => {
+                if (e.status === 'Approved') {
+                  this.dataSource = new MatTableDataSource<Employee>([e]);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
+                  //loading
+                  this.isLoading = false;
+                  this.snackBar.openSnackBarSuccess('Search successfully')
+                }
+              })
             }
-            //loading
-            this.isLoading = false;
-            this.snackBar.openSnackBarSuccess('Search successfully')
           },
           error: (error) => {
             this.isLoading = false;
@@ -130,12 +133,8 @@ export class EmployeeLeaveReport implements OnInit {
     return numofDay;
   }
   reset() {
-    if (this.value) {
-      this.value = "";
-      this.getAllLeave();
-    } else {
-      this.snackBar.openSnackBarWarn('Cannot Reset');
-    }
+    this.value = "";
+    this.getAllLeave();
   }
 
   download() {

@@ -6,9 +6,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { parse } from 'date-fns';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { concat } from 'rxjs';
+import { leave } from './../leave-user/leave-user.component';
 
-
+export interface attendanceUser {
+  date: any,
+  attendance_type: any,
+}
 
 @Component({
   selector: 'app-attendance',
@@ -30,6 +33,8 @@ export class AttendanceComponent implements OnInit {
   //monthly attendance each user
   attendance_user: any = [];
   attendance: any = [];
+  attendanceData: any = [];
+  no = 1;
 
   //number of day
   days = new Array();
@@ -50,15 +55,13 @@ export class AttendanceComponent implements OnInit {
   ) { }
 
 
-  displayedColumns: string[] = ['no', 'date', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'total hours'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['date', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'total hours'];
+  dataSource !: MatTableDataSource<attendanceUser>;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
+
 
   //calculate work time
   getWorkTime(start: any, end: any) {
@@ -73,6 +76,12 @@ export class AttendanceComponent implements OnInit {
   //get number of day
   getDaysInMonth(year: any, month: any) {
     return new Date(year, month, 0).getDate();
+  }
+
+  //format date
+  formatDate(date: any) {
+    let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    return formatted_date;
   }
 
 
@@ -121,7 +130,23 @@ export class AttendanceComponent implements OnInit {
         this.days.push('Sat');
       }
     }
+    this.days = this.days.reverse();
     console.log(this.days);
+
+    let attendanceType = [
+      {
+        name: "clock in 1"
+      },
+      {
+        name: "clock out 1"
+      },
+      {
+        name: "clock in 2"
+      },
+      {
+        name: "clock out 2"
+      },
+    ]
 
 
     let email = this.auth.getEmail();
@@ -141,10 +166,71 @@ export class AttendanceComponent implements OnInit {
                     this.attendance[j] = [this.attendance[j], arrayStore[i]];
                   } else {
                     j++;
-                    this.attendance[j] = this.attendance_user[i];
+                    arrayStore[i] = this.attendance_user[i];
+                    this.attendance[j] = arrayStore[i];
                   }
                 }
-                console.log(this.attendance);
+
+                var now_date = new Date();
+                // var first_date = new Date(now_date.getFullYear(), now_date.getMonth(), 1);
+
+                for (let i = 0; i < this.days.length; i++) {
+                  let index = 0;
+                  for (let j = index; j < this.attendance.length; j++) {
+                    console.log(this.attendance[j][0].created.date);
+
+                    if (parse(this.attendance[j][0].created.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()).getDate() == (i + 1)) {
+                      let num = 0;
+
+
+                      for (let p = 0; p < attendanceType.length; p++) {
+                        if (num == this.attendance[j].length - 1) {
+                          this.attendance[j][p] = {
+                            attendance_type: attendanceType[p],
+                            created: {
+                              date: this.formatDate(new Date(now_date.getFullYear(), now_date.getMonth(), i + 1)),
+                            }
+                          }
+                        }
+                        for (let k = num; k < this.attendance[j].length; k++) {
+                          console.log(num);
+
+                          if (attendanceType[p].name == this.attendance[j][k].attendance_type) {
+                            num++;
+                            break;
+                          } else if (k == this.attendance[j].length - 1) {
+                            this.attendance[j][p] = {
+                              attendance_type: attendanceType[p],
+                              created: {
+                                date: this.formatDate(new Date(now_date.getFullYear(), now_date.getMonth(), i + 1)),
+                              }
+                            }
+                          }
+                        }
+
+                      }
+                      this.attendanceData[i] = this.attendance[j];
+                      index++;
+
+                      break;
+                    } else if (j == this.attendance.length - 1) {
+                      // for (let p = 0; p < attendanceType.length; p++) {
+                      //   this.attendance[j][p] = {
+                      //     attendance_type: attendanceType[p],
+                      //     created: {
+                      //       date: this.formatDate(new Date(now_date.getFullYear(), now_date.getMonth(), i + 1)),
+                      //     }
+                      //   }
+                      // }
+                      // this.attendanceData[i] = this.attendance[j]
+                    }
+
+                  }
+                }
+                this.dataSource = new MatTableDataSource<attendanceUser>(this.attendanceData.reverse());
+                this.dataSource.paginator = this.paginator;
+                console.log(this.attendanceData);
+
               }
             }
           })

@@ -56,7 +56,7 @@ export class EmployeeComponent implements OnInit {
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
-    ) { }
+  ) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   obs!: Observable<any>;
   dataSource!: MatTableDataSource<Employees>;
@@ -80,7 +80,7 @@ export class EmployeeComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Employees>(res.data);
         this.employees = res.data;
         this.spinner = false;
-       this.changeDetectorRef.detectChanges();
+        this.changeDetectorRef.detectChanges();
         this.dataSource.paginator = this.paginator;
         this.obs = this.dataSource.connect();
         console.log(this.employees.length);
@@ -121,58 +121,58 @@ export class DialogElementsDialog {
 
   //employee data
   userCollection: any = {
-    lastName!: "",
-    firstName!: "",
-    dateOfBirth!: new Date(),
-    placeOfBirth!: "",
-    phone!: "",
-    salary!: "",
-    imageURL!: "",
-    gender!: "",
-    nationality!: "",
-    religion!: "",
-    address!: "",
-    is_married!: "",
-    joinDate!: new Date(),
-    emp_department_id!: "",
-    user_role_id!: 1,
-    emp_position_id!: "",
+    lastName: "",
+    firstName: "",
+    dateOfBirth: new Date(),
+    placeOfBirth: "",
+    phone: "",
+    salary: "",
+    imageURL: "",
+    gender: "",
+    nationality: "",
+    religion: "",
+    address: "",
+    is_married: "",
+    joinDate: new Date(),
+    emp_department_id: "",
+    user_role_id: 1,
+    emp_position_id: "",
 
     //user account
-    email!: "",
-    password!: "",
-    repeat_password!: "",
+    email: "",
+    password: "",
+    repeat_password: "",
 
     //bank account
-    bank_id!: "",
-    bank_name!: "",
-    bank_account_number!: "",
+    bank_id: "",
+    bank_name: "",
+    bank_account_number: "",
 
     //education
-    school!: "",
-    school_degree_id!: "",
+    school: "",
+    school_degree_id: "",
 
-    family!: "",
+    family: "",
 
   }
 
   family: any = [
     {
-      name!: "",
-      phone!: "",
-      family_relationship_id!: "",
+      name: "",
+      phone: "",
+      family_relationship_id: "",
 
     },
     {
-      name!: "",
-      phone!: "",
-      family_relationship_id!: "",
+      name: "",
+      phone: "",
+      family_relationship_id: "",
 
     },
     {
-      name!: "",
-      phone!: "",
-      family_relationship_id!: "",
+      name: "",
+      phone: "",
+      family_relationship_id: "",
 
     },
   ];
@@ -233,14 +233,14 @@ export class DialogElementsDialog {
   ngOnInit(): void {
     this.api.getDepartment().subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           this.departments = res.data;
         }
       }
     });
     this.api.getPosition().subscribe({
       next: (res) => {
-        if(res.success) {
+        if (res.success) {
           this.positions = res.data;
         }
       }

@@ -25,6 +25,7 @@ import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot
 import { ResetPasswordComponent } from './component/Auth/reset-password/reset-password.component';
 import { LoginComponent } from './component/Auth/login/login.component';
 import { ReportUserComponent } from './component/report-user/report-user.component';
+import { EmployeeLeaveDetailComponent } from './component/employee-leave-detail/employee-leave-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -91,6 +92,11 @@ const routes: Routes = [
   {
     path: 'employee/leave',
     component: EmployeeLeaveComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'employee/leave/:id',
+    component: EmployeeLeaveDetailComponent,
     canActivate: [AuthGuard],
   },
   {

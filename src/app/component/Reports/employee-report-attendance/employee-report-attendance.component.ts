@@ -75,12 +75,59 @@ export class EmployeeReportAttendanceComponent implements OnInit {
       next: (res) => {
         if (res.success) {
           this.length = res.data.length;
-          // get the name
-          // res.data.forEach((e: any, i: any) => {
-          //   this.totalLeave[res.data[i].user_id] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
-          //   this.options.push(`${e.user_id} ${e.firstName} ${e.lastName}`)
+
+          let arr: any = [];
+
+          let empId: any = [];
+          //get all emp id
+          res.data.forEach((e: any, i: any) => {
+            empId[i] = e.employeeId;
+          })
+          // remove duplicate id;
+          empId = empId.filter(function (value: any, index: any, array: any) {
+            return array.indexOf(value) === index;
+          });
+          console.log(res.data);
+          let newArr = [];
+          for (let i = 0; i < empId.length; i++) {
+            for (let j = 0; j < res.data.length; j++) {
+              if (empId[i] == res.data[j].employeeId) {
+                newArr[j] = res.data[j];
+              }
+            }
+            arr[i] = newArr;
+            newArr = []; //reset
+          }
+          // remove empty aray from arr;
+          arr.forEach((e: any, i: any) => {
+            arr[i] = e.filter(Boolean);
+
+          })
+          // console.log(arr);
+          // let data: any = [];
+          // let arr2: any = [];
+          // console.log();
+          // arr.forEach((e: any, i: any) => {
+          //   e.forEach((item: any, index: any) => {
+          //     // console.log(item.attendance_type, data[index].attendance_type[index].type);
+          //     // if (item.attendance_type == data[index].attendance_type[index].type) {
+          //     //   data[index].attendance_type[index].date = item.created.date;
+          //     // }
+          //     data[index] = {
+          //       firstName: item.firstName,
+          //       lastName: item.lastName,
+          //       email: item.email,
+          //       employeeId: item.employeeId
+          //     }
+          //   })
+          //   arr2[i] = data;
+          //   data = [];
           // });
-          this.dataSource = new MatTableDataSource<Employee>(res.data);
+
+          // console.log(arr2);
+
+          console.log(arr);
+          this.dataSource = new MatTableDataSource<Employee>(arr);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
 

@@ -134,3 +134,11 @@ html * {
 .option {
     height: 100px;
 }
+
+.mat-header-cell {
+    height: 60px !important;
+    background-color: rgb(2, 83, 204) !important;
+    color: white;
+    font-weight: 500 !important;
+    padding: 0 10px !important;
+}

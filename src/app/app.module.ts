@@ -117,6 +117,7 @@ import { ChangePasswordComponent, DialogChangePassword } from './component/Auth/
 import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot-password.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { EmployeeReportComponent } from './component/Reports/employee-report/employee-report.component';
+import { EmployeeLeaveDetailComponent } from './component/employee-leave-detail/employee-leave-detail.component';
 
 @NgModule({
   declarations: [
@@ -189,6 +190,7 @@ import { EmployeeReportComponent } from './component/Reports/employee-report/emp
     DialogAcceptLeave,
     DialogDeclineLeave,
     DialogChangePassword,
+    EmployeeLeaveDetailComponent,
 
   ],
   imports: [

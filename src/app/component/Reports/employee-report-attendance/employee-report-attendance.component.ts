@@ -22,10 +22,6 @@ export interface Employee {
   date: any,
 
   attendance_type: any,
-  attendance_type1: any,
-  attendance_type2: any,
-  attendance_type3: any,
-  attendance_type4: any,
   totalhours: any,
 }
 
@@ -35,7 +31,7 @@ export interface Employee {
   styleUrls: ['./employee-report-attendance.component.css']
 })
 export class EmployeeReportAttendanceComponent implements OnInit {
-  displayedColumns: string[] = ['employeeId', 'name', 'email', 'created.date', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
+  displayedColumns: string[] = ['employeeId', 'name', 'email', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
   dataSource!: MatTableDataSource<Employee>;
   //auto complete
   myControl = new FormControl('');
@@ -69,6 +65,24 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  notClockIn = "Not Clock In";
+  notClockOut = "Not Clock Out";
+  //check if exist 
+  checkTrue = true;
+  checkCondition(valueAtten: any, atten: any, checkNumber: any, numberValue: any): any {
+    if (valueAtten == atten) {
+      this.checkTrue = false;
+    }
+    if (valueAtten != atten && checkNumber == numberValue && this.checkTrue) {
+      return true;
+    }
+    if (checkNumber == numberValue) {
+      this.checkTrue = true;
+    }
+
+    // return "";
+  }
+
   //get the employees
   getAllLeave() {
     this.api.getAllAttendanceEmpDaily().subscribe({
@@ -77,7 +91,6 @@ export class EmployeeReportAttendanceComponent implements OnInit {
           this.length = res.data.length;
 
           let arr: any = [];
-
           let empId: any = [];
           //get all emp id
           res.data.forEach((e: any, i: any) => {
@@ -95,7 +108,7 @@ export class EmployeeReportAttendanceComponent implements OnInit {
                 newArr[j] = res.data[j];
               }
             }
-            arr[i] = newArr;
+            arr[i] = newArr; //append to arr
             newArr = []; //reset
           }
           // remove empty aray from arr;
@@ -103,28 +116,9 @@ export class EmployeeReportAttendanceComponent implements OnInit {
             arr[i] = e.filter(Boolean);
 
           })
-          // console.log(arr);
-          // let data: any = [];
-          // let arr2: any = [];
-          // console.log();
-          // arr.forEach((e: any, i: any) => {
-          //   e.forEach((item: any, index: any) => {
-          //     // console.log(item.attendance_type, data[index].attendance_type[index].type);
-          //     // if (item.attendance_type == data[index].attendance_type[index].type) {
-          //     //   data[index].attendance_type[index].date = item.created.date;
-          //     // }
-          //     data[index] = {
-          //       firstName: item.firstName,
-          //       lastName: item.lastName,
-          //       email: item.email,
-          //       employeeId: item.employeeId
-          //     }
-          //   })
-          //   arr2[i] = data;
-          //   data = [];
-          // });
 
-          // console.log(arr2);
+          //convert arr to new arr with 4 types clock 
+
 
           console.log(arr);
           this.dataSource = new MatTableDataSource<Employee>(arr);

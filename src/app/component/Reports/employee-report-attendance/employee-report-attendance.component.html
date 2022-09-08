@@ -68,55 +68,79 @@
             <ng-container matColumnDef="employeeId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>EmployeeID</th>
                 <td mat-cell *matCellDef="let e">
-
-                    {{e.employeeId}}
-
+                    <ng-container *ngFor="let item of e; let i = index">
+                        <div *ngIf="i==0">{{item.employeeId}}</div>
+                    </ng-container>
                 </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
-                <td mat-cell *matCellDef="let element">{{element.firstName + " " + element.lastName}}</td>
+                <td mat-cell *matCellDef="let e">
+                    <ng-container *ngFor="let item of e; let i = index">
+                        <div *ngIf="i==0">{{item.lastName}} {{item.firstName}} </div>
+                    </ng-container>
+                </td>
+
             </ng-container>
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-                <td mat-cell *matCellDef="let element">{{element.email}}</td>
-            </ng-container>
-            <ng-container matColumnDef="created.date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-                <td mat-cell *matCellDef="let element">{{element.created.date | date:'yyyy-MM-dd'}}</td>
+                <td mat-cell *matCellDef="let e">
+                    <ng-container *ngFor="let item of e; let i = index">
+                        <div *ngIf="i==0">{{item.email}}{{i}}</div>
+                    </ng-container>
+                </td>
             </ng-container>
             <ng-container matColumnDef="clock in 1">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock In 1</th>
                 <td mat-cell *matCellDef="let e">
-                    <ng-container *ngIf="e.attendance_type == '1' ">
-                        <div>{{e.attendance_type}}</div>
+                    <ng-container *ngFor="let item of e; let i = index">
+                        <ng-container *ngIf="item.attendance_type == '1' ">
+                            <div>{{item.created.date | date: "h:mm:ss a"}}</div>
+                        </ng-container>
+                        <ng-container *ngIf="checkCondition(item.attendance_type, 1, i, e.length-1)">{{notClockIn}}
+                        </ng-container>
                     </ng-container>
                 </td>
             </ng-container>
             <ng-container matColumnDef="clock out 1">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock In 1</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock out 1</th>
                 <td mat-cell *matCellDef="let e">
-                    <ng-container *ngIf="e.attendance_type == '2' ">
-                        <div>{{e.attendance_type}}</div>
+                    <ng-container *ngFor="let item of e; let i = index">
+                        <ng-container *ngIf="item.attendance_type == '2'">
+                            <div>{{item.created.date | date: "h:mm:ss a"}}</div>
+                        </ng-container>
+                        <ng-container *ngIf="checkCondition(item.attendance_type, 2, i, e.length-1)">{{notClockOut}}
+                        </ng-container>
                     </ng-container>
+
                 </td>
             </ng-container>
             <ng-container matColumnDef="clock in 2">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock In 1</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock In 2</th>
                 <td mat-cell *matCellDef="let e">
-                    <ng-container *ngIf="e.attendance_type == '3' ">
-                        <div>{{e.attendance_type}}</div>
+                    <ng-container *ngFor="let item of e; let i = index">
+                        <ng-container *ngIf="item.attendance_type == '3' ">
+                            <div>{{item.created.date | date: "h:mm:ss a"}}</div>
+                        </ng-container>
+                        <ng-container *ngIf="checkCondition(item.attendance_type, 3, i, e.length-1)">{{notClockIn}}
+                        </ng-container>
                     </ng-container>
+
                 </td>
             </ng-container>
             <ng-container matColumnDef="clock out 2">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock In 1</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock out 2</th>
                 <td mat-cell *matCellDef="let e">
-                    <ng-container *ngIf="e.attendance_type == '4' ">
-                        <div>{{e.attendance_type}}</div>
+                    <ng-container *ngFor="let item of e; let i=index">
+                        <ng-container *ngIf="item.attendance_type == '4' ">
+                            <div>{{item.created.date | date: "h:mm:ss a"}}</div>
+                        </ng-container>
+                        <ng-container *ngIf="checkCondition(item.attendance_type, 4, i, e.length-1)">{{notClockOut}}
+                        </ng-container>
                     </ng-container>
+
                 </td>
             </ng-container>
 

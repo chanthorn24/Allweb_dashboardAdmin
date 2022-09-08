@@ -22,10 +22,6 @@ export interface Employee {
   date: any,
 
   attendance_type: any,
-  attendance_type1: any,
-  attendance_type2: any,
-  attendance_type3: any,
-  attendance_type4: any,
   totalhours: any,
 }
 
@@ -35,7 +31,7 @@ export interface Employee {
   styleUrls: ['./employee-report-attendance.component.css']
 })
 export class EmployeeReportAttendanceComponent implements OnInit {
-  displayedColumns: string[] = ['employeeId', 'name', 'email', 'created.date', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
+  displayedColumns: string[] = ['employeeId', 'name', 'email', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
   dataSource!: MatTableDataSource<Employee>;
   //auto complete
   myControl = new FormControl('');
@@ -69,18 +65,63 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  notClockIn = "Not Clock In";
+  notClockOut = "Not Clock Out";
+  //check if exist 
+  checkTrue = true;
+  checkCondition(valueAtten: any, atten: any, checkNumber: any, numberValue: any): any {
+    if (valueAtten == atten) {
+      this.checkTrue = false;
+    }
+    if (valueAtten != atten && checkNumber == numberValue && this.checkTrue) {
+      return true;
+    }
+    if (checkNumber == numberValue) {
+      this.checkTrue = true;
+    }
+
+    // return "";
+  }
+
   //get the employees
   getAllLeave() {
     this.api.getAllAttendanceEmpDaily().subscribe({
       next: (res) => {
         if (res.success) {
           this.length = res.data.length;
-          // get the name
-          // res.data.forEach((e: any, i: any) => {
-          //   this.totalLeave[res.data[i].user_id] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
-          //   this.options.push(`${e.user_id} ${e.firstName} ${e.lastName}`)
-          // });
-          this.dataSource = new MatTableDataSource<Employee>(res.data);
+
+          let arr: any = [];
+          let empId: any = [];
+          //get all emp id
+          res.data.forEach((e: any, i: any) => {
+            empId[i] = e.employeeId;
+          })
+          // remove duplicate id;
+          empId = empId.filter(function (value: any, index: any, array: any) {
+            return array.indexOf(value) === index;
+          });
+          console.log(res.data);
+          let newArr = [];
+          for (let i = 0; i < empId.length; i++) {
+            for (let j = 0; j < res.data.length; j++) {
+              if (empId[i] == res.data[j].employeeId) {
+                newArr[j] = res.data[j];
+              }
+            }
+            arr[i] = newArr; //append to arr
+            newArr = []; //reset
+          }
+          // remove empty aray from arr;
+          arr.forEach((e: any, i: any) => {
+            arr[i] = e.filter(Boolean);
+
+          })
+
+          //convert arr to new arr with 4 types clock 
+
+
+          console.log(arr);
+          this.dataSource = new MatTableDataSource<Employee>(arr);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
 

@@ -49,8 +49,6 @@ export class AttendanceComponent implements OnInit {
   currentMonth = this.date.getMonth() + 1;
   currentDay = this.date.getDate();
 
-
-
   constructor(
     private api: ApiService,
     private auth: AuthService,

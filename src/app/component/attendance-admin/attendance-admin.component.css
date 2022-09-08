@@ -56,6 +56,7 @@ td.mat-column-position {
 .mat-column-id {
     position: sticky;
     z-index: 200;
+    background-color: white;
     left: 0;
 }
 
@@ -69,7 +70,7 @@ td.mat-column-position {
 .mat-column-total {
     position: sticky;
     z-index: 200;
-    left: 334px;
+    left: 187.5px;
     background-color: white;
 }
 

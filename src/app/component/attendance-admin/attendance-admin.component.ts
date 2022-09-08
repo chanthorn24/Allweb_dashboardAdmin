@@ -2,46 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { parse } from 'date-fns';
+import { ApiService } from 'src/app/services/api.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 export interface UserData {
   id: string;
-  name: string;
-  progress: string;
-  fruit: string;
+  firstName: string;
+  lastName: string;
 }
 
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
 
 @Component({
   selector: 'app-attendance-admin',
@@ -56,18 +26,57 @@ export class AttendanceAdminComponent implements OnInit {
 
   //total day in current month
   total_day!: number;
+  current_day!: number;
 
-  dataSource: MatTableDataSource<UserData>;
+
+  //mothly attendance all user
+  monthlyAttendanUser: any = [];
+  totalUser: any = [];
+
+  //monthly attendance each user
+  attendance_user: any = [];
+  attendance: any = [];
+  attendanceData: any = [];
+  attendanceMonthly: any = [];
+  show = false;
+
+  dataSource!: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({ length: 12 }, (_, k) => createNewUser(k + 1));
+  constructor(
+    private api: ApiService,
+    private snackBar: SnackbarService,
+  ) {
+
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  }
+  checkSameValue!: boolean;   //initialised before constructor
+  displayCondition(checkValue: any, elementValue: any, checkNumber: any, numberValue: any) {
+    console.log(checkNumber, this.checkSameValue, numberValue)
+
+    if (checkValue == elementValue && checkNumber != numberValue) {
+      this.checkSameValue = true;
+      // alert("hello")
+      return false;
+    }
+    if (!this.checkSameValue && checkNumber == numberValue && checkValue != elementValue) {
+      this.checkSameValue = false;
+      return true;
+    }
+    if (checkNumber == numberValue) {
+      this.checkSameValue = false;
+    }
+
+    return "";
+  }
+
+  //format date
+  formatDate(date: any) {
+    let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    return formatted_date;
   }
 
   //get number of day
@@ -80,19 +89,116 @@ export class AttendanceAdminComponent implements OnInit {
   currentYear = this.date.getFullYear();
   currentMonth = this.date.getMonth() + 1;
 
+  //get all user monthly attendance
+  getAllMonthlyAttendance() {
+    //get all monthly user attendance
+    this.api.getAllMonthlyAttendance().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.monthlyAttendanUser = res.data;
+          this.attendance_user = res.data;
+          let j = 0;
+          let arrayStore = [];
+          // let arrayOfObject = [];
+          let indexOfArr = 0;
+          let first = true;
+          this.attendance[0] = [this.attendance_user[0]];
+          for (let i = 1; i < res.data.length; i++) {
+            if (this.attendance_user[i]?.created.date.slice(0, 10) == this.attendance_user[i - 1]?.created.date.slice(0, 10)) {
+              if (!first) {
+                arrayStore[indexOfArr - 1] = this.attendance_user[i - 1];
+                first = true;
+              }
+              arrayStore[indexOfArr] = this.attendance_user[i];
+              this.attendance[j] = arrayStore;
+              indexOfArr++;
+            } else {
+              indexOfArr = 0;
+              j++;
+              arrayStore = [];
+              arrayStore[indexOfArr] = this.attendance_user[i];
+              this.attendance[j] = arrayStore;
+              indexOfArr++;
+              first = false;
+            }
+          }
+
+          // console.log(this.attendance, "attendance");
+          // console.log(this.attendance.length, "attendance");
+
+
+          for (let index = 0; index < this.attendance.length; index++) {
+            arrayStore = [];
+
+            // console.log(this.totalUser.length, "user");
+
+            for (let num = 0; num < this.totalUser.length; num++) {
+              for (let i = 0; i < this.attendance[index].length; i++) {
+                console.log(this.attendance[0][0], "attendance");
+                if (this.attendance[index][i].employee_id == num + 1) {
+                  arrayStore[i] = this.attendance[index][i];
+                  break;
+                }
+              }
+              this.attendanceData[index] = arrayStore;
+            }
+          }
+
+          let index = 0;
+          for (let day = 0; day < this.current_day; day++) {
+            let increase = 0;
+            for (index = increase; index < this.attendanceData.length; index++) {
+              if (parse(this.attendance[index][0].created.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()).getDate() == (day + 1)) {
+                this.attendanceMonthly[day] = this.attendanceData[index];
+                increase++;
+                break;
+              } else if (index == this.attendanceData.length - 1) {
+                this.attendanceMonthly[day] = [{
+                  created: {
+                    date: this.formatDate(new Date(this.date.getFullYear(), this.date.getMonth(), day + 1)),
+                  }
+                }]
+              }
+
+            }
+          }
+
+          // console.log(this.attendanceMonthly, "data Monthly");
+          // console.log(this.monthlyAttendanUser);
+        }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
+      }
+    })
+  }
+
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.current_day = this.date.getDate();
+    //get all employee
+    this.api.getUserName().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.totalUser = res.data;
+          this.getAllMonthlyAttendance();
+          this.dataSource = new MatTableDataSource<UserData>(res.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
+      }
+    })
+
+
+
 
     // 👇️ Current Month
     this.total_day = this.getDaysInMonth(this.currentYear, this.currentMonth);
 
-    // for (let i = 1; i <= this.total_day; i++) {
-    //   this.displayedColumns[i + 2] = 'a' + i;
-    //   this.attendanceColumns[i - 1] = 'a' + i;
-    // }
-
     for (let i = 1; i <= this.total_day; i++) {
+
       //looping through days in month
       this.displayedColumns[i + 2] = 'a' + i;
       this.attendanceColumns[i - 1] = 'a' + i;
@@ -149,20 +255,4 @@ export class AttendanceAdminComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
 }

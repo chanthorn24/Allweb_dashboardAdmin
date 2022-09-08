@@ -110,7 +110,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'employee/leave/apply',
+    path: 'account/leave/apply',
     component: LeaveUserComponent,
     canActivate: [AuthGuard],
   },

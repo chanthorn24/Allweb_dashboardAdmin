@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
 
   }
   login() {
+    this.showError = false;
     if (this.user.email && this.user.password && !this.email1.errors) {
       this.api.login(this.user).subscribe({
         next: (res) => {

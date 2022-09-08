@@ -42,7 +42,7 @@
                 </div>
             </mat-card>
         </div>
-        <div fxFlex="33%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="100%">
+        <div fxFlex="34%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="100%">
             <mat-card style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
                     <div style="font-size: 1.8em; line-height: 1.8em;">Leave Type</div>
@@ -137,7 +137,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let element">
-                <mat-icon color="primary" routerLink="/employee/leave/1">remove_red_eye</mat-icon>
+                <mat-icon color="primary" routerLink="/employee/leave/{{ element.id }}">remove_red_eye</mat-icon>
                 <mat-icon color="primary" (click)="openEditDialog(element.id)">edit</mat-icon>
                 <mat-icon style="margin-left: 5px;" color="warn" (click)="openDeleteDialog(element.id)">delete
                 </mat-icon>

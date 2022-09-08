@@ -34,6 +34,9 @@ export class ApiService {
   public getUser() {
     return this.http.get<any>(this.URL + "/user");
   }
+  public getUserName() {
+    return this.http.get<any>(this.URL + "/user/name");
+  }
   public getOneUser(id: any) {
     return this.http.get<any>(this.URL + "/user/" + id);
   }
@@ -280,6 +283,10 @@ export class ApiService {
   //get all attendance monthly
   public getMonthlyAttendanceUser(id: any) {
     return this.http.get<any>(this.URL + '/employee/attendance/user/' + id);
+  }
+  //get all attendance monthly
+  public getAllMonthlyAttendance() {
+    return this.http.get<any>(this.URL + '/employee/attendance/monthly/user');
   }
   //get type attendance
   public getTypeAttendance(user_id: any) {

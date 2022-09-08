@@ -203,7 +203,7 @@
                             <div>{{ item.created.date | date: 'h:mm:ss a' }}</div>
                         </ng-container>
                         <ng-container *ngIf="item.attendance_type.name == 'clock in 1' && (days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sat' && days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sun')">
-                            <div style="color: rgb(244, 67, 54, .7)">Did not Clock In</div>
+                            <div style="color: rgb(244, 67, 54, .7)">Not Clock In</div>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngIf="days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sat' || days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sun'">
@@ -221,7 +221,7 @@
                             <div>{{ item.created.date | date: 'h:mm:ss a' }}</div>
                         </ng-container>
                         <ng-container *ngIf="item.attendance_type.name == 'clock out 1' && (days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sat' && days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sun')">
-                            <div style="color: rgb(244, 67, 54, .7)">Did not Clock Out</div>
+                            <div style="color: rgb(244, 67, 54, .7)">Not Clock Out</div>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngIf="days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sat' || days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sun'">
@@ -239,7 +239,7 @@
                             <div>{{ item.created.date | date: 'h:mm:ss a' }}</div>
                         </ng-container>
                         <ng-container *ngIf="item.attendance_type.name == 'clock in 2' && (days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sat' && days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sun')">
-                            <div style="color: rgb(244, 67, 54, .7)">Did not Clock In</div>
+                            <div style="color: rgb(244, 67, 54, .7)">Not Clock In</div>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngIf="days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sat' || days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sun'">
@@ -257,7 +257,7 @@
                             <div>{{ item.created.date | date: 'h:mm:ss a' }}</div>
                         </ng-container>
                         <ng-container *ngIf="item.attendance_type.name == 'clock out 2' && (days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sat' && days[this.paginator.pageIndex * this.paginator.pageSize + i].day != 'Sun')">
-                            <div style="color: rgb(244, 67, 54, .7)">Did not Clock Out</div>
+                            <div style="color: rgb(244, 67, 54, .7)">Not Clock Out</div>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngIf="days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sat' || days[this.paginator.pageIndex * this.paginator.pageSize + i].day == 'Sun'">

@@ -116,7 +116,25 @@ export class EmployeeReportAttendanceComponent implements OnInit {
             arr[i] = e.filter(Boolean);
 
           })
+          let obj = {
+            attendance_type: "",
+            id: "",
+            firstName: "",
+            lastName: "",
+            created: ""
+          }
+          //get al username
+          this.api.getUserName().subscribe({
+            next: (res) => {
+              console.log(res);
+              if (res.success) {
+                res.data.forEach((e: any) => {
+                  console.log(e.id);
+                })
+              }
 
+            }
+          })
           //convert arr to new arr with 4 types clock 
 
 

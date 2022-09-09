@@ -12,7 +12,6 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SnackbarService } from 'src/app/services/snackbar.service';
-import { parse } from 'date-fns';
 
 export interface Employee {
   employeeId: any,
@@ -31,7 +30,7 @@ export interface Employee {
   styleUrls: ['./employee-report-attendance.component.css']
 })
 export class EmployeeReportAttendanceComponent implements OnInit {
-  displayedColumns: string[] = ['employeeId', 'name', 'email', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
+  displayedColumns: string[] = ['employeeId', 'date', 'name', 'email', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
   dataSource!: MatTableDataSource<Employee>;
   //auto complete
   myControl = new FormControl('');
@@ -82,14 +81,44 @@ export class EmployeeReportAttendanceComponent implements OnInit {
 
     // return "";
   }
+  getDaysInMonth(year: any, month: any) {
+    return new Date(year, month, 0).getDate();
+  }
 
-  //get the employees
-  getAllLeave() {
-    this.api.getAllAttendanceEmpDaily().subscribe({
+  getAttendanceMonthly() {
+    this.api.getAllMonthlyAttendance().subscribe({
       next: (res) => {
         if (res.success) {
-          this.length = res.data.length;
+          let arr: any = [];
+          console.log(res.data);
+          for (let i = 0; i < this.getDaysInMonth(2022, 9); i++) {
+            let date = `2022-9-${i + 1}`;
+            console.log(res.data[i].created.date);
+            let formattedDate = `${res.data[i].created.date.getFullYear()}-${(res.data[i].created.date.getMonth() + 1)}-${res.data[i].created.date.getDate()}`;
+            console.log(res.data[i].created.date);
+            if (formattedDate == date) {
+              arr = res.data[i];
 
+            }
+          }
+          console.log(arr);
+        }
+      }
+    })
+  }
+
+
+
+  getAttendanceDaily() {
+    var date = new Date();
+    console.log(this.getDaysInMonth(2022, 9));
+    var formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)}-${date.getDate()}`;
+    // console.log(formattedDate);
+
+
+    this.api.getAllAttendanceEmpDaily(formattedDate).subscribe({
+      next: (res) => {
+        if (res.success) {
           let arr: any = [];
           let empId: any = [];
           //get all emp id
@@ -116,38 +145,74 @@ export class EmployeeReportAttendanceComponent implements OnInit {
             arr[i] = e.filter(Boolean);
 
           })
-          let obj = {
-            attendance_type: "",
-            id: "",
-            firstName: "",
-            lastName: "",
-            created: ""
-          }
-          //get al username
+
+          // get all username
+          let saveId: any = [];
+          let getDate: any;
           this.api.getUserName().subscribe({
             next: (res) => {
               console.log(res);
               if (res.success) {
-                res.data.forEach((e: any) => {
-                  console.log(e.id);
+                res.data.forEach((e: any, index: any) => {
+                  for (let i = 0; i < arr.length; i++) {
+                    console.log(e.id, arr[i].employeeId);
+                    if (e.id == arr[i][0].employeeId) {
+                      saveId[i] = e.id;
+                      getDate = arr[i][0].created.date //copy date
+                    }
+                  };
+
                 })
               }
+              let obj: any = [];
+              let newArr: any = res.data;
+              console.log(newArr);
+              for (let i = 0; i < saveId.length; i++) {
+                for (let j = 0; j < newArr.length; j++) {
+                  if (newArr[j].id == saveId[i]) {
+                    newArr.splice(j, 1, { id: 0 })
+                  }
+                }
 
+              }
+              //add the rest of employee to arr
+              for (let j = 0; j < newArr.length; j++) {
+                if (newArr[j].id != 0) {
+                  obj[0] = {
+                    attendance_type: 0,
+                    firstName: newArr[j].firstName,
+                    lastName: newArr[j].lastName,
+                    employeeId: newArr[j].id,
+                    email: newArr[j].email,
+                    created: {
+                      date: getDate
+                    }
+                  };
+                  console.log(obj);
+                  arr.push(obj);
+                  obj = [];
+                }
+              }
+
+              console.log(arr);
+              //render
+              this.length = arr.length;
+              this.dataSource = new MatTableDataSource<Employee>(arr);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+              //loading
+              this.isLoading = false;
             }
           })
-          //convert arr to new arr with 4 types clock 
-
-
-          console.log(arr);
-          this.dataSource = new MatTableDataSource<Employee>(arr);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
 
         }
-        //loading
-        this.isLoading = false;
+
       }
     })
+  }
+
+  convertStringtoDate(getDate: any) {
+    return getDate.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()
   }
   getOneEmployee() {
     if (this.value) {
@@ -181,7 +246,7 @@ export class EmployeeReportAttendanceComponent implements OnInit {
         this.snackBar.openSnackBarFail('Employee not exist')
       }
     } else {
-      this.getAllLeave(); //get all data back if no input is got
+      this.getAttendanceDaily(); //get all data back if no input is got
       this.snackBar.openSnackBarWarn('Input to search')
     }
   }
@@ -192,7 +257,7 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   }
   reset() {
     this.value = "";
-    this.getAllLeave();
+    this.getAttendanceDaily();
   }
 
   download() {
@@ -225,7 +290,8 @@ export class EmployeeReportAttendanceComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   ngOnInit(): void {
-    this.getAllLeave();
+    // this.getAttendanceDaily();
+    this.getAttendanceMonthly();
     //auto complete
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

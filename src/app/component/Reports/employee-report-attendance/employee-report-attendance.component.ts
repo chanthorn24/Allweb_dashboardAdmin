@@ -93,8 +93,8 @@ export class EmployeeReportAttendanceComponent implements OnInit {
           console.log(res.data);
           for (let i = 0; i < this.getDaysInMonth(2022, 9); i++) {
             let date = `2022-9-${i + 1}`;
-            console.log(res.data[i].created.date);
             let formattedDate = `${res.data[i].created.date.getFullYear()}-${(res.data[i].created.date.getMonth() + 1)}-${res.data[i].created.date.getDate()}`;
+            console.log(res.data[i].created.date);
             console.log(res.data[i].created.date);
             if (formattedDate == date) {
               arr = res.data[i];

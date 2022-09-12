@@ -33,10 +33,29 @@
                     </mat-list-item>
                 </div>
             </mat-list>
-            <a mat-list-item routerLink="/attendance" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <mat-icon>date_range</mat-icon>
-                <span style="padding-left: 5px;">Attendance</span>
-            </a>
+            <mat-list-item (click)="showAttendnace = !showAttendnace">
+                <div style="display: flex; align-items: center;">
+                    <mat-icon>date_range</mat-icon>
+                    <span style="padding-left: 5px;">Attendance</span>
+                </div>
+                <button mat-icon-button>
+                    <mat-icon class="menu-button" [ngClass]="{'rotated' : showAttendnace}">arrow_drop_up</mat-icon>
+                  </button>
+            </mat-list-item>
+            <div style="padding: 0 0 0 40px;" class="subattend" [ngClass]="{'expanded' : showAttendnace}">
+                <mat-list-item>
+                    <a style="margin:0 -60px 0 -16px; padding: 10px 3.4rem 10px 16px" routerLink="/attendance/daily" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <!-- <mat-icon>people</mat-icon> -->
+                        <h4>Daily</h4>
+                    </a>
+                </mat-list-item>
+                <mat-list-item>
+                    <a style="margin:0 -60px 0 -16px; padding: 10px 3.4rem 10px 16px" routerLink="/attendance/monthly" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <!-- <mat-icon>people</mat-icon> -->
+                        <h4>Monthly</h4>
+                    </a>
+                </mat-list-item>
+            </div>
             <mat-list style="padding: 0;">
                 <mat-list-item (click)="showReport = !showReport">
                     <div style="display: flex; align-items: center;">

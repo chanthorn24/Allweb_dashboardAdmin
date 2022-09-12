@@ -16,6 +16,7 @@ export class NavigationComponent implements OnInit {
   //sub menu
   showSubmenu: boolean = true;
   showReport: boolean = true;
+  showAttendnace: boolean = true;
   showSetting: boolean = false;
   //hamburger bar
   rotate: boolean = false;

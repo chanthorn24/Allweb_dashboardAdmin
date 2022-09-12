@@ -26,6 +26,7 @@ import { ResetPasswordComponent } from './component/Auth/reset-password/reset-pa
 import { LoginComponent } from './component/Auth/login/login.component';
 import { ReportUserComponent } from './component/report-user/report-user.component';
 import { EmployeeLeaveDetailComponent } from './component/employee-leave-detail/employee-leave-detail.component';
+import { AttendanceDailyComponent } from './component/attendance-daily/attendance-daily.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -44,8 +45,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'attendance',
+    path: 'attendance/monthly',
     component: AttendanceAdminComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'attendance/daily',
+    component: AttendanceDailyComponent,
     canActivate: [AuthGuard],
   },
   {

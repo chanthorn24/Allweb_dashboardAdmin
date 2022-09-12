@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { parse } from 'date-fns';
+import { map, Observable, startWith } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
@@ -39,6 +41,17 @@ export class AttendanceAdminComponent implements OnInit {
   attendanceData: any = [];
   attendanceMonthly: any = [];
   show = false;
+
+  //select option month
+  monthController = new FormControl('');
+  yearController = new FormControl('');
+  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  years = ['2022', '2021', '2020', '2019', '2018']
+  filteredMonths!: Observable<string[]>;
+  filteredYears!: Observable<string[]>;
+
+  //isloading
+  isLoading = true;
 
   dataSource!: MatTableDataSource<UserData>;
 
@@ -302,6 +315,8 @@ export class AttendanceAdminComponent implements OnInit {
 
   //search button
   searchMonthYear() {
+    this.isLoading = true;
+    this.tranformMonth();
     this.attendance_user = [];
     this.attendance = [];
     this.attendanceData = [];
@@ -389,6 +404,7 @@ export class AttendanceAdminComponent implements OnInit {
 
             }
           }
+          this.isLoading = false;
 
           console.log(this.attendanceMonthly, "data Monthly");
           // console.log(this.monthlyAttendanUser);
@@ -401,6 +417,14 @@ export class AttendanceAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filteredMonths = this.monthController.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterMonth(value || '')),
+    );
+    this.filteredYears = this.yearController.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterYear(value || '')),
+    );
 
     this.current_day = this.date.getDate();
     this.tranformMonth();
@@ -420,14 +444,6 @@ export class AttendanceAdminComponent implements OnInit {
         this.snackBar.openSnackBarFail(error.message);
       }
     })
-
-
-
-
-
-    // console.log(this.attendanceColumns);
-
-    // console.log(this.days);
   }
 
   applyFilter(event: Event) {
@@ -437,5 +453,16 @@ export class AttendanceAdminComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  private _filterMonth(name: string): string[] {
+    let filterValueMonth = name.toLowerCase();
+
+    return this.months.filter(month => month.toLowerCase().includes(filterValueMonth));
+  }
+  private _filterYear(name: string): string[] {
+    let filterValueYear = name.toLowerCase();
+
+    return this.years.filter(month => month.toLowerCase().includes(filterValueYear));
   }
 }

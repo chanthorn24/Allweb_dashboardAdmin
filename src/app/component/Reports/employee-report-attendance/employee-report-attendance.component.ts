@@ -66,7 +66,7 @@ export class EmployeeReportAttendanceComponent implements OnInit {
 
   notClockIn = "Not Clock In";
   notClockOut = "Not Clock Out";
-  //check if exist 
+  //check if exist
   checkTrue = true;
   checkCondition(valueAtten: any, atten: any, checkNumber: any, numberValue: any): any {
     if (valueAtten == atten) {
@@ -85,26 +85,29 @@ export class EmployeeReportAttendanceComponent implements OnInit {
     return new Date(year, month, 0).getDate();
   }
 
-  getAttendanceMonthly() {
-    this.api.getAllMonthlyAttendance().subscribe({
-      next: (res) => {
-        if (res.success) {
-          let arr: any = [];
-          console.log(res.data);
-          for (let i = 0; i < this.getDaysInMonth(2022, 9); i++) {
-            let date = `2022-9-${i + 1}`;
-            let formattedDate = `${res.data[i].created.date.getFullYear()}-${(res.data[i].created.date.getMonth() + 1)}-${res.data[i].created.date.getDate()}`;
-            console.log(res.data[i].created.date);
-            console.log(res.data[i].created.date);
-            if (formattedDate == date) {
-              arr = res.data[i];
+  // getAttendanceMonthly() {
+  //   this.api.getAllMonthlyAttendance().subscribe({
+  //     next: (res) => {
+  //       if (res.success) {
+  //         let arr: any = [];
+  //         console.log(res.data);
+  //         for (let i = 0; i < this.getDaysInMonth(2022, 9); i++) {
+  //           let date = `2022-9-${i + 1}`;
+  //           let formattedDate = `${res.data[i].created.date.getFullYear()}-${(res.data[i].created.date.getMonth() + 1)}-${res.data[i].created.date.getDate()}`;
+  //           console.log(res.data[i].created.date);
+  //           console.log(res.data[i].created.date);
+  //           if (formattedDate == date) {
+  //             arr = res.data[i];
 
-            }
-          }
-          console.log(arr);
-        }
-      }
-    })
+  //           }
+  //         }
+  //         console.log(arr);
+  //       }
+  //     }
+  //   })
+  // }
+  thisAttendanceMonthly() {
+
   }
 
 
@@ -291,7 +294,7 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   }
   ngOnInit(): void {
     // this.getAttendanceDaily();
-    this.getAttendanceMonthly();
+    // this.getAttendanceMonthly();
     //auto complete
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

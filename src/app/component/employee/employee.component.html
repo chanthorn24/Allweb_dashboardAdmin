@@ -1,10 +1,9 @@
 <div>
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1 class="mat-h1" style="font-weight: 500;">Employee</h1>
-        <button (click)="openDialog()" (click)="disable = !disable" [ngClass]="{'disable': disable}" mat-stroked-button style="height: 35px; margin-left: 10px; font-weight: 700; background-color: #02A93B; color: white;">
-        	<mat-icon>queue</mat-icon>
-        <span style="padding: 5px;">Add employee</span>
-      </button>
+        <button (click)="openDialog()" (click)="disable = !disable" [ngClass]="{'disable': disable}" mat-raised-button style="height: 45px; font-weight: 500; background-color: rgba(0, 201, 137, 0.8); color: white;">
+        	<i class="fas fa-user-plus"></i> Add employee
+        </button>
     </div>
     <div style="display: flex; flex-direction: row">
         <a routerLink="">

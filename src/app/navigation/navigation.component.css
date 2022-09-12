@@ -54,6 +54,16 @@
     height: 100px;
 }
 
+.subattend {
+    overflow-y: hidden;
+    transition: 300ms ease-in-out;
+    height: 0;
+}
+
+.subattend.expanded {
+    height: 100px;
+}
+
 .subreport {
     overflow-y: hidden;
     transition: 300ms ease-in-out;

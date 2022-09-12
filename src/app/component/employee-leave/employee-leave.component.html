@@ -1,11 +1,9 @@
 <div style="overflow-y: hidden;">
     <div style="display: flex; justify-content: space-between;">
         <h1 class="mat-h1" style="font-weight: 500;">Leave</h1>
-        <button mat-raised-button (click)="openDialog()" color="primary">
-            <mat-icon>event-note
-            </mat-icon> Apply Leave
+        <button mat-raised-button (click)="openDialog()" (click)="disable = !disable" [ngClass]="{'disable': disable}" style="background-color: rgba(0, 201, 137, 0.8); color: white">
+            <i class="fas fa-calendar-plus"></i> Apply Leave
         </button>
-
     </div>
     <div style=" display: flex; flex-direction: row">
         <a routerLink="/account/dashboard">
@@ -71,8 +69,8 @@
                     </div>
                 </div>
                 <div>
-                    <button (click)="openAcceptDialog(leave.id)" (click)="disableAcc = !disableAcc" [ngClass]="{'disable': disableAcc }" mat-raised-button style="margin-right: 10px; background-color: rgba(0, 201, 137, 0.8); color: white; font-weight: 500;"><i class="fas fa-check-circle"></i> Approve</button>
-                    <button (click)="openDeclineDialog(leave.id)" mat-raised-button style="color: white; background-color: rgb(247, 85, 70); font-weight: 500;"><i class="fas fa-times-circle"></i> Decline</button>
+                    <button (click)="openAcceptDialog(leave.id, $event)" mat-raised-button style="margin-right: 10px; background-color: rgba(0, 201, 137, 0.8); color: white; font-weight: 500;"><i class="fas fa-check-circle"></i> Approve</button>
+                    <button (click)="openDeclineDialog(leave.id, $event)" mat-raised-button style="color: white; background-color: rgb(247, 85, 70); font-weight: 500;"><i class="fas fa-times-circle"></i> Decline</button>
                 </div>
             </mat-card>
             <div *ngIf="pending_leaves == ''" style="margin-left: 20px; color: orange">No request</div>
@@ -122,9 +120,9 @@
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let element">
-                <button *ngIf="element.status == 'Approved'" mat-raised-button style="border-radius: 25px; background-color: rgba(0, 201, 137, 0.8); color: white; font-weight: 500;">{{ element.status }}</button>
-                <button *ngIf="element.status == 'Pending'" mat-raised-button style="border-radius: 25px; background-color: rgb(240, 179, 24); color: white; font-weight: 500;">{{ element.status }}</button>
-                <button *ngIf="element.status == 'Declined'" mat-raised-button style="border-radius: 25px; color: white; background-color: rgb(247, 85, 70); font-weight: 500;">{{ element.status }}</button>
+                <button *ngIf="element.status == 'Approved'" mat-raised-button style="border-radius: 25px; background-color: rgba(0, 201, 137, 0.8); color: white; font-weight: 500; pointer-events: none;">{{ element.status }}</button>
+                <button *ngIf="element.status == 'Pending'" mat-raised-button style="border-radius: 25px; background-color: rgb(240, 179, 24); color: white; font-weight: 500; pointer-events: none;">{{ element.status }}</button>
+                <button *ngIf="element.status == 'Declined'" mat-raised-button style="border-radius: 25px; color: white; background-color: rgb(247, 85, 70); font-weight: 500; cursor: default;">{{ element.status }}</button>
             </td>
         </ng-container>
         <!-- <ng-container matColumnDef="duration">
@@ -138,8 +136,8 @@
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let element">
                 <mat-icon color="primary" routerLink="/employee/leave/{{ element.id }}">remove_red_eye</mat-icon>
-                <mat-icon color="primary" (click)="openEditDialog(element.id)">edit</mat-icon>
-                <mat-icon style="margin-left: 5px;" color="warn" (click)="openDeleteDialog(element.id)">delete
+                <mat-icon color="primary" (click)="openEditDialog(element.id, $event)">edit</mat-icon>
+                <mat-icon style="margin-left: 5px;" color="warn" (click)="openDeleteDialog(element.id, $event)">delete
                 </mat-icon>
             </td>
         </ng-container>
@@ -150,6 +148,5 @@
         </tr>
 
     </table>
-    <mat-paginator style="background-color: #fafafa !important; margin: -25px 0 30px 0; " [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-        <mat-paginator style="background-color: #fafafa; margin: -25px 0 30px 0; " [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-        </mat-paginator>
+    <mat-paginator style="background-color: #fafafa; margin: -25px 0 30px 0; " [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>

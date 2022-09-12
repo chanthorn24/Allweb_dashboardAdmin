@@ -46,13 +46,12 @@ export class EmployeeLeaveComponent implements OnInit {
   total_pendding: number = 0;
   total_type: number = 0;
 
+  //disable button
+  disable = false;
+
   //pending leave
   pending_leaves: any = [];
   total_leave_day: any = [];
-
-  //disable button add employee
-  disableAcc: boolean = false;
-  disable: boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -84,7 +83,7 @@ export class EmployeeLeaveComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
+        this.snackBar.openSnackBarFail(error.message);
       }
     })
   }
@@ -100,6 +99,9 @@ export class EmployeeLeaveComponent implements OnInit {
             this.total_leave_day[i] = this.getNumOfDay(parse(res.data[i].start.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date()), parse(res.data[i].end.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())) + 1;
           }
         }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
       }
     })
   }
@@ -111,13 +113,15 @@ export class EmployeeLeaveComponent implements OnInit {
     });
     //after close
     dialogRef.afterClosed().subscribe(result => {
+      this.disable = !this.disable;
       this.getAllLeave();
       this.getPendingLeave();
     });
   }
 
   //open edit Dialog
-  openEditDialog(id: any): void {
+  openEditDialog(id: any, $event: MouseEvent): void {
+    ($event.target as HTMLButtonElement).style.visibility = "hidden";
     const dialogRef = this.dialog.open(DialogEditEmployeeLeave, {
       autoFocus: false,
     });
@@ -126,11 +130,14 @@ export class EmployeeLeaveComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getAllLeave();
       this.getPendingLeave();
+
+      ($event.target as HTMLButtonElement).style.visibility = "";
     });
   }
 
   //open delete Dialog
-  openDeleteDialog(id: any): void {
+  openDeleteDialog(id: any, $event: MouseEvent): void {
+    ($event.target as HTMLButtonElement).style.visibility = "hidden";
     const dialogRef = this.dialog.open(DialogDeleteLeave, {
       autoFocus: false,
     });
@@ -140,11 +147,17 @@ export class EmployeeLeaveComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getAllLeave();
       this.getPendingLeave();
+
+      ($event.target as HTMLButtonElement).style.visibility = "";
     });
   }
-
+  // actionMethod($event: MouseEvent) {
+  //   ($event.target as HTMLButtonElement).disabled = true;
+  //   // Do actions.
+  // }
   //open delete Dialog
-  openAcceptDialog(id: any): void {
+  openAcceptDialog(id: any, $event: MouseEvent): void {
+    ($event.target as HTMLButtonElement).style.visibility = "hidden";
     const dialogRef = this.dialog.open(DialogAcceptLeave, {
       autoFocus: false,
     });
@@ -155,12 +168,13 @@ export class EmployeeLeaveComponent implements OnInit {
       this.getAllLeave();
       this.getPendingLeave();
 
-      this.disableAcc = !this.disableAcc;
+      ($event.target as HTMLButtonElement).style.display = "";
     });
   }
 
   //open delete Dialog
-  openDeclineDialog(id: any): void {
+  openDeclineDialog(id: any, $event: MouseEvent): void {
+    ($event.target as HTMLButtonElement).style.visibility = "hidden"
     const dialogRef = this.dialog.open(DialogDeclineLeave, {
       autoFocus: false,
     });
@@ -171,7 +185,7 @@ export class EmployeeLeaveComponent implements OnInit {
       this.getAllLeave();
       this.getPendingLeave();
 
-      this.disable = !this.disable;
+      ($event.target as HTMLButtonElement).style.display = ""
     });
   }
 
@@ -186,6 +200,9 @@ export class EmployeeLeaveComponent implements OnInit {
         if (res.success) {
           this.total_type = res.data.length;
         }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
       }
     })
 
@@ -205,6 +222,10 @@ export class DialogEmployeeLeave {
   myControl = new FormControl('');
   options: string[] = ['allweb.rms.symfony@gmail.com', 'lychanthorn2002@gmail.com', 'lychanthorn2003@gmail.com'];
   filteredOptions!: Observable<string[]>;
+
+  currentYear = new Date().getFullYear();
+  minDate = new Date(this.currentYear - 20, 0, 1);
+  maxDate = new Date(this.currentYear + 1, 11, 31);
 
   public constructor(
     private api: ApiService,
@@ -271,6 +292,9 @@ export class DialogEmployeeLeave {
         if (res.success) {
           this.leaveTypes = res.data;
         }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
       }
     })
 
@@ -358,6 +382,9 @@ export class DialogEditEmployeeLeave {
         if (res.success) {
           this.leaveTypes = res.data;
         }
+      },
+      error: (error) => {
+        this.snackBar.openSnackBarFail(error.message);
       }
     })
   }

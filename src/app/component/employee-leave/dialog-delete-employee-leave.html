@@ -1,9 +1,10 @@
-<div style="width: 30vw; padding: 1em">
+<div style="width: 25vw; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <img width="90px" height="90px" src="/assets/images/alert-delete.gif" alt="#" style="margin: 10px 0 30px 0;">
     <h1 mat-dialog-title>Are you sure to delete?</h1>
     <form>
         <div mat-dialog-actions>
-            <button mat-button mat-dialog-close color="warn">Cancel</button>
-            <button type="submit" mat-raised-button color="warn" (click)="deleteDepartment()">Delete</button>
+            <button style="background-color: rgb(162, 162, 162); color: white;" mat-button mat-dialog-close><i class="fas fa-times-circle"></i> Cancel</button>
+            <button type="submit" mat-raised-button color="warn" (click)="deleteDepartment()"><i class="fas fa-check-circle"></i> Yes, delete it!</button>
         </div>
     </form>
 </div>

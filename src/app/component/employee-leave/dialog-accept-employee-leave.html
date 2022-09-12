@@ -1,9 +1,10 @@
-<div style="width: 30vw; padding: 1em">
-    <h1 mat-dialog-title>Are you sure to Accept this request?</h1>
+<div style="width: 30vw; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <img width="90px" height="90px" src="/assets/images/alert-approve.gif" alt="#" style="margin: 10px 0 30px 0;">
+    <h1 mat-dialog-title>Are you sure to Approve this request?</h1>
     <form>
         <div mat-dialog-actions>
-            <button mat-button mat-dialog-close color="warn">Cancel</button>
-            <button type="submit" mat-raised-button style="margin-right: 10px; background-color: rgba(0, 201, 137, 0.8); color: white; font-weight: 500;" (click)="acceptLeave()">Approve</button>
+            <button mat-button mat-dialog-close style="background-color: rgb(162, 162, 162); color: white;"><i class="fas fa-times-circle"></i> Cancel</button>
+            <button type="submit" mat-raised-button style="margin-right: 10px; background-color: rgba(0, 201, 137, 0.8); color: white; font-weight: 500;" (click)="acceptLeave()"><i class="fas fa-check-circle"></i> Yes, approve it!</button>
         </div>
     </form>
 </div>

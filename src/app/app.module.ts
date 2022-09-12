@@ -118,6 +118,7 @@ import { ForgotPasswordComponent } from './component/Auth/forgot-password/forgot
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { EmployeeReportComponent } from './component/Reports/employee-report/employee-report.component';
 import { EmployeeLeaveDetailComponent } from './component/employee-leave-detail/employee-leave-detail.component';
+import { AttendanceDailyComponent } from './component/attendance-daily/attendance-daily.component';
 
 @NgModule({
   declarations: [
@@ -191,6 +192,7 @@ import { EmployeeLeaveDetailComponent } from './component/employee-leave-detail/
     DialogDeclineLeave,
     DialogChangePassword,
     EmployeeLeaveDetailComponent,
+    AttendanceDailyComponent,
 
   ],
   imports: [

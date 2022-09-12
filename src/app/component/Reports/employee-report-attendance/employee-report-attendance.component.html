@@ -85,20 +85,17 @@
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
                 <td mat-cell *matCellDef="let e">
-                    <ng-container *ngFor="let item of e; let i = index">
-                        <div *ngIf="i==0">{{item.lastName}} {{item.firstName}} </div>
+                    <ng-container *ngFor="let user of getUser;">
+                        <ng-container *ngFor="let item of e; let i = index">
+                            <div *ngIf="item?.employee_id == user?.id">{{user.lastName}} {{user.firstName}} </div>
+                        </ng-container>
+
                     </ng-container>
+
                 </td>
 
             </ng-container>
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-                <td mat-cell *matCellDef="let e">
-                    <ng-container *ngFor="let item of e; let i = index">
-                        <div *ngIf="i==0">{{item.email}}</div>
-                    </ng-container>
-                </td>
-            </ng-container>
+
             <ng-container matColumnDef="clock in 1">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Clock In 1</th>
                 <td mat-cell *matCellDef="let e">
@@ -135,7 +132,6 @@
                         <ng-container *ngIf="checkCondition(item.attendance_type, 3, i, e.length-1)">{{notClockIn}}
                         </ng-container>
                     </ng-container>
-
                 </td>
             </ng-container>
             <ng-container matColumnDef="clock out 2">

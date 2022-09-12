@@ -91,6 +91,7 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   }
   dayCollection: any = [];
   date = new Date();
+  getUser: any;
   getAttendanceMonthly() {
     this.api.getAllMonthlyAttendance("Sep", 2022).subscribe({
       next: (res) => {
@@ -315,8 +316,21 @@ export class EmployeeReportAttendanceComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   ngOnInit(): void {
-    this.getAttendanceDaily();
-    // this.getAttendanceMonthly();
+    // this.getAttendanceDaily();
+    //
+    this.api.getUserName().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.getUser = res.data;
+          console.log(res);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+
+    this.getAttendanceMonthly();
     //auto complete
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

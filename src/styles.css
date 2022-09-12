@@ -61,3 +61,19 @@ a:hover {
     background-color: #fafafa !important;
     border-radius: 5px;
 } */
+
+
+/* Angular Material Overrides */
+
+
+/* .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #ccc;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: .65em 0;
+}
+
+.mat-form-field-label-wrapper {
+    top: -1.2em;
+} */

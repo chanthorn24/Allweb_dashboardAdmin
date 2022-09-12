@@ -285,8 +285,8 @@ export class ApiService {
     return this.http.get<any>(this.URL + '/employee/attendance/user/' + id);
   }
   //get all attendance monthly
-  public getAllMonthlyAttendance() {
-    return this.http.get<any>(this.URL + '/employee/attendance/monthly/user');
+  public getAllMonthlyAttendance(month: String, year: number) {
+    return this.http.get<any>(this.URL + '/employee/attendance/monthly/user?month=' + month + "&year=" + year);
   }
   //get type attendance
   public getTypeAttendance(user_id: any) {

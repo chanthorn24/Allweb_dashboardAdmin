@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { parse } from 'date-fns';
 
 export interface Employee {
   employeeId: any,
@@ -30,7 +31,7 @@ export interface Employee {
   styleUrls: ['./employee-report-attendance.component.css']
 })
 export class EmployeeReportAttendanceComponent implements OnInit {
-  displayedColumns: string[] = ['employeeId', 'date', 'name', 'email', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
+  displayedColumns: string[] = ['employeeId', 'date', 'name', 'clock in 1', 'clock out 1', 'clock in 2', 'clock out 2', 'totalhours'];
   dataSource!: MatTableDataSource<Employee>;
   //auto complete
   myControl = new FormControl('');
@@ -84,25 +85,49 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   getDaysInMonth(year: any, month: any) {
     return new Date(year, month, 0).getDate();
   }
-
+  formatDate(date: any) {
+    let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    return formatted_date;
+  }
+  dayCollection: any = [];
+  date = new Date();
   getAttendanceMonthly() {
-    this.api.getAllMonthlyAttendance().subscribe({
+    this.api.getAllMonthlyAttendance("Sep", 2022).subscribe({
       next: (res) => {
         if (res.success) {
-          let arr: any = [];
-          console.log(res.data);
-          for (let i = 0; i < this.getDaysInMonth(2022, 9); i++) {
-            let date = `2022-9-${i + 1}`;
-            let formattedDate = `${res.data[i].created.date.getFullYear()}-${(res.data[i].created.date.getMonth() + 1)}-${res.data[i].created.date.getDate()}`;
-            console.log(res.data[i].created.date);
-            console.log(res.data[i].created.date);
-            if (formattedDate == date) {
-              arr = res.data[i];
+          console.log("Hello", res.data);
+          let n = this.getDaysInMonth(2022, '09');
 
+          for (let j = 1; j <= n; j++) {
+            let OneDays = [
+              {
+                created: this.formatDate(new Date(this.date.getFullYear(), this.date.getMonth(), j))
+              }
+            ];
+            let index = 0;
+            for (let i = 0; i < res.data.length; i++) {
+              // let day = this.convertStringtoDate(res.data[i].created.date);
+              let day = parse(res.data[i].created.date.slice(0, 19), 'yyyy-M-d HH:mm:ss', new Date())
+              if (j == day.getDate()) {
+                OneDays[index] = res.data[i];
+                index++;
+              }
             }
+
+            this.dayCollection.push(OneDays);
           }
-          console.log(arr);
+          console.log(this.dayCollection);
+          //render
+          this.length = this.dayCollection.length;
+          this.dataSource = new MatTableDataSource<Employee>(this.dayCollection);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          //loading
+          this.isLoading = false;
         }
+      },
+      error: (err) => {
+        console.log(err);
       }
     })
   }
@@ -290,8 +315,8 @@ export class EmployeeReportAttendanceComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   ngOnInit(): void {
-    // this.getAttendanceDaily();
-    this.getAttendanceMonthly();
+    this.getAttendanceDaily();
+    // this.getAttendanceMonthly();
     //auto complete
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

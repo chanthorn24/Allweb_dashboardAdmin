@@ -85,32 +85,6 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   getDaysInMonth(year: any, month: any) {
     return new Date(year, month, 0).getDate();
   }
-<<<<<<< HEAD
-
-  // getAttendanceMonthly() {
-  //   this.api.getAllMonthlyAttendance().subscribe({
-  //     next: (res) => {
-  //       if (res.success) {
-  //         let arr: any = [];
-  //         console.log(res.data);
-  //         for (let i = 0; i < this.getDaysInMonth(2022, 9); i++) {
-  //           let date = `2022-9-${i + 1}`;
-  //           let formattedDate = `${res.data[i].created.date.getFullYear()}-${(res.data[i].created.date.getMonth() + 1)}-${res.data[i].created.date.getDate()}`;
-  //           console.log(res.data[i].created.date);
-  //           console.log(res.data[i].created.date);
-  //           if (formattedDate == date) {
-  //             arr = res.data[i];
-
-  //           }
-  //         }
-  //         console.log(arr);
-  //       }
-  //     }
-  //   })
-  // }
-  thisAttendanceMonthly() {
-
-=======
   formatDate(date: any) {
     let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     return formatted_date;
@@ -157,7 +131,6 @@ export class EmployeeReportAttendanceComponent implements OnInit {
         console.log(err);
       }
     })
->>>>>>> 7f39a3e85253f0f511fedac08ed19d433bcf3855
   }
 
 
@@ -344,9 +317,6 @@ export class EmployeeReportAttendanceComponent implements OnInit {
   }
   ngOnInit(): void {
     // this.getAttendanceDaily();
-<<<<<<< HEAD
-    // this.getAttendanceMonthly();
-=======
     //
     this.api.getUserName().subscribe({
       next: (res) => {
@@ -361,7 +331,6 @@ export class EmployeeReportAttendanceComponent implements OnInit {
     })
 
     this.getAttendanceMonthly();
->>>>>>> 7f39a3e85253f0f511fedac08ed19d433bcf3855
     //auto complete
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
